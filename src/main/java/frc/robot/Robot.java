@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.ADIS16470_IMU;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,7 +16,7 @@ import edu.wpi.first.wpilibj.ADIS16470_IMU;
  */
 public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
-  public static ADIS16470_IMU gyro = new ADIS16470_IMU();
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
