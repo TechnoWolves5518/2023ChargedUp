@@ -1,5 +1,14 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol
+import edu.wpi.first.wpilibj.motorcontrol;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
-import 
+/* Motor */
+PWMVenom arm = new PWMVenom(0); // 0 is the RIO PWM port this is connected to
+
+special.extend()
+    .whileTrue(new extendArm(arm.set()));
+
+special.retract()
+    .whileTrue(new retractArm(arm.set()));
