@@ -5,7 +5,11 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 /* Motor */
-PWMVenom arm = new PWMVenom(0); // 0 is the RIO PWM port this is connected to
+PWMVenom arm = new PWMVenom(0); // TODO: Change port
+
+/* Commands */
+
+// TODO: Add angles
 
 special.extend()
     .whileTrue(new extendArm(arm.set()));
