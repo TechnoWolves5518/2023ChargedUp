@@ -6,14 +6,11 @@ import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import javax.xml.validation.Validator;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 public class TeleopSwerve extends CommandBase {    
@@ -45,12 +42,13 @@ public class TeleopSwerve extends CommandBase {
         if (brakeCheck == true) {
             s_Swerve.drive(
                 new Translation2d(0,0).times(0), 0.01, true, true);
-        }
+        } else {
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
             rotationVal * Constants.Swerve.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
+        }
     }
 }
