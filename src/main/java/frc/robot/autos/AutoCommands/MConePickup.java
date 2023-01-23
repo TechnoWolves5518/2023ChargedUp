@@ -2,13 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos;
+package frc.robot.autos.AutoCommands;
+
+import java.util.List;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class MConePickupLevel extends CommandBase {
-  /** Creates a new MConePickupLevel. */
-  public MConePickupLevel() {
+public class MConePickup extends CommandBase {
+  List<PathPlannerTrajectory> mConePickupLevel = PathPlanner.loadPathGroup("MConePickup", new PathConstraints(4, 2));
+
+  public MConePickup() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
