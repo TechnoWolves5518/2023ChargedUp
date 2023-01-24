@@ -4,18 +4,20 @@
 
 package frc.robot.autos.AutoCommands;
 
-import java.util.List;
-
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Swerve;
 
-public class MConePickup extends CommandBase {
-  List<PathPlannerTrajectory> mConePickupLevel = PathPlanner.loadPathGroup("MConePickup", new PathConstraints(4, 2));
+public class FollowPath extends CommandBase {
+  private Swerve swerve;
+  private String filePath;
+  private boolean zeroInitialPose;
 
-  public MConePickup() {
+  PPSwerveControllerCommand followTrajectoryPathPlannerCommand;
+  private boolean done = false;
+  /** Creates a new FollowPath. */
+  public FollowPath() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
