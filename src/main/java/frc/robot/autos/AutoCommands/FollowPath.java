@@ -7,23 +7,31 @@ package frc.robot.autos.AutoCommands;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.Swerve;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.Swerve;
 
 public class FollowPath extends CommandBase {
-  private Swerve swerve;
+  private Swerve s_Swerve;
   private String filePath;
   private boolean zeroInitialPose;
 
   PPSwerveControllerCommand followTrajectoryPathPlannerCommand;
   private boolean done = false;
   /** Creates a new FollowPath. */
-  public FollowPath() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public FollowPath(Swerve s_Swerve, String filePath, boolean zeroInitialPose) {
+    this.s_Swerve = s_Swerve;
+    addRequirements(s_Swerve);
+
+    this.filePath = filePath;
+    this.zeroInitialPose = zeroInitialPose;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //creates the trajectory
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
