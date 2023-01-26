@@ -34,9 +34,9 @@ public class TeleopSwerve extends CommandBase {
     @Override
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
         brakeCheck = driver.getXButton();
         /* Drive */
         if (brakeCheck == true) {
@@ -44,8 +44,8 @@ public class TeleopSwerve extends CommandBase {
                 new Translation2d(0,0).times(0), 0.01, true, true);
         } else {
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(translationVal, strafeVal).times(Constants.SwerveDrive.maxSpeed), 
+            rotationVal * Constants.SwerveDrive.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );

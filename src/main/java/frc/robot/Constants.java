@@ -19,7 +19,7 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.15;
 
-    public static final class Swerve {
+    public static final class SwerveDrive {
         public static final int pigeonID = 1;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
@@ -154,4 +154,19 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
     
+    public static final class PathPlannerConstants {
+        public static final double kMaxSpeed = 3;
+        public static final double kMaxAcceleration = 2;
+        public static final double kPXController = 1;
+        public static final double kPYController = 1;
+        public static final double kPThetaController = 1;
+        public static final double maxAngularSpeed = Math.PI;
+        public static final double maxAngularAcceleration = Math.PI;
+
+        //ditto
+        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+            new TrapezoidProfile.Constraints(
+                kMaxSpeed, kMaxAcceleration);
+
+    }
 }
