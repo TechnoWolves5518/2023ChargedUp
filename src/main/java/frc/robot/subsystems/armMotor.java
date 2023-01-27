@@ -1,21 +1,12 @@
 package frc.robot.subsystems;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.motorcontrol.PWMVenom;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class armMotor extends SubsystemBase {
-    // Motor definitions 
-    private PWMVenom armPwmVenom = new PWMVenom(13);
+
+public class armMotor extends SubsystemBase{
     
-
-
-    public void setArmMotor(double speed){
-        armPwmVenom.set(speed);
-    }
-
-
-
-
-
+    private CANSparkMax moter1 = new CANSparkMax(13, MotorType.kBrushed);
 
 }
