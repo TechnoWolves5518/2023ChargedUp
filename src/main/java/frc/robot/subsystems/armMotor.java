@@ -7,6 +7,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class armMotor extends SubsystemBase{
     
-    private CANSparkMax moter1 = new CANSparkMax(13, MotorType.kBrushed);
+    private CANSparkMax armViagra = new CANSparkMax(13, MotorType.kBrushed);
 
 }
