@@ -1,3 +1,4 @@
+/* 
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -25,7 +26,7 @@ public class FollowPath extends CommandBase {
 
   PPSwerveControllerCommand followTrajectoryPathPlannerCommand;
   private boolean done = false;
-  /** Creates a new FollowPath. */
+  // Creates a new FollowPath. 
   public FollowPath(Swerve s_Swerve, String filePath, boolean zeroInitialPose) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
@@ -59,7 +60,7 @@ public class FollowPath extends CommandBase {
        yController,
        thetaController,
        s_Swerve::setModuleStates,   //Module States
-       true, //mirror paths depending on alliance
+       false, //mirror paths depending on alliance, false is blue, true is red
        s_Swerve //needs the drive subsystem
      );
 
@@ -84,3 +85,4 @@ public class FollowPath extends CommandBase {
     return done;
   }
 }
+*/
