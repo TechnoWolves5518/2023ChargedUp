@@ -18,11 +18,12 @@ import frc.robot.Constants.SwerveDrive;
 import frc.robot.subsystems.Swerve;
 
 public class FollowPath extends CommandBase {
+
   private Swerve s_Swerve;
   private String filePath;
   private boolean zeroInitialPose;
 
-  private PPSwerveControllerCommand followTrajectoryPathPlannerCommand;
+  PPSwerveControllerCommand followTrajectoryPathPlannerCommand;
   private boolean done = false;
   /** Creates a new FollowPath. */
   public FollowPath(Swerve s_Swerve, String filePath, boolean zeroInitialPose) {
@@ -41,7 +42,7 @@ public class FollowPath extends CommandBase {
 
     //reset the pose of the bot if true
     if (zeroInitialPose) {
-      s_Swerve.resetOdometry(trajectoryToFollow.getInitialPose());
+      s_Swerve.resetOdometry(trajectoryToFollow.getInitialHolonomicPose());
     }
     //PID controllers
     PIDController xController = new PIDController(PathPlannerConstants.kPXController, 0, 0);
@@ -51,15 +52,16 @@ public class FollowPath extends CommandBase {
     
       //create the PPswervecontroller command, allows for holonomic control
       followTrajectoryPathPlannerCommand = new PPSwerveControllerCommand(
-        trajectoryToFollow,
-        s_Swerve.getPose(),
-        SwerveDrive.swerveKinematics,
-        xController,
-        yController,
-        thetaController,
-        s_Swerve::setModuleStates,
-        s_Swerve
-      );
+       trajectoryToFollow,
+       s_Swerve::getPose, // Functional interface to feed supplier
+       SwerveDrive.swerveKinematics, //swerveKinematics 
+       xController, //PID controllers
+       yController,
+       thetaController,
+       s_Swerve::setModuleStates,   //Module States
+       true, //mirror paths depending on alliance
+       s_Swerve //needs the drive subsystem
+     );
 
       followTrajectoryPathPlannerCommand.schedule();
 
