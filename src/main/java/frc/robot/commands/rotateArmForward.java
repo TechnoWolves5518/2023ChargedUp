@@ -4,23 +4,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.armSpinner;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class rotateArm extends CommandBase {
+public class rotateArmForward extends CommandBase {
   /** Creates a new moveArm. */
+  XboxController specialSpinner = RobotContainer.special;
 
-  public rotateArm() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    
-    public static double armSpinSpeed = new armSpinSpeed(double);
+  public rotateArmForward() {
+    // Use addRequirements() here to declare subsystem dependencies
 
-    XboxController specialSpinner = RobotContainer.special;
     final armSpinner s_Spin = new armSpinner(); 
     addRequirements(s_Spin);
 
@@ -35,18 +31,19 @@ public class rotateArm extends CommandBase {
   @Override
   public void execute() {
     boolean forwards = specialSpinner.getAButton();
-    boolean backwards = specialSpinner.getBButton();
 
-    if (forwards && backwards == false){
-      speed = 0;
-    } else if(forwards == true){
-      speedMod = armSpinSpeed;
-    } else if(backwards == true){
-      speedMod = -1 * armSpinSpeed;
+    if (forwards == true){
+      armSpinner.armPwmVenom.set(1);
 
+    } else {
+      armSpinner.armPwmVenom.set(0);
     }
 
-    armPwmVenom.set(armSpinSpeed);
+
+    
+
+    
+
 
 
 
