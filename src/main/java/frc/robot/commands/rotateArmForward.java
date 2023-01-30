@@ -34,10 +34,10 @@ public class rotateArmForward extends CommandBase {
     boolean forwards = specialSpinner.getAButton();
 
     if (forwards == true){
-      armSpinner.armPwmVenom.set(SpecialFunctions.spinSpeed);
+      SpecialFunctions.armPwmVenom.set(SpecialFunctions.spinSpeed);
 
     } else {
-      armSpinner.armPwmVenom.set(0);
+      SpecialFunctions.armPwmVenom.set(0);
     }
 
 
