@@ -7,7 +7,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class armExtender extends SubsystemBase{
     
-    // define motor to extend robot arm
+    public static CANSparkMax armViagra;
+
+    public void extendSystem(double speed){
+        armViagra.set(speed);
+    }
     
 
 }

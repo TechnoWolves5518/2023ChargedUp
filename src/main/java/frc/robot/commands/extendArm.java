@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.armExtender;
 
 public class extendArm extends CommandBase {
   /** Creates a new extendArm. */
@@ -23,7 +24,16 @@ public class extendArm extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    boolean extend = specialSpinner.getLeftBumper();
+
+    if (extend == true){
+      armExtender.armViagra.set(extendSpeed);
+
+    } else {
+      armExtender.armViagra.set(0);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
