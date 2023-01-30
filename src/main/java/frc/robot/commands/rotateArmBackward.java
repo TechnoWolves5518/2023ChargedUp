@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.armSpinner;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.Swerve.SpecialFunctions;
+
 
 public class rotateArmBackward extends CommandBase {
   /** Creates a new moveArm. */
@@ -34,7 +36,7 @@ public class rotateArmBackward extends CommandBase {
 
     if (forwards == true){
       
-      armSpinner.armPwmVenom.set(-frc.robot.Constants.Swerve.SpecialFunctions.spinSpeed);
+      armSpinner.armPwmVenom.set(-SpecialFunctions.spinSpeed);
 
     } else {
       armSpinner.armPwmVenom.set(0);

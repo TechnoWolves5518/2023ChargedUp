@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.armExtender;
+import frc.robot.Constants.Swerve.SpecialFunctions;
 
 public class extendArm extends CommandBase {
   /** Creates a new extendArm. */
@@ -27,7 +28,7 @@ public class extendArm extends CommandBase {
     boolean extend = specialSpinner.getLeftBumper();
 
     if (extend == true){
-      armExtender.armViagra.set(frc.robot.Constants.Swerve.SpecialFunctions.extendSpeed);
+      armExtender.armViagra.set(SpecialFunctions.extendSpeed);
 
     } else {
       armExtender.armViagra.set(0);
