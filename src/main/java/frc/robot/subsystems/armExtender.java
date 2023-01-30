@@ -1,15 +1,13 @@
 package frc.robot.subsystems;
-import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants.Swerve.SpecialFunctions;
 
 public class armExtender extends SubsystemBase{
-    
-    public static CANSparkMax armViagra;
+
 
     public void extendSystem(double speed){
-        armViagra.set(speed);
+        SpecialFunctions.armViagra.set(speed);
     }
     
 

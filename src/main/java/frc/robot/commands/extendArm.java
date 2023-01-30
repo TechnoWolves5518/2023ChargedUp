@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Swerve.SpecialFunctions;
+import frc.robot.subsystems.*;
 import frc.robot.RobotContainer;
 
 public class extendArm extends CommandBase {
@@ -15,6 +16,8 @@ public class extendArm extends CommandBase {
   
   public extendArm() {
     // Use addRequirements() here to declare subsystem dependencies.
+    final armExtender e_Extender = new armExtender(); 
+    addRequirements(e_Extender);
   }
 
   // Called when the command is initially scheduled.
@@ -27,10 +30,10 @@ public class extendArm extends CommandBase {
     boolean extend = specialSpinner.getLeftBumper();
 
     if (extend == true){
-      armExtender.armViagra.set(SpecialFunctions.extendSpeed);
+      SpecialFunctions.armViagra.set(SpecialFunctions.extendSpeed);
 
     } else {
-      armExtender.armViagra.set(0);
+      SpecialFunctions.armViagra.set(0);
     }
   }
 

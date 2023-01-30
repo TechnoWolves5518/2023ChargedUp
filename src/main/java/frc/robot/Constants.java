@@ -100,7 +100,7 @@ public final class Constants {
 
         public static final class SpecialFunctions {
             public PWMVenom armPwmVenom = new PWMVenom(13);
-            public CANSparkMax armViagra = new CANSparkMax(14, MotorType.kBrushed);
+            public static CANSparkMax armViagra = new CANSparkMax(14, MotorType.kBrushed);
             public static double spinSpeed = .5;
             public static double extendSpeed = .5;
 

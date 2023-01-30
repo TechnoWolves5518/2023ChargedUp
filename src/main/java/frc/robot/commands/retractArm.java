@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Swerve.SpecialFunctions;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.*;
 
 
 public class retractArm extends CommandBase {
@@ -16,6 +17,9 @@ public class retractArm extends CommandBase {
   
   public retractArm() {
     // Use addRequirements() here to declare subsystem dependencies.
+    final armExtender e_Extender = new armExtender(); 
+    addRequirements(e_Extender);
+
   }
 
   // Called when the command is initially scheduled.
@@ -28,10 +32,10 @@ public class retractArm extends CommandBase {
     boolean retract = specialSpinner.getRightBumper();
 
     if (retract == true){
-      armExtender.armViagra.set(-SpecialFunctions.extendSpeed);
+      SpecialFunctions.armViagra.set(-SpecialFunctions.extendSpeed);
 
     } else {
-      armExtender.armViagra.set(0);
+      SpecialFunctions.armViagra.set(0);
     }
   }
 
