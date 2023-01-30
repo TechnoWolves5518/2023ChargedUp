@@ -6,9 +6,10 @@ import frc.robot.Constants.Swerve.SpecialFunctions;
 public class armExtender extends SubsystemBase{
 
 
-    public void extendSystem(double speed){
+    public static void extendSystem(double speed){
         SpecialFunctions.armViagra.set(speed);
     }
     
-
+    @Override
+    public void periodic(){}
 }

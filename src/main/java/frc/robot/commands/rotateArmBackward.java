@@ -36,10 +36,10 @@ public class rotateArmBackward extends CommandBase {
 
     if (forwards == true){
       
-      SpecialFunctions.armPwmVenom.set(-SpecialFunctions.spinSpeed);
+      armSpinner.spinSystem(-SpecialFunctions.spinSpeed);
 
     } else {
-      SpecialFunctions.armPwmVenom.set(0);
+      armSpinner.spinSystem(0);
     }
 
 
@@ -55,6 +55,7 @@ public class rotateArmBackward extends CommandBase {
 
 
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
