@@ -8,7 +8,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.armSpinner;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class rotateArmBackward extends CommandBase {
@@ -35,7 +34,7 @@ public class rotateArmBackward extends CommandBase {
 
     if (forwards == true){
       
-      armSpinner.armPwmVenom.set(-spinSpeed);
+      armSpinner.armPwmVenom.set(-frc.robot.Constants.Swerve.SpecialFunctions.spinSpeed);
 
     } else {
       armSpinner.armPwmVenom.set(0);

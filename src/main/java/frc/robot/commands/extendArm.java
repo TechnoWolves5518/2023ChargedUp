@@ -27,7 +27,7 @@ public class extendArm extends CommandBase {
     boolean extend = specialSpinner.getLeftBumper();
 
     if (extend == true){
-      armExtender.armViagra.set(extendSpeed);
+      armExtender.armViagra.set(frc.robot.Constants.Swerve.SpecialFunctions.extendSpeed);
 
     } else {
       armExtender.armViagra.set(0);

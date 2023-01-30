@@ -27,7 +27,7 @@ public class retractArm extends CommandBase {
     boolean retract = specialSpinner.getRightBumper();
 
     if (retract == true){
-      armExtender.armViagra.set(-extendSpeed);
+      armExtender.armViagra.set(-frc.robot.Constants.Swerve.SpecialFunctions.extendSpeed);
 
     } else {
       armExtender.armViagra.set(0);
