@@ -30,10 +30,10 @@ public class extendArm extends CommandBase {
     boolean extend = specialSpinner.getLeftBumper();
 
     if (extend == true){
-      SpecialFunctions.armViagra.set(SpecialFunctions.extendSpeed);
+      armExtender.extendSystem(SpecialFunctions.extendSpeed);
 
     } else {
-      SpecialFunctions.armViagra.set(0);
+      armExtender.extendSystem(0);
     }
   }
 

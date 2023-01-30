@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve.SpecialFunctions;
 
 public class armSpinner extends SubsystemBase {
-    
-    public void spinSystem(double speed){
+
+    public static void spinSystem(double speed){
         SpecialFunctions.armPwmVenom.set(speed);
     }
 

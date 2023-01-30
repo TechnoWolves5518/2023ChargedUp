@@ -32,10 +32,10 @@ public class retractArm extends CommandBase {
     boolean retract = specialSpinner.getRightBumper();
 
     if (retract == true){
-      SpecialFunctions.armViagra.set(-SpecialFunctions.extendSpeed);
+      armExtender.extendSystem(-SpecialFunctions.extendSpeed);
 
     } else {
-      SpecialFunctions.armViagra.set(0);
+      armExtender.extendSystem(0);
     }
   }
 
