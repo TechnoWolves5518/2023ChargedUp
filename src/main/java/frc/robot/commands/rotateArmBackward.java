@@ -14,7 +14,6 @@ import frc.robot.RobotContainer;
 public class rotateArmBackward extends CommandBase {
   /** Creates a new moveArm. */
   XboxController specialSpinner = RobotContainer.special;
-  double spinSpeed;
 
   public rotateArmBackward() {
     // Use addRequirements() here to declare subsystem dependencies

@@ -101,8 +101,8 @@ public final class Constants {
         public static final class SpecialFunctions {
             public PWMVenom armPwmVenom = new PWMVenom(13);
             public CANSparkMax armViagra = new CANSparkMax(14, MotorType.kBrushed);
-            double spinSpeed = .5;
-            double extendSpeed = .5;
+            public double spinSpeed = .5;
+            public double extendSpeed = .5;
 
 
             

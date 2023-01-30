@@ -12,7 +12,6 @@ import frc.robot.subsystems.armExtender;
 public class extendArm extends CommandBase {
   /** Creates a new extendArm. */
   XboxController specialSpinner = RobotContainer.special;
-  double extendSpeed;
   
   public extendArm() {
     // Use addRequirements() here to declare subsystem dependencies.
