@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,26 +16,30 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-    public ADIS16470_IMU gyro;
+    public Pigeon2 gyro;
+    private double previousAngle;
 
     public Swerve() {
-        gyro = new ADIS16470_IMU();
-        gyro.calibrate();
+        gyro = new Pigeon2(Constants.SwerveDrive.pigeonID);
+        gyro.configFactoryDefault();
         zeroGyro();
-
+        previousAngle = getElevationAngle();
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.SwerveDrive.Mod0.constants),
             new SwerveModule(1, Constants.SwerveDrive.Mod1.constants),
             new SwerveModule(2, Constants.SwerveDrive.Mod2.constants),
             new SwerveModule(3, Constants.SwerveDrive.Mod3.constants)
         };
-
+        Timer.delay(1.0);
+        resetModulesToAbsolute();
+        
         swerveOdometry = new SwerveDriveOdometry(Constants.SwerveDrive.swerveKinematics, getYaw(), getModulePositions());
 
         for(SwerveModule mod : mSwerveMods){
@@ -97,13 +102,23 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        gyro.reset();
+        gyro.setYaw(0);
     }
 
     public Rotation2d getYaw() {
-        return (Constants.SwerveDrive.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getAngle()) : Rotation2d.fromDegrees(gyro.getAngle());
+        return (Constants.SwerveDrive.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
+    public void resetModulesToAbsolute(){
+        for(SwerveModule mod : mSwerveMods){
+            mod.resetToAbsolute();
+        }
+    }
+    
+    //looks like it works
+    public double getElevationAngle() {
+        return (double) gyro.getPitch();
+    }
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
