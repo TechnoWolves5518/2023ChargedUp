@@ -1,5 +1,6 @@
 package frc.robot;
 
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,7 +14,8 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     public static final double stickDeadband = 0.15;
 
-    public static final class Swerve {
+    public static final class SwerveDrive {
+        public static final int pigeonID = 1;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
         public static final COTSFalconSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
@@ -26,11 +28,13 @@ public final class Constants {
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
-         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
-            new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
-            new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+         public static final SwerveDriveKinematics swerveKinematics =
+      new SwerveDriveKinematics(
+        new Translation2d(wheelBase / 2, trackWidth / 2),
+        new Translation2d(wheelBase / 2, -trackWidth / 2),
+        new Translation2d(-wheelBase / 2, trackWidth / 2),
+        new Translation2d(-wheelBase / 2, -trackWidth / 2)
+      );
 
         /* Module Gear Ratios */
         public static final double driveGearRatio = chosenModule.driveGearRatio;
@@ -84,6 +88,7 @@ public final class Constants {
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
         public static final double speedMod = 0.5;
+        public static final double slowMod = 0.3;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
@@ -146,7 +151,19 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
-    public static final class PathPlannerPaths {
-        
+    
+    public static final class PathPlannerConstants {
+        public static final double kMaxSpeed = 3;
+        public static final double kMaxAcceleration = 2;
+        public static final double kPXController = 1;
+        public static final double kPYController = 1;
+        public static final double kPThetaController = 1;
+        public static final double maxAngularSpeed = Math.PI;
+        public static final double maxAngularAcceleration = Math.PI;
+
+        //ditto
+        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+            new TrapezoidProfile.Constraints(
+                kMaxSpeed, kMaxAcceleration);
     }
 }
