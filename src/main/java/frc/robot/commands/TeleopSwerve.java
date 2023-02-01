@@ -6,8 +6,10 @@ import frc.robot.subsystems.Swerve;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 
@@ -17,7 +19,8 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
-
+    private boolean brakeCheck;
+    private final XboxController driver = new XboxController(0);
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
@@ -31,16 +34,21 @@ public class TeleopSwerve extends CommandBase {
     @Override
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.Swerve.speedMod, Constants.stickDeadband);
-
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        brakeCheck = driver.getXButton();
         /* Drive */
+        if (brakeCheck == true) {
+            s_Swerve.drive(
+                new Translation2d(0,0).times(0), 0.01, true, true);
+        } else {
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            new Translation2d(translationVal, strafeVal).times(Constants.SwerveDrive.maxSpeed), 
+            rotationVal * Constants.SwerveDrive.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
+        }
     }
 }

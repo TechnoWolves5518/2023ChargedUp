@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.Autos.*;
+import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -18,8 +18,10 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+    
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick special = new Joystick(1); 
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -29,9 +31,16 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+    
+    /* Special Buttons */
+    private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton retract = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton pickUp = new JoystickButton(special, XboxController.Button.kB.value);
+    private final JoystickButton setDown = new JoystickButton(special, XboxController.Button.kX.value);
+    
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
+    private final AutoSelector autoSelector;
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -47,6 +56,7 @@ public class RobotContainer {
         );
 
         // Configure the button bindings
+        autoSelector = new AutoSelector(s_Swerve);
         configureButtonBindings();
     }
 
@@ -63,11 +73,11 @@ public class RobotContainer {
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
+     
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        return autoSelector.getSelected();
     }
 }
