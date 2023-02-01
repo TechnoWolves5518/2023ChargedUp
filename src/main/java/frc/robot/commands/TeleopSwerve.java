@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.Constants.SwerveDrive;
 import frc.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
@@ -21,9 +20,6 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
     private boolean brakeCheck;
-    private boolean slowcheck;
-    private double speedModifier;
-
     private final XboxController driver = new XboxController(0);
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
@@ -37,20 +33,11 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        //checks
-        brakeCheck = driver.getXButton();
-        slowcheck = driver.getRightBumper();
-
-        if (slowcheck  == true) {
-            speedModifier = SwerveDrive.slowMod;
-        } else {
-            speedModifier = SwerveDrive.speedMod;
-        }
-
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * speedModifier, Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * speedModifier, Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * speedModifier, Constants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
+        brakeCheck = driver.getXButton();
         /* Drive */
         if (brakeCheck == true) {
             s_Swerve.drive(

@@ -88,7 +88,6 @@ public final class Constants {
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
         public static final double speedMod = 0.5;
-        public static final double slowMod = 0.3;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
@@ -165,6 +164,5 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxSpeed, kMaxAcceleration);
-
     }
 }

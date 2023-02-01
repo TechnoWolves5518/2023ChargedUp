@@ -16,7 +16,7 @@ import frc.robot.subsystems.Swerve;
 
 
 
-public class AutoSelector {
+public class PathPlanning {
     
   private final SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -25,7 +25,7 @@ public class AutoSelector {
 
   
 
-  public AutoSelector(Swerve drivebase) {
+  public PathPlanning(Swerve drivebase) {
     
     chooser.setDefaultOption("TestPath", new SequentialCommandGroup(
 
