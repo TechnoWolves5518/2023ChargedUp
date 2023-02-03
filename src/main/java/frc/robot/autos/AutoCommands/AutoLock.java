@@ -15,9 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoLock extends CommandBase {    
     private Swerve s_Swerve;    
     //delete these "unused variables" if you want the code to break
-    private DoubleSupplier translationSup;
-    private DoubleSupplier strafeSup;
-    private DoubleSupplier rotationSup;
+    
     private BooleanSupplier robotCentricSup;
     private boolean brakeCheck;
     private final XboxController driver = new XboxController(0);
@@ -25,10 +23,6 @@ public class AutoLock extends CommandBase {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
-        this.translationSup = translationSup;
-        this.strafeSup = strafeSup;
-        this.rotationSup = rotationSup;
-        this.robotCentricSup = robotCentricSup;
         
     }
 
@@ -41,7 +35,7 @@ public class AutoLock extends CommandBase {
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(SwerveDrive.maxSpeed), 
             rotationVal * Constants.SwerveDrive.maxAngularVelocity, 
-            !robotCentricSup.getAsBoolean(), 
+            true, 
             true);
         
     }
