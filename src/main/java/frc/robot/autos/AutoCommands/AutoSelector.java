@@ -52,7 +52,7 @@ public class AutoSelector {
           drivebase::setModuleStates, // Module states consumer
           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
           drivebase // Requires this drive subsystem
-      )       
+      ), new AutoLock(drivebase, null, null, null, null)  
       ));
 
 
