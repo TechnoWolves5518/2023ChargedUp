@@ -32,7 +32,7 @@ public class AutoSelector {
     
   private final SendableChooser<Command> chooser = new SendableChooser<>();
 
-
+  //define autonomous routines
   PathPlannerTrajectory ExamplePath = PathPlanner.loadPath("MConePickup", new PathConstraints(4, 3));
 
   public AutoSelector(Swerve drivebase) {
@@ -52,7 +52,7 @@ public class AutoSelector {
           drivebase::setModuleStates, // Module states consumer
           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
           drivebase // Requires this drive subsystem
-      ), new AutoLock(drivebase, null, null, null, null)  
+      )
       ));
 
 

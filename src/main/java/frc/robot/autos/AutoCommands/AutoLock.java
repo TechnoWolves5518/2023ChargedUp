@@ -14,11 +14,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoLock extends CommandBase {    
     private Swerve s_Swerve;    
-    //delete these "unused variables" if you want the code to break
-    
-    private BooleanSupplier robotCentricSup;
-    private boolean brakeCheck;
-    private final XboxController driver = new XboxController(0);
     public AutoLock(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);

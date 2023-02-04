@@ -12,18 +12,26 @@ public class AutoBalance extends CommandBase {
   Swerve s_Swerve;
   double elevationAngle;
   double errorThreshold;
+  boolean stopCheck;
   
-  public AutoBalance() {
+  public AutoBalance(Swerve s_Swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.s_Swerve = s_Swerve;
+    addRequirements(s_Swerve);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    stopCheck = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    elevationAngle = s_Swerve.getElevationAngle();
+    System.out.println(elevationAngle);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -32,6 +40,6 @@ public class AutoBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return stopCheck;
   }
 }
