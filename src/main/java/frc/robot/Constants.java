@@ -2,14 +2,11 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-<<<<<<< HEAD
-=======
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
->>>>>>> Special-Functions
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -104,8 +101,8 @@ public final class Constants {
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         public static final class SpecialFunctions {
-            public static PWMVenom armPwmVenom = new PWMVenom(13);
-            public static CANSparkMax armViagra = new CANSparkMax(14, MotorType.kBrushed);
+            public static int armPwmVenom = 13;
+            public static int armViagra = 14;
             public static double spinSpeed = .5;
             public static double extendSpeed = .5;
 

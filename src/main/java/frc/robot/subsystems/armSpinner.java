@@ -1,12 +1,17 @@
 package frc.robot.subsystems;
 
+import com.playingwithfusion.CANVenom;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Swerve.SpecialFunctions;
+import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
 public class armSpinner extends SubsystemBase {
-
-    public static void spinSystem(double speed){
-        SpecialFunctions.armPwmVenom.set(speed);
+    static CANVenom armPwmVenom;
+    public armSpinner() {
+        armPwmVenom = new CANVenom(SpecialFunctions.armPwmVenom);
+    }
+    public static void setMotors(double speed){
+       armPwmVenom.set(speed);
     }
 
 
