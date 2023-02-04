@@ -34,14 +34,14 @@ public class AutoBalance extends CommandBase {
   public void execute() {
     elevationAngle = s_Swerve.getElevationAngle();
     System.out.println(elevationAngle);
-    if (elevationAngle > AutoConstants.maxPlatformAngle) {
+    if (elevationAngle > AutoConstants.maxPlatformPositivePitch) {
       s_Swerve.drive(
         new Translation2d(SwerveDrive.balanceSpeedMod,0),
         0,
         true,
         true
       );
-      } else if (elevationAngle < -AutoConstants.maxPlatformAngle) {
+      } else if (elevationAngle < -AutoConstants.maxPlatformNegativePitch) {
         s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
         0, 
         true, 
