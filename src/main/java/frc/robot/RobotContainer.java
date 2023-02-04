@@ -6,8 +6,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+<<<<<<< HEAD
 
 import frc.robot.autos.AutoCommands.*;
+=======
+>>>>>>> Special-Functions
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -21,16 +24,21 @@ public class RobotContainer {
     
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+<<<<<<< HEAD
     private final Joystick special = new Joystick(1); 
+=======
+    public final static XboxController special = new XboxController(1);
+>>>>>>> Special-Functions
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
-
+    
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
     
     /* Special Buttons */
     private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
@@ -41,6 +49,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
+   
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,6 +63,7 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
+
 
         // Configure the button bindings
         autoSelector = new AutoSelector(s_Swerve);
@@ -69,6 +79,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        testButton.whileTrue(new ChargeBalance(s_Swerve));
     }
 
     /**

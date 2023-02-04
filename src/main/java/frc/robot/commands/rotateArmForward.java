@@ -10,35 +10,49 @@ import frc.robot.Constants.Swerve.SpecialFunctions;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
 
-
-public class retractArm extends CommandBase {
-  /** Creates a new retractArm. */
+public class rotateArmForward extends CommandBase {
+  /** Creates a new moveArm. */
   XboxController specialSpinner = RobotContainer.special;
   
-  public retractArm() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    final armExtender e_Extender = new armExtender(); 
-    addRequirements(e_Extender);
+
+  public rotateArmForward() {
+    // Use addRequirements() here to declare subsystem dependencies
+
+    final armSpinner s_Spin = new armSpinner(); 
+    addRequirements(s_Spin);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
+  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean retract = specialSpinner.getRightBumper();
+    boolean forwards = specialSpinner.getAButton();
 
-    if (retract == true){
-      armExtender.extendSystem(-SpecialFunctions.extendSpeed);
+    if (forwards == true){
+      SpecialFunctions.armPwmVenom.set(SpecialFunctions.spinSpeed);
 
     } else {
-      armExtender.extendSystem(0);
+      SpecialFunctions.armPwmVenom.set(0);
     }
-  }
 
+
+    
+
+    
+
+
+
+
+
+
+
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -47,6 +61,5 @@ public class retractArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-  }
+    return false; }
 }

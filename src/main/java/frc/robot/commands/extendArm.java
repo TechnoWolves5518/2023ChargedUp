@@ -2,21 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.AutoPaths;
+package frc.robot.commands;
 
-import java.util.List;
-
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.Swerve.SpecialFunctions;
+import frc.robot.subsystems.*;
+import frc.robot.RobotContainer;
 
-public class MConePickup extends CommandBase {
-  List<PathPlannerTrajectory> mConePickupLevel = PathPlanner.loadPathGroup("MConePickup", new PathConstraints(4, 2));
-
-  public MConePickup() {
+public class extendArm extends CommandBase {
+  /** Creates a new extendArm. */
+  XboxController specialSpinner = RobotContainer.special;
+  
+  public extendArm() {
     // Use addRequirements() here to declare subsystem dependencies.
+    final armExtender e_Extender = new armExtender(); 
+    addRequirements(e_Extender);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +26,16 @@ public class MConePickup extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    boolean extend = specialSpinner.getLeftBumper();
+
+    if (extend == true){
+      armExtender.extendSystem(SpecialFunctions.extendSpeed);
+
+    } else {
+      armExtender.extendSystem(0);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override

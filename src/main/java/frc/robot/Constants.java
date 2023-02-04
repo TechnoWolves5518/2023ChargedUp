@@ -2,12 +2,21 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+<<<<<<< HEAD
+=======
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+>>>>>>> Special-Functions
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVenom;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -88,11 +97,23 @@ public final class Constants {
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
         public static final double speedMod = 0.5;
-        public static final double balanceSpeedMod = 0.3;
+        public static final double balanceSpeedMod = 0.4;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+
+        public static final class SpecialFunctions {
+            public static PWMVenom armPwmVenom = new PWMVenom(13);
+            public static CANSparkMax armViagra = new CANSparkMax(14, MotorType.kBrushed);
+            public static double spinSpeed = .5;
+            public static double extendSpeed = .5;
+
+
+            
+            
+            
+        }
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
@@ -146,13 +167,15 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
-        public static final double maxPlatformAngle = 1;
+        public static final double maxPlatformPositivePitch = 1;
+        public static final double maxPlatformNegativePitch = -1;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
+
     
     public static final class PathPlannerConstants {
         public static final double kMaxSpeed = 3;
