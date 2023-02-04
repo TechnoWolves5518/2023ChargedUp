@@ -4,7 +4,10 @@
 
 package frc.robot.autos.AutoCommands;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.SwerveDrive;
 import frc.robot.subsystems.Swerve;
 
 public class AutoBalance extends CommandBase {
@@ -31,11 +34,34 @@ public class AutoBalance extends CommandBase {
   public void execute() {
     elevationAngle = s_Swerve.getElevationAngle();
     System.out.println(elevationAngle);
-  }
+    if (elevationAngle > AutoConstants.maxPlatformAngle) {
+      s_Swerve.drive(
+        new Translation2d(SwerveDrive.balanceSpeedMod,0),
+        0,
+        true,
+        true
+      );
+      } else if (elevationAngle < -AutoConstants.maxPlatformAngle) {
+        s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
+        0, 
+        true, 
+        true);
+      } else {
+        s_Swerve.drive(new Translation2d(0,0), 
+        0, 
+        true, 
+        true);
+        //stopCheck = true;
+      }
+    }
+    
+  
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    stopCheck = false;
+  }
 
   // Returns true when the command should end.
   @Override
