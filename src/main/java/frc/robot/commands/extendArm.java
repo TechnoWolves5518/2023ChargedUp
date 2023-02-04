@@ -7,19 +7,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.Swerve.SpecialFunctions;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
+import frc.robot.RobotContainer;
 
-
-public class retractArm extends CommandBase {
-  /** Creates a new retractArm. */
+public class extendArm extends CommandBase {
+  /** Creates a new extendArm. */
   XboxController specialSpinner = RobotContainer.special;
   
-  public retractArm() {
+  public extendArm() {
     // Use addRequirements() here to declare subsystem dependencies.
     final armExtender e_Extender = new armExtender(); 
     addRequirements(e_Extender);
-
   }
 
   // Called when the command is initially scheduled.
@@ -29,16 +27,15 @@ public class retractArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    boolean retract = specialSpinner.getRightBumper();
+    boolean extend = specialSpinner.getLeftBumper();
 
-    if (retract == true){
-      armExtender.extendSystem(-SpecialFunctions.extendSpeed);
+    if (extend == true){
+      armExtender.extendSystem(SpecialFunctions.extendSpeed);
 
     } else {
       armExtender.extendSystem(0);
     }
   }
-
 
   // Called once the command ends or is interrupted.
   @Override
