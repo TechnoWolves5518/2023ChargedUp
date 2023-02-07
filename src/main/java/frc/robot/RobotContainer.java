@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.sql.Driver;
+
+import javax.lang.model.element.ModuleElement.DirectiveVisitor;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -31,7 +35,8 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton balance = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton autoAim = new JoystickButton(driver, XboxController.Button.kX.value);
     
     /* Special Buttons */
     private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
@@ -40,7 +45,7 @@ public class RobotContainer {
     private final JoystickButton setDown = new JoystickButton(special, XboxController.Button.kX.value);
     
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    public final static Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
    
 
@@ -72,9 +77,10 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new ChargeBalance(s_Swerve));
+        balance.whileTrue(new ChargeBalance(s_Swerve));
+        autoAim.whileTrue(new AimTarget());
         //special buttons 
-        //note for Everett: use while true to engage your motors, use "testbutton" as a template
+        //note for Everett: use while true to engage your motors, use "balance" as a template
 
     }
 

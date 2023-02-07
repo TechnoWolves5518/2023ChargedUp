@@ -1,13 +1,17 @@
 package frc.robot;
 
 
+import org.photonvision.PhotonCamera;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -100,16 +104,20 @@ public final class Constants {
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
+        
         public static final class SpecialFunctions {
             public static int armPwmVenom = 13;
             public static int armViagra = 14;
             public static double spinSpeed = .5;
-            public static double extendSpeed = .5;
-
-
-            
-            
-            
+            public static double extendSpeed = .5;  
+        }
+        public static final class CameraConstants{
+            public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
+            public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
+            public static double cameraToTargetRadians = Units.degreesToRadians(0); //horizontal offset to the april tag from the camera
+            public static double goalDistanceMeters = Units.feetToMeters(3);
+            public static PhotonCamera camera = new PhotonCamera("cameraName");
+            public static PIDController driveController = new PIDController(driveKP, driveKI, driveKD);
         }
 
         /* Module Specific Constants */
