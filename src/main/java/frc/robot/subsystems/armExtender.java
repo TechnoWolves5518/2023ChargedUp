@@ -21,8 +21,9 @@ public class armExtender extends TrapezoidProfileSubsystem {
         new TrapezoidProfile.Constraints(0, 0),
         // The initial position of the mechanism
         0);
+      
+      armExtender = new TalonSRX(SpecialFunctions.armExtender);
 
-    armExtender = new TalonSRX(SpecialFunctions.armExtender);
   }
 
     public static void setMotors(TalonSRXControlMode Position, double position){
