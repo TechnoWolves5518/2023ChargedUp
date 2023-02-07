@@ -2,18 +2,21 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class armExtender extends SubsystemBase{
-    static CANSparkMax armViagra;
+    static TalonSRX armExtender;
     public armExtender() {
-        armViagra = new CANSparkMax(SpecialFunctions.armViagra, MotorType.kBrushed);
+        armExtender = new TalonSRX(SpecialFunctions.armExtender);
     }
 
-    public static void setMotors(double speed){
-        armViagra.set(speed);
+    public static void setMotors(TalonSRXControlMode Position, double speed){
+        armExtender.set(Position, speed);
     }
+    
     
     @Override
     public void periodic(){}

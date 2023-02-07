@@ -101,8 +101,11 @@ public final class Constants {
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         public static final class SpecialFunctions {
-            public static int armPwmVenom = 13;
-            public static int armViagra = 14;
+            public static  int armExtender = 13;
+            public static int armPwmVenomOne = 14;
+            public static int armPwmVenomTwo = 15;
+            public static int armPwmVenomThree = 16;
+
             public static double spinSpeed = .5;
             public static double extendSpeed = .5;
 

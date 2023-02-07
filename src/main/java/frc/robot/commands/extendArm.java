@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 import frc.robot.subsystems.*;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 
 public class extendArm extends CommandBase {
   /** Creates a new extendArm. */
@@ -16,10 +18,10 @@ public class extendArm extends CommandBase {
     addRequirements(e_Extender);
   }
 
+  
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
