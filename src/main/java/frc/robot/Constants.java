@@ -2,6 +2,7 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -101,13 +102,50 @@ public final class Constants {
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         public static final class SpecialFunctions {
-            public static int armExtender = 13;
+            
+            
             public static int armPwmVenomOne = 14;
             public static int armPwmVenomTwo = 15;
             public static int armPwmVenomThree = 16;
 
-            public static double spinSpeed = .5;
-            public static double extendSpeed = .5;
+            public static double spinMaxVelocity = 0;
+            public static double spinMaxAcceleration = 0;
+            public static double spinOffset = 0;
+            
+            // Constants for Arm Extender
+            public static int armExtender = 13;
+            public static final double kP = 1;
+
+            public static double extendMaxVelocity = 0.1;
+            public static double extendMaxAcceleration = 0.1;
+   
+
+            // These are fake gains; in actuality these must be determined individually for each robot
+            public static final double kSVolts = 1;
+            public static final double kGVolts = 1;
+            public static final double kVVoltSecondPerRad = 0.5;
+            public static final double kAVoltSecondSquaredPerRad = 0.1;
+
+            public static final double kMaxVelocityRadPerSecond = 3;
+            public static final double kMaxAccelerationRadPerSecSquared = 10;
+
+            // The offset of the arm from the horizontal in its neutral position,
+            // measured from the horizontal
+            public static final double extendOffset = 0.1;
+
+            public static final int[] kEncoderPorts = new int[] {4, 5};
+            public static final int kEncoderPPR = 256;
+            public static final double kEncoderDistancePerPulse = 2.0 * Math.PI / kEncoderPPR;
+  }
+
+  public static final class AutoConstants {
+    public static final double kAutoTimeoutSeconds = 12;
+    public static final double kAutoShootTimeSeconds = 7;
+  }
+
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+
 
 
             
