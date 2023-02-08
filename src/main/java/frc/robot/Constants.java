@@ -114,7 +114,7 @@ public final class Constants {
         public static final class CameraConstants{
             public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
             public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
-            public static double cameraToTargetRadians = Units.degreesToRadians(0); //horizontal offset to the april tag from the camera
+            public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
             public static double goalDistanceMeters = Units.feetToMeters(3);
             public static PhotonCamera camera = new PhotonCamera("cameraName");
             public static PIDController driveController = new PIDController(driveKP, driveKI, driveKD);

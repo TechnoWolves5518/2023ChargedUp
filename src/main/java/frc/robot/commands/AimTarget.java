@@ -4,8 +4,12 @@
 
 package frc.robot.commands;
 
+import org.photonvision.PhotonUtils;
+
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.SwerveDrive;
 import frc.robot.Constants.SwerveDrive.CameraConstants;
 import frc.robot.subsystems.Swerve;
 
@@ -13,6 +17,8 @@ public class AimTarget extends CommandBase {
   
   Swerve s_Swerve;
   double rotationSpeed;
+  double range;
+  double forwardSpeed;
 
   public AimTarget() {
     addRequirements(s_Swerve);
@@ -24,13 +30,15 @@ public class AimTarget extends CommandBase {
     
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  //based on the photonlib example, unclear if it actually works but this could help to aim at the apriltag, granted pose estimation would be better
   @Override
   public void execute() {
     var result = CameraConstants.camera.getLatestResult();
     if (result.hasTargets()) {
+      range = PhotonUtils.calculateDistanceToTargetMeters(CameraConstants.cameraHeightMeters, CameraConstants.goalDistanceMeters, CameraConstants.cameraAngleRadians, Units.degreesToRadians(result.getBestTarget().getPitch()));
+      forwardSpeed = -CameraConstants.driveController.calculate(range, CameraConstants.goalDistanceMeters);
       rotationSpeed = -CameraConstants.driveController.calculate(result.getBestTarget().getYaw(), 0);
-      s_Swerve.drive(new Translation2d(0,0), rotationSpeed, true, true);
+      s_Swerve.drive(new Translation2d(forwardSpeed,0), rotationSpeed, true, true);
     } else {
       rotationSpeed = 0;
     }
