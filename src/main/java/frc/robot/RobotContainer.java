@@ -55,8 +55,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
+                () -> driver.getRawAxis(translationAxis), 
+                () -> driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -78,7 +78,7 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         balance.whileTrue(new ChargeBalance(s_Swerve));
-        autoAim.whileTrue(new AimTarget());
+        //autoAim.whileTrue(new AimTarget());
         //special buttons 
         //note for Everett: use while true to engage your motors, use "balance" as a template
 

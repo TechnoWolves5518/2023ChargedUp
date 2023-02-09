@@ -42,7 +42,7 @@ public class AutoSelector {
         // Reset odometry for the first path you run during auto
         drivebase.resetOdometry(ExamplePath.getInitialHolonomicPose());
       }),
-      new PPSwerveControllerCommand(
+      /*new PPSwerveControllerCommand(
          ExamplePath,
           drivebase::getPose, // Pose supplier
         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
@@ -52,7 +52,7 @@ public class AutoSelector {
           drivebase::setModuleStates, // Module states consumer
           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
           drivebase // Requires this drive subsystem
-      ), new AutoBalance(drivebase), new AutoLock(drivebase)
+      ), */new AutoBalance(drivebase), new AutoLock(drivebase)
       ));
 
 
