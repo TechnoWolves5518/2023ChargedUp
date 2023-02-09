@@ -112,6 +112,10 @@ public final class Constants {
             public static double spinMaxAcceleration = 0;
             public static double spinOffset = 0;
             
+            //Solenoids 
+            public static final int solendoidRight = 17;
+            public static final int solendoidLeft = 18;
+
             // Constants for Arm Extender
             public static int armExtender = 13;
             public static final double kP = 1;

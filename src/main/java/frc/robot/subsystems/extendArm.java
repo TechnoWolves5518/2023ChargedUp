@@ -48,7 +48,7 @@ public class extendArm extends ProfiledPIDSubsystem {
 
   }
 
-}
+
   
 
 @Override
@@ -57,10 +57,11 @@ public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
-    extendArm.setMotor(output + feedforward);
+    extendArm.setMotor(TalonSRXControlMode.Position, output + feedforward, feedforward);
 }
 
 @Override
 public double getMeasurement() {
-  return m_encoder.getDistance() + SpecialFunctions.extendOffset;
+  return m_encoder.getDistance() + SpecialFunctions.extendOffset;}
+
 }
