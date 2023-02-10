@@ -2,19 +2,11 @@ package frc.robot;
 
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVenom;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -103,20 +95,37 @@ public final class Constants {
 
         public static final class SpecialFunctions {
             
-            
-            public static int armPwmVenomOne = 14;
-            public static int armPwmVenomTwo = 15;
-            public static int armPwmVenomThree = 16;
-
+            // ArmSpinner
+            public static int armOne = 14;
+            public static int armTwo = 15;
+            public static int armThree = 16;
+            public static final double bP = 1;
+    
             public static double spinMaxVelocity = 0;
             public static double spinMaxAcceleration = 0;
+            
+            //These are fake gains; in actuality these must be determined individually for each robot
+            public static final double bSVolts = 1;
+            public static final double bGVolts = 1;
+
+            public static final double bMaxVelocityRadPerSecond = 3;
+            public static final double bMaxAccelerationRadPerSecSquared = 10;
+            public static final double bVVoltSecondPerRad = 0.5;
+            public static final double bAVoltSecondSquaredPerRad = 0.1;
+
+            // The offset of the arm from the horizontal in its neutral position,
+            // measured from the horizontal
             public static double spinOffset = 0;
+
+            public static final int[] bEncoderPorts = new int[] {4, 5};
+            public static final int bEncoderPPR = 256;
+            public static final double bEncoderDistancePerPulse = 2.0 * Math.PI / bEncoderPPR;
             
             //Solenoids 
             public static final int solendoidRight = 17;
             public static final int solendoidLeft = 18;
 
-            // Constants for Arm Extender
+            // Arm Extender
             public static int armExtender = 13;
             public static final double kP = 1;
 

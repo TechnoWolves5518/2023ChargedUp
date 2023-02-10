@@ -24,10 +24,10 @@ public class extendArm extends ProfiledPIDSubsystem {
     armExtender.set(Position, position);
   }
 
-  private final Encoder m_encoder =
+  private final Encoder k_encoder =
       new Encoder(SpecialFunctions.kEncoderPorts[0], SpecialFunctions.kEncoderPorts[1]);
   
-  private final ArmFeedforward m_feedforward =
+  private final ArmFeedforward k_feedforward =
       new ArmFeedforward(
         SpecialFunctions.kSVolts, SpecialFunctions.kGVolts,
         SpecialFunctions.kVVoltSecondPerRad, SpecialFunctions.kAVoltSecondSquaredPerRad);
@@ -55,13 +55,13 @@ public class extendArm extends ProfiledPIDSubsystem {
 public void useOutput(double output, TrapezoidProfile.State setpoint) {
   
     // Calculate the feedforward from the sepoint
-    double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
+    double feedforward = k_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
     extendArm.setMotor(TalonSRXControlMode.Position, output + feedforward, feedforward);
 }
 
 @Override
 public double getMeasurement() {
-  return m_encoder.getDistance() + SpecialFunctions.extendOffset;}
+  return k_encoder.getDistance() + SpecialFunctions.extendOffset;}
 
 }

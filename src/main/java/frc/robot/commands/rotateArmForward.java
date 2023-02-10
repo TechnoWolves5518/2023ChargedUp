@@ -15,7 +15,7 @@ public class rotateArmForward extends CommandBase {
   public rotateArmForward() {
     // Use addRequirements() here to declare subsystem dependencies
 
-    final armSpinner s_Spin = new armSpinner(); 
+    final armdude s_Spin = new armdude(); 
     addRequirements(s_Spin);
 
   }
@@ -29,13 +29,13 @@ public class rotateArmForward extends CommandBase {
   @Override
   public void execute() {
   
-      armSpinner.setMotors(SpecialFunctions.spinSpeed);
+      armdude.setMotors(SpecialFunctions.spinSpeed);
 }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSpinner.setMotors(0);
+    armdude.setMotors(0);
   }
 
   // Returns true when the command should end.
