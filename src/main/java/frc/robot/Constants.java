@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
@@ -100,12 +101,19 @@ public final class Constants {
             public static int armTwo = 15;
             public static int armThree = 16;
 
+            public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);
+            public static State stopIntheMiddle = new TrapezoidProfile.State(0, 0);
+            public static State fullyRotatedBackwards = new TrapezoidProfile.State(0, 0);
+
             
             public static double spinMaxVelocity = 0.1;
             public static double spinMaxAcceleration = 0.1;
             public static double spinRPM = 0.09;
 
-            public static double spinOffset = 0.0;
+            public static double kS = 0.0;
+            public static double kG = 0.0;
+            public static double kV = 0.0;
+            public static double kA = 0.0;
 
             //Solenoids 
             public static final int solendoidRight = 17;
@@ -113,24 +121,18 @@ public final class Constants {
 
             // Arm Extender
             public static int armExtender = 13;
-            public static final double kP = 1;
 
             public static double extendMaxVelocity = 0.1;
             public static double extendMaxAcceleration = 0.1;
+
+            public static State furthestPole = new TrapezoidProfile.State(0,0);
+            public static State middlePole = new TrapezoidProfile.State(0, 0);
+            public static State fullRetract = new TrapezoidProfile.State(0, 0);
    
-
-            // These are fake gains; in actuality these must be determined individually for each robot
-            public static final double kSVolts = 1;
-            public static final double kGVolts = 1;
-            public static final double kVVoltSecondPerRad = 0.5;
-            public static final double kAVoltSecondSquaredPerRad = 0.1;
-
-            public static final double kMaxVelocityRadPerSecond = 3;
-            public static final double kMaxAccelerationRadPerSecSquared = 10;
 
             // The offset of the arm from the horizontal in its neutral position,
             // measured from the horizontal
-            public static final double extendOffset = 0.1;
+
   }
 
   public static final class AutoConstants {
