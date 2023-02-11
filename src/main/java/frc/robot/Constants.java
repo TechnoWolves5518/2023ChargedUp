@@ -99,28 +99,14 @@ public final class Constants {
             public static int armOne = 14;
             public static int armTwo = 15;
             public static int armThree = 16;
-            public static final double bP = 1;
-    
-            public static double spinMaxVelocity = 0;
-            public static double spinMaxAcceleration = 0;
+
             
-            //These are fake gains; in actuality these must be determined individually for each robot
-            public static final double bSVolts = 1;
-            public static final double bGVolts = 1;
+            public static double spinMaxVelocity = 0.1;
+            public static double spinMaxAcceleration = 0.1;
+            public static double spinRPM = 0.09;
 
-            public static final double bMaxVelocityRadPerSecond = 3;
-            public static final double bMaxAccelerationRadPerSecSquared = 10;
-            public static final double bVVoltSecondPerRad = 0.5;
-            public static final double bAVoltSecondSquaredPerRad = 0.1;
+            public static double spinOffset = 0.0;
 
-            // The offset of the arm from the horizontal in its neutral position,
-            // measured from the horizontal
-            public static double spinOffset = 0;
-
-            public static final int[] bEncoderPorts = new int[] {4, 5};
-            public static final int bEncoderPPR = 256;
-            public static final double bEncoderDistancePerPulse = 2.0 * Math.PI / bEncoderPPR;
-            
             //Solenoids 
             public static final int solendoidRight = 17;
             public static final int solendoidLeft = 18;
@@ -145,10 +131,6 @@ public final class Constants {
             // The offset of the arm from the horizontal in its neutral position,
             // measured from the horizontal
             public static final double extendOffset = 0.1;
-
-            public static final int[] kEncoderPorts = new int[] {4, 5};
-            public static final int kEncoderPPR = 256;
-            public static final double kEncoderDistancePerPulse = 2.0 * Math.PI / kEncoderPPR;
   }
 
   public static final class AutoConstants {

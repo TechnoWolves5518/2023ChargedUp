@@ -8,14 +8,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
-public class extendArm extends ProfiledPIDSubsystem {
+public class extendArm extends TrapezoidProfileSubsystem {
   /** Creates a new armExtender. */
   
   public static TalonSRX armExtender = new TalonSRX(SpecialFunctions.armExtender);
@@ -23,45 +20,18 @@ public class extendArm extends ProfiledPIDSubsystem {
   public static void setMotor(TalonSRXControlMode Position, double position, double velocity){
     armExtender.set(Position, position);
   }
-
-  private final Encoder k_encoder =
-      new Encoder(SpecialFunctions.kEncoderPorts[0], SpecialFunctions.kEncoderPorts[1]);
-  
-  private final ArmFeedforward k_feedforward =
-      new ArmFeedforward(
-        SpecialFunctions.kSVolts, SpecialFunctions.kGVolts,
-        SpecialFunctions.kVVoltSecondPerRad, SpecialFunctions.kAVoltSecondSquaredPerRad);
-
-
+          
+        
+  /** Create a new ArmSubsystem. */
   public extendArm() {
     super(
-        // The ProfiledPIDController used by the subsystem
-        new ProfiledPIDController(
-            SpecialFunctions.kP,
-            0,
-            0,
-            // The motion profile constraints
-            new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.extendMaxAcceleration)));
-  
-    // Start arm at rest in neutral position
-        setGoal(SpecialFunctions.extendOffset);
+      new TrapezoidProfile.Constraints( 
+        SpecialFunctions.kMaxVelocityRadPerSecond, SpecialFunctions.kMaxAccelerationRadPerSecSquared),
+      SpecialFunctions.extendOffset);
+    }
+        
+    @Override
+    public void useState(TrapezoidProfile.State setpoint) {
 
+          }
   }
-
-
-  
-
-@Override
-public void useOutput(double output, TrapezoidProfile.State setpoint) {
-  
-    // Calculate the feedforward from the sepoint
-    double feedforward = k_feedforward.calculate(setpoint.position, setpoint.velocity);
-    // Add the feedforward to the PID output to get the motor output
-    extendArm.setMotor(TalonSRXControlMode.Position, output + feedforward, feedforward);
-}
-
-@Override
-public double getMeasurement() {
-  return k_encoder.getDistance() + SpecialFunctions.extendOffset;}
-
-}

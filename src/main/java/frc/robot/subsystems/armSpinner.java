@@ -6,54 +6,54 @@ package frc.robot.subsystems;
 
 import com.playingwithfusion.CANVenom;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
 public class armSpinner extends TrapezoidProfileSubsystem {
-  public static CANVenom armPwmVenomOne = new CANVenom(SpecialFunctions.armOne);
+
+  public static CANVenom armPwVenomLead = new CANVenom(SpecialFunctions.armOne);
   public static CANVenom armPwmVenomTwo = new CANVenom(SpecialFunctions.armTwo);
   public static CANVenom armPwmVenomThree = new CANVenom(SpecialFunctions.armThree);  
+  
 
-
-  private final ArmFeedforward b_feedforward =
-      new ArmFeedforward(
-        SpecialFunctions.bSVolts, SpecialFunctions.bGVolts,
-        SpecialFunctions.bVVoltSecondPerRad, SpecialFunctions.bAVoltSecondSquaredPerRad);
-
-  public static void setMotors(double speed){
-    armPwmVenomOne.set(speed);
-    armPwmVenomTwo.set(speed);
-    armPwmVenomThree.set(speed);
-  }
-
-  /** Create a new ArmSubsystem. */
+  /** Create a new Spinner Subsystem. */
   public armSpinner() {
-    super(
-        new TrapezoidProfile.Constraints(
-          SpecialFunctions.bMaxVelocityRadPerSecond, SpecialFunctions.bMaxAccelerationRadPerSecSquared),
-          SpecialFunctions.spinOffset);
 
-        armPwmVenomOne.setPID(SpecialFunctions.bP, 0, 0, 0, 0);
+    /*Sync Motors */
+    armPwmVenomTwo.follow(armPwVenomLead);
+    armPwmVenomThree.follow(armPwVenomLead);
+
+    /* Trapezoid Locations*/
+    State fullyRotatedForward = new TrapezoidProfile.State(0, 0);
+    State stopIntheMiddle = new TrapezoidProfile.State(0, 0);
+    State fullyRotatedBackwards = new TrapezoidProfile.State(0, 0);
+
+    /* Trapezoids to Move */
+    final TrapezoidProfile spinMiddle_Front = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          stopIntheMiddle,
+          fullyRotatedForward
+          );
+
+    final TrapezoidProfile spinMiddle_Back = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          stopIntheMiddle,
+          fullyRotatedBackwards
+          );
+
+    final TrapezoidProfile spinBack_Middle = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          fullyRotatedForward,
+          stopIntheMiddle
+          );
+
+    final TrapezoidProfile spinForward_Middle = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          fullyRotatedForward,
+          stopIntheMiddle
+          );
   }
 
   @Override
-  public void useState(TrapezoidProfile.State velocState) {
-    // Calculate the feedforward from the sepoint
-    double spinfeedforward = b_feedforward.calculate(velocState.velocity, spinfeedforward);
-    // Add the feedforward to the PID output to get the motor output
-    armPwmVenomOne.setSetpoint(
-      CANVenom.setPID.
-      , velocState.position, spinfeedforward / 12.0);
+  public void useState(TrapezoidProfile.State setpoint) {
   }
 
-  public Command setArmGoalCommand(double bArmOffsetRads) {
-    return Commands.runOnce(() -> setGoal(SpecialFunctions.spinOffset), this);
-  }
 }
