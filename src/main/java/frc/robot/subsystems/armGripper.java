@@ -16,18 +16,22 @@ public class armGripper extends SubsystemBase{
     // here. Call these from Commands.
     
 
-    Solenoid leftPistSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, SpecialFunctions.solendoidLeft);
-    Solenoid rightPistSolenoid = new Solenoid(PneumaticsModuleType.REVPH, SpecialFunctions.solendoidRight);
+    static Solenoid leftPistSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, SpecialFunctions.solendoidLeft);
+    static Solenoid rightPistSolenoid = new Solenoid(PneumaticsModuleType.REVPH, SpecialFunctions.solendoidRight);
 
 
-    public void theGrip() {
+    public static void closeHand() {
         leftPistSolenoid.set(true);
-        leftPistSolenoid.set(false);
+        leftPistSolenoid.set(true);
+    }
+    
+    public static void openHand() {
 
-        rightPistSolenoid.set(true);
-        rightPistSolenoid.set(false);}
+        rightPistSolenoid.set(false);
+        rightPistSolenoid.set(false);
+    }
     
-    
+
     @Override
     public void periodic(){}
     

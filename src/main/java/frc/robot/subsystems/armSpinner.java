@@ -6,9 +6,9 @@ package frc.robot.subsystems;
 
 import com.playingwithfusion.CANVenom;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
@@ -17,51 +17,34 @@ public class armSpinner extends TrapezoidProfileSubsystem {
   public static  CANVenom armPwVenomLead = new CANVenom(SpecialFunctions.armOne);
   public static  CANVenom armPwmVenomTwo = new CANVenom(SpecialFunctions.armTwo);
   public static  CANVenom armPwmVenomThree = new CANVenom(SpecialFunctions.armThree);
-
-  static double armSpeed;
-
-
-    /*Sync Motors */
-    
-
-  public static void setSpinMotor(){
-    armPwVenomLead.set(armSpeed);
+  public static Encoder spinEncoder = new Encoder(SpecialFunctions.spinA, SpecialFunctions.spinB);
+  
+  /*Sync Motors */  
+  public static void setSpinMotor(double speed){
+    armPwVenomLead.set(speed);
     armPwmVenomTwo.follow(armPwVenomLead);
     armPwmVenomThree.follow(armPwVenomLead);
   }
 
 
-
-  
-
   /** Create a new Spinner Subsystem. */
   public armSpinner(){
     super(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration));
+
+    double spinDistance = 0.0;
     
-    
+    spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
 
+    State spinStartPosition = new State(spinDistance, 0);
 
-
-    /* Feedforward system*/
-
-    ArmFeedforward spinfeedforward = new ArmFeedforward(SpecialFunctions.kS, SpecialFunctions.kG, SpecialFunctions.kV, SpecialFunctions.kA);
+    TrapezoidProfile spinProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          spinStartPosition
+          );
 
   }
 
-
   @Override
-
-
-
-
-  public void useState(final TrapezoidProfile.State setpoint) {
-
-    State startPosition;
-
-    TrapezoidProfile TrapezoidProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
-          startPosition
-          );
-
+  public void useState(TrapezoidProfile.State state) {
   }
 
 }

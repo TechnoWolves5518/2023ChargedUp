@@ -96,10 +96,12 @@ public final class Constants {
 
         public static final class SpecialFunctions {
             
-            // ArmSpinner
+            /* Arm Spinner */
             public static int armOne = 14;
             public static int armTwo = 15;
             public static int armThree = 16;
+
+            //Trapezoid Stuff
 
             public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);
             public static State stopIntheMiddle = new TrapezoidProfile.State(0, 0);
@@ -108,31 +110,37 @@ public final class Constants {
             
             public static double spinMaxVelocity = 0.1;
             public static double spinMaxAcceleration = 0.1;
-            public static double spinRPM = 0.09;
 
-            public static double kS = 0.0;
-            public static double kG = 0.0;
-            public static double kV = 0.0;
-            public static double kA = 0.0;
+            // Encoder
 
-            //Solenoids 
+            public static int spinA = 0;
+            public static int spinB = 1; 
+            public static double spinRatio = 0.0;
+
+
+            /* Solendoids */ 
             public static final int solendoidRight = 17;
             public static final int solendoidLeft = 18;
 
-            // Arm Extender
+            /* Arm Extender */
             public static int armExtender = 13;
 
+
+            // Trapezoid Stuff
             public static double extendMaxVelocity = 0.1;
             public static double extendMaxAcceleration = 0.1;
 
             public static State furthestPole = new TrapezoidProfile.State(0,0);
             public static State middlePole = new TrapezoidProfile.State(0, 0);
             public static State fullRetract = new TrapezoidProfile.State(0, 0);
-   
+            
+            // Encoder
 
-            // The offset of the arm from the horizontal in its neutral position,
-            // measured from the horizontal
+            public static int extendA = 0;
+            public static int extendB = 1; 
+            public static double extndRatio = 0.0;
 
+            
   }
 
   public static final class AutoConstants {

@@ -34,13 +34,12 @@ public class RobotContainer {
     private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
     
     /* Special Buttons */
-    private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton retract = new JoystickButton(special, XboxController.Button.kA.value);
-    private final JoystickButton pickUp = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton setDown = new JoystickButton(special, XboxController.Button.kX.value);
+    private final JoystickButton specialClose = new JoystickButton(special, XboxController.Button.kRightBumper.value);
+    private final JoystickButton specialOpen = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
+    public final static armGripper a_armGripper = new armGripper();
     private final AutoSelector autoSelector;
    
 
@@ -73,9 +72,12 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         testButton.whileTrue(new ChargeBalance(s_Swerve));
-        //special buttons 
-        //note for Everett: use while true to engage your motors, use "testbutton" as a template
 
+        /* Special Buttons */
+        specialOpen.onTrue(new openGrip());
+        specialClose.onTrue(new closeGrip());
+
+        
     }
 
     /**

@@ -8,9 +8,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
@@ -18,29 +18,34 @@ public class extendArm extends TrapezoidProfileSubsystem {
   /** Creates a new armExtender. */
   
   public static TalonSRX armExtender = new TalonSRX(SpecialFunctions.armExtender);
+  public static Encoder extendEncoder = new Encoder(SpecialFunctions.extendA, SpecialFunctions.extendB);
 
-  public static void setExtendMotor(TalonSRXControlMode Position, double position){
-    armExtender.set(Position, position);
+
+  /** Create a new Motor Subsystem */
+  public static void setExtendMotor(TalonSRXControlMode mode, double position){
+    armExtender.set(TalonSRXControlMode.Position, position);
   }
         
   
-  /** Create a new ArmSubsystem. */
+  /** Create a new Arm Subsystem. */
   public extendArm() {
     super(new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.extendMaxAcceleration));
 
-    ArmFeedforward extendfeedforward = new ArmFeedforward(SpecialFunctions.kS, SpecialFunctions.kG, SpecialFunctions.kV, SpecialFunctions.kA);
+    extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
 
+    double extendDistance = 0.0;
 
+    State extendStartPosition = new State(extendDistance, 0);
+
+      TrapezoidProfile extendProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
+          extendStartPosition
+          );
   }
         
     @Override
-    public void useState(TrapezoidProfile.State setpoint) {
+    public void useState(TrapezoidProfile.State state) {
 
-      State startPosition = new State(0, 0)
+    }
+      
 
-      TrapezoidProfile TrapezoidProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
-          startPosition
-          );
-
-          }
-  }
+}
