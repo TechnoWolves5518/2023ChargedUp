@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.*;
 
 public class rotateForwards extends CommandBase {
   /** Creates a new rotateForwards. */
@@ -16,7 +17,18 @@ public class rotateForwards extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    boolean spinDirection = armSpinner.spinEncoder.getDirection();
+    double spinAmount = armSpinner.spinEncoder.getDistance();
+
+    if (spinDirection == false){spinAmount = 57 - spinAmount;}
+
+    armSpinner.spinEncoder.setReverseDirection(true);
+
+
+  }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
