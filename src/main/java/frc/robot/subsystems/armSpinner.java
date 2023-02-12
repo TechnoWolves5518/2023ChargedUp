@@ -6,13 +6,14 @@ package frc.robot.subsystems;
 
 import com.playingwithfusion.CANVenom;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
+import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
-public class armSpinner extends TrapezoidProfileSubsystem { 
+public class armSpinner extends ProfiledPIDSubsystem { 
 
   public static  CANVenom armPwVenomLead = new CANVenom(SpecialFunctions.armOne);
   public static  CANVenom armPwmVenomTwo = new CANVenom(SpecialFunctions.armTwo);
@@ -22,9 +23,13 @@ public class armSpinner extends TrapezoidProfileSubsystem {
   /*Sync Motors */  
   public static void setSpinMotor(double speed){
     armPwVenomLead.set(speed);
+
     armPwmVenomTwo.follow(armPwVenomLead);
     armPwmVenomThree.follow(armPwVenomLead);
   }
+
+  ArmFeedforward spinFeedforward = new ArmFeedforward(SpecialFunctions.sSVolts, SpecialFunctions.sGVolts,
+          SpecialFunctions.sVVoltSecondPerRad, SpecialFunctions.sAVoltSecondSquaredPerRad);
 
 
   /** Create a new Spinner Subsystem. */
@@ -33,23 +38,21 @@ public class armSpinner extends TrapezoidProfileSubsystem {
       0,
       0,
       0, 
-      new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration));
+      new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration)));
 
-    double spinDistance = 0.0;
-    
     spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
-
-    State spinStartPosition = new State(spinDistance, 0);
-
-    TrapezoidProfile spinProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration),
-          spinStartPosition
-          );
+    setGoal(SpecialFunctions.spinOffset);
 
   }
 
   @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Use the output (and optionally the setpoint) here
+    double finalFeedforward = spinFeedforward.calculate(setpoint.position, setpoint.velocity);
+    // Add the feedforward to the PID output to get the motor output
+
+    final double newSpeed = output + finalFeedforward;
+    setSpinMotor(newSpeed);
   }
 
   @Override

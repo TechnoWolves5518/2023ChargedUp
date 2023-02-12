@@ -118,6 +118,10 @@ public final class Constants {
             public static double spinRatio = 0.0;
             public static double spinOffset = 0.0;
 
+            public static final double sSVolts = 1;
+            public static final double sGVolts = 1;
+            public static final double sVVoltSecondPerRad = 0.5;
+            public static final double sAVoltSecondSquaredPerRad = 0.1;
 
             /* Solendoids */ 
             public static final int solendoidRight = 17;
@@ -139,7 +143,7 @@ public final class Constants {
 
             public static int extendA = 0;
             public static int extendB = 1; 
-            public static double extndRatio = 0.0;
+            public static double extendRatio = 0.0;
             public static double extendOffset = 0.0;
 
 
