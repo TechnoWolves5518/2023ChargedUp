@@ -29,7 +29,11 @@ public class armSpinner extends TrapezoidProfileSubsystem {
 
   /** Create a new Spinner Subsystem. */
   public armSpinner(){
-    super(new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration));
+    super(new ProfiledPIDController(
+      0,
+      0,
+      0, 
+      new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration));
 
     double spinDistance = 0.0;
     
@@ -44,7 +48,14 @@ public class armSpinner extends TrapezoidProfileSubsystem {
   }
 
   @Override
-  public void useState(TrapezoidProfile.State state) {
+  public void useOutput(double output, TrapezoidProfile.State setpoint) {
+    // Use the output (and optionally the setpoint) here
+  }
+
+  @Override
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return spinEncoder.getDistance() + SpecialFunctions.spinOffset;
   }
 
 }

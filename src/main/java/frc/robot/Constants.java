@@ -116,6 +116,7 @@ public final class Constants {
             public static int spinA = 0;
             public static int spinB = 1; 
             public static double spinRatio = 0.0;
+            public static double spinOffset = 0.0;
 
 
             /* Solendoids */ 
@@ -139,6 +140,8 @@ public final class Constants {
             public static int extendA = 0;
             public static int extendB = 1; 
             public static double extndRatio = 0.0;
+            public static double extendOffset = 0.0;
+
 
             
   }

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
-public class extendArm extends TrapezoidProfileSubsystem {
+public class extendArm extends ProfiledPIDSubsystem {
   /** Creates a new armExtender. */
   
   public static TalonSRX armExtender = new TalonSRX(SpecialFunctions.armExtender);
@@ -29,7 +29,10 @@ public class extendArm extends TrapezoidProfileSubsystem {
   
   /** Create a new Arm Subsystem. */
   public extendArm() {
-    super(new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.extendMaxAcceleration));
+    super(new ProfiledPIDController(0,
+    0,
+    0, 
+    new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration));new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.extendMaxAcceleration));
 
     extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
 
@@ -42,10 +45,16 @@ public class extendArm extends TrapezoidProfileSubsystem {
           );
   }
         
-    @Override
-    public void useState(TrapezoidProfile.State state) {
+  @Override
+  public void useOutput(double output, TrapezoidProfile.State setpoint) {
+    // Use the output (and optionally the setpoint) here
+  }
 
-    }
+  @Override
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return extendEncoder.getDistance() + SpecialFunctions.extendOffset;
+  }
       
 
 }
