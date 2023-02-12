@@ -124,8 +124,11 @@ public class Swerve extends SubsystemBase {
         return gyro.getPitch();
     }
     //grab the angle to ensure the bot drives straight on the station, untested
-    public double chargingStraighten() {
+    public double getChargeOffset() {
         return gyro.getRoll();
+    }
+    public double getRawYaw() {
+        return gyro.getYaw();
     }
     @Override
     //values for debugging
