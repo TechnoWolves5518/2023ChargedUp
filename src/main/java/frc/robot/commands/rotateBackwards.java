@@ -7,10 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class rotateForwards extends CommandBase {
-  /** Creates a new rotateForwards. */
-  public rotateForwards() {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class rotateBackwards extends CommandBase {
+  /** Creates a new rotateBackwards. */
+  public rotateBackwards() {
     addRequirements(RobotContainer.a_armSpinner);
   }
 

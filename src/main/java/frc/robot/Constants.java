@@ -116,7 +116,7 @@ public final class Constants {
             public static int spinA = 0;
             public static int spinB = 1; 
             public static double spinRatio = 0.0;
-            public static double spinOffset = 0.0;
+            public static double spinOffset = .25;
 
             public static final double sSVolts = 1;
             public static final double sGVolts = 1;
@@ -143,7 +143,7 @@ public final class Constants {
 
             public static int extendA = 0;
             public static int extendB = 1; 
-            public static double extendRatio = 0.0;
+            public static double extendRatio = 2.0;
             public static double extendOffset = 0.0;
 
 
