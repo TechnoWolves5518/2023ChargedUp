@@ -4,7 +4,6 @@
 
 package frc.robot.autos.AutoPaths;
 
-import com.ctre.phoenix.motorcontrol.can.MotControllerJNI;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -26,12 +25,13 @@ public class ExamplePathTest extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PathPlannerTrajectory mConePickup = PathPlanner.loadPath("MConePickup", new PathConstraints(4, 3));
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    PathPlannerTrajectory mConePickup = PathPlanner.loadPath("MConePickup", new PathConstraints(4, 3));
     new PPSwerveControllerCommand(
          mConePickup,
           s_Swerve::getPose, // Pose supplier
