@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.SwerveDrive;
+import frc.robot.autos.AutoPaths.ExamplePathTest;
 import frc.robot.subsystems.Swerve;
 
 
@@ -44,7 +45,7 @@ public class AutoSelector {
         // Reset odometry for the first path you run during auto
         drivebase.resetOdometry(ExamplePath.getInitialHolonomicPose());
       }),
-      new PPSwerveControllerCommand(
+      /*new PPSwerveControllerCommand(
          ExamplePath,
           drivebase::getPose, // Pose supplier
         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
@@ -54,7 +55,8 @@ public class AutoSelector {
           drivebase::setModuleStates, // Module states consumer
           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
           drivebase // Requires this drive subsystem
-      ), 
+      )*/
+      new ExamplePathTest(drivebase), 
       new PPSwerveControllerCommand(
         oneToLevel,
          drivebase::getPose, // Pose supplier
