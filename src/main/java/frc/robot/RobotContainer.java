@@ -40,7 +40,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     public final static armGripper a_armGripper = new armGripper();
-    public final extendArm  a_armExtender = new extendArm();
+    public final static armExtender  a_armExtender = new armExtender();
     public final static armSpinner a_armSpinner = new armSpinner();
     private final AutoSelector autoSelector;
    

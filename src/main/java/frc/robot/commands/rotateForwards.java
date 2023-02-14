@@ -6,41 +6,39 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 import frc.robot.subsystems.*;
 
 public class rotateForwards extends CommandBase {
-  /** Creates a new rotateForwards. */
+  /** Creates a new rotateBackwards. */
   public rotateForwards() {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.a_armSpinner);
   }
-
+  
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-    boolean spinDirection = armSpinner.spinEncoder.getDirection();
-    double spinAmount = armSpinner.spinEncoder.getDistance();
-
-    if (spinDirection == false){spinAmount = 57 - spinAmount;}
-
-    armSpinner.spinEncoder.setReverseDirection(true);
-
-
-  }
-
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    armSpinner.spinController.setGoal(SpecialFunctions.fullyRotatedForward);
+  }
+
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    armSpinner.setSpinMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (armSpinner.spinController.atGoal() == true) {
+    return true;
+    } else { 
     return false;
+    }
   }
 }

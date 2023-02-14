@@ -94,7 +94,8 @@ public final class Constants {
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
-        public static final class SpecialFunctions {
+
+    public static final class SpecialFunctions {
             
             /* Arm Spinner */
             public static int armOne = 14;
@@ -104,28 +105,29 @@ public final class Constants {
             //Trapezoid Stuff
 
             public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);
-            public static State stopIntheMiddle = new TrapezoidProfile.State(0, 0);
             public static State fullyRotatedBackwards = new TrapezoidProfile.State(0, 0);
 
             
             public static double spinMaxVelocity = 0.1;
             public static double spinMaxAcceleration = 0.1;
+            public static final double spinOffset = 0.0;
 
-            // Encoder
+            // Encoder and PID
 
             public static int spinA = 0;
             public static int spinB = 1; 
-            public static double spinRatio = 0.0;
-            public static double spinOffset = .25;
+            public static double spinRatio = 0.25;
+            public static final double sSVolts = 0.0;
+            public static final double sGVolts = 0.0;
+            public static final double sVVoltSecondPerRad = 0.0;
+            public static final double sAVoltSecondSquaredPerRad = 0.0;
 
-            public static final double sSVolts = 1;
-            public static final double sGVolts = 1;
-            public static final double sVVoltSecondPerRad = 0.5;
-            public static final double sAVoltSecondSquaredPerRad = 0.1;
 
             /* Solendoids */ 
             public static final int solendoidRight = 17;
             public static final int solendoidLeft = 18;
+            
+            
 
             /* Arm Extender */
             public static int armExtender = 13;
@@ -134,18 +136,22 @@ public final class Constants {
             // Trapezoid Stuff
             public static double extendMaxVelocity = 0.1;
             public static double extendMaxAcceleration = 0.1;
+            public static double extendOffset = 0.0;
+            
 
             public static State furthestPole = new TrapezoidProfile.State(0,0);
             public static State middlePole = new TrapezoidProfile.State(0, 0);
             public static State fullRetract = new TrapezoidProfile.State(0, 0);
             
-            // Encoder
+            // Encoder and PID
 
             public static int extendA = 0;
             public static int extendB = 1; 
-            public static double extendRatio = 2.0;
-            public static double extendOffset = 0.0;
-
+            public static double extendRatio = 2;
+            public static final double eSVolts = 0.0;
+            public static final double eGVolts = 0.0;
+            public static final double eVVoltSecondPerRad = 0.0;
+            public static final double eAVoltSecondSquaredPerRad = 0.0;
 
             
   }

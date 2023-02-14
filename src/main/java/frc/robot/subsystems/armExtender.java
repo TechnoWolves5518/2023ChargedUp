@@ -8,15 +8,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
-public class armExtender extends ProfiledPIDSubsystem {
+public class armExtender extends SubsystemBase {
   /** Creates a new armExtender. */
   
   public static TalonSRX armExtender = new TalonSRX(SpecialFunctions.armExtender);
@@ -24,37 +22,19 @@ public class armExtender extends ProfiledPIDSubsystem {
 
 
   /** Create a new Motor Subsystem */
-  public static void setExtendMotor(TalonSRXControlMode mode, double position){
-    armExtender.set(TalonSRXControlMode.Position, position);
+  public static void setExtendMotor(TalonSRXControlMode mode, double speed){
+    armExtender.set(TalonSRXControlMode.Position, speed);
   }
 
-  public ArmFeedforward extendFeedForwards = new ArmFeedforward(SpecialFunctions.eSVolts, SpecialFunctions.eGVolts,
-                                                                SpecialFunctions.eVVoltSecondPerRad, SpecialFunctions.eAVoltSecondSquaredPerRad);
-        
-  
+  private final static TrapezoidProfile.Constraints extendConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.spinMaxAcceleration);
+
+  public final static ProfiledPIDController extendController =  new ProfiledPIDController(0.0, 0.0, 0.7, extendConstraints);
+ 
   /** Create a new Arm Subsystem. */
-  public armExtender() { 
-    super(new ProfiledPIDController(0,
-                                    0,
-                                    0,
-    new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.extendMaxAcceleration)));
-
-    extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
-
-  }
-        
-  @Override
-  protected void useOutput(double output, State setpoint) {
-    double finalfeedforward = extendFeedForwards.calculate(setpoint.position, setpoint.velocity);
-    // Add the feedforward to the PID output to get the motor output
-    setExtendMotor(TalonSRXControlMode.Position, output + finalfeedforward);
-  }
-
+  public armExtender() {extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);}
 
   @Override
-  protected double getMeasurement() {
-    return extendEncoder.getDistance() + SpecialFunctions.spinOffset;
-  }
+  public void periodic(){
+    setExtendMotor(TalonSRXControlMode.Position, extendController.calculate(extendEncoder.getDistance()));}
       
-
 }
