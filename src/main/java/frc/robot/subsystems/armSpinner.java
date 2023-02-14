@@ -6,14 +6,13 @@ package frc.robot.subsystems;
 
 import com.playingwithfusion.CANVenom;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
 
-public class armSpinner extends ProfiledPIDSubsystem { 
+public class armSpinner extends SubsystemBase { 
 
   public static  CANVenom armPwVenomLead = new CANVenom(SpecialFunctions.armOne);
   public static  CANVenom armPwmVenomTwo = new CANVenom(SpecialFunctions.armTwo);
@@ -23,42 +22,19 @@ public class armSpinner extends ProfiledPIDSubsystem {
   /*Sync Motors */  
   public static void setSpinMotor(double speed){
     armPwVenomLead.set(speed);
-
     armPwmVenomTwo.follow(armPwVenomLead);
     armPwmVenomThree.follow(armPwVenomLead);
   }
 
-  ArmFeedforward spinFeedforward = new ArmFeedforward(SpecialFunctions.sSVolts, SpecialFunctions.sGVolts,
-          SpecialFunctions.sVVoltSecondPerRad, SpecialFunctions.sAVoltSecondSquaredPerRad);
+  private final static TrapezoidProfile.Constraints spinConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration);
+
+  public final static ProfiledPIDController spinController =  new ProfiledPIDController(0.0, 0.0, 0.7, spinConstraints);
 
 
   /** Create a new Spinner Subsystem. */
-  public armSpinner(){
-    super(new ProfiledPIDController(
-      0,
-      0,
-      0, 
-      new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration)));
-
-    spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
-    setGoal(SpecialFunctions.spinOffset);
-
-  }
+  public armSpinner(){spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);}
 
   @Override
-  public void useOutput(double output, TrapezoidProfile.State setpoint) {
-    // Use the output (and optionally the setpoint) here
-    double finalFeedforward = spinFeedforward.calculate(setpoint.position, setpoint.velocity);
-    // Add the feedforward to the PID output to get the motor output
-
-    final double newSpeed = output + finalFeedforward;
-    setSpinMotor(newSpeed);
-  }
-
-  @Override
-  public double getMeasurement() {
-    // Return the process variable measurement here
-    return spinEncoder.getDistance() + SpecialFunctions.spinOffset;
-  }
+  public void periodic(){setSpinMotor(spinController.calculate(spinEncoder.getDistance()));}
 
 }
