@@ -33,6 +33,7 @@ public class extendOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // end early if you reach goal
     if (armExtender.extendController.atGoal() == true) {
     return true;
     } else { 

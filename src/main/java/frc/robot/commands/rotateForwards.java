@@ -35,6 +35,8 @@ public class rotateForwards extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // end early if you reach goal
+    
     if (armSpinner.spinController.atGoal() == true) {
     return true;
     } else { 

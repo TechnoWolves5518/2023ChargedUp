@@ -34,8 +34,9 @@ public class RobotContainer {
     private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
     
     /* Special Buttons */
-    private final JoystickButton specialClose = new JoystickButton(special, XboxController.Button.kRightBumper.value);
-    private final JoystickButton specialOpen = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
+    private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -76,8 +77,9 @@ public class RobotContainer {
         testButton.whileTrue(new ChargeBalance(s_Swerve));
 
         /* Special Buttons */
-        specialOpen.onTrue(new openGrip());
-        specialClose.onTrue(new closeGrip());
+        specialGripper.whileTrue(new useGrip());
+        specialExtend.whileTrue(new extendOut());
+        specialRetract.whileTrue(new retractIn());
 
         
     }
