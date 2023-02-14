@@ -21,20 +21,26 @@ public class armExtender extends SubsystemBase {
   public static Encoder extendEncoder = new Encoder(SpecialFunctions.extendA, SpecialFunctions.extendB);
 
 
-  /** Create a new Motor Subsystem */
+  /** Move Motor */
   public static void setExtendMotor(TalonSRXControlMode mode, double speed){
     armExtender.set(TalonSRXControlMode.Position, speed);
   }
 
   private final static TrapezoidProfile.Constraints extendConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.spinMaxAcceleration);
 
-  public final static ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKD, SpecialFunctions.extendKI, SpecialFunctions.extendKD, extendConstraints);
+  public final static ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKD, 
+                                                                                          SpecialFunctions.extendKI, 
+                                                                                          SpecialFunctions.extendKD, 
+                                                                                          extendConstraints);
  
-  /** Create a new Arm Subsystem. */
-  public armExtender() {extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);}
+  /** Create a new armExtender Subsystem. */
+  public armExtender() {
+    extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
+  }
 
   @Override
   public void periodic(){
-    setExtendMotor(TalonSRXControlMode.Position, extendController.calculate(extendEncoder.getDistance()));}
+    setExtendMotor(TalonSRXControlMode.Position, extendController.calculate(extendEncoder.getDistance()));
+  }
       
 }
