@@ -28,7 +28,7 @@ public class armSpinner extends SubsystemBase {
 
   private final static TrapezoidProfile.Constraints spinConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration);
 
-  public final static ProfiledPIDController spinController =  new ProfiledPIDController(0.0, 0.0, 0.7, spinConstraints);
+  public final static ProfiledPIDController spinController =  new ProfiledPIDController(SpecialFunctions.spinKP, SpecialFunctions.spinKI, SpecialFunctions.spinKD, spinConstraints);
 
 
   /** Create a new Spinner Subsystem. */

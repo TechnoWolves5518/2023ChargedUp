@@ -28,7 +28,7 @@ public class armExtender extends SubsystemBase {
 
   private final static TrapezoidProfile.Constraints extendConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.spinMaxAcceleration);
 
-  public final static ProfiledPIDController extendController =  new ProfiledPIDController(0.0, 0.0, 0.7, extendConstraints);
+  public final static ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKD, SpecialFunctions.extendKI, SpecialFunctions.extendKD, extendConstraints);
  
   /** Create a new Arm Subsystem. */
   public armExtender() {extendEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);}

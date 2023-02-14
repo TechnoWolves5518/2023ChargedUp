@@ -97,10 +97,10 @@ public final class Constants {
 
     public static final class SpecialFunctions {
             
-            /* Arm Spinner */
-            public static int armOne = 14;
-            public static int armTwo = 15;
-            public static int armThree = 16;
+        /* Arm Spinner */
+        public static int armOne = 14;
+        public static int armTwo = 15;
+        public static int armThree = 16;
 
             //Trapezoid Stuff
 
@@ -110,34 +110,30 @@ public final class Constants {
             
             public static double spinMaxVelocity = 0.1;
             public static double spinMaxAcceleration = 0.1;
-            public static final double spinOffset = 0.0;
 
-            // Encoder and PID
-
+            // Encoder
             public static int spinA = 0;
             public static int spinB = 1; 
             public static double spinRatio = 0.25;
-            public static final double sSVolts = 0.0;
-            public static final double sGVolts = 0.0;
-            public static final double sVVoltSecondPerRad = 0.0;
-            public static final double sAVoltSecondSquaredPerRad = 0.0;
+
+            // PID Controller
+
+            public static double spinKP = 0.0;
+            public static double spinKI = 0.0;
+            public static double spinKD = 0.0;
 
 
-            /* Solendoids */ 
-            public static final int solendoidRight = 17;
-            public static final int solendoidLeft = 18;
+        /* Solendoids */ 
+        public static final int solendoidRight = 17;
+        public static final int solendoidLeft = 18;
             
-            
 
-            /* Arm Extender */
-            public static int armExtender = 13;
-
+        /* Arm Extender */
+        public static int armExtender = 13;
 
             // Trapezoid Stuff
             public static double extendMaxVelocity = 0.1;
-            public static double extendMaxAcceleration = 0.1;
-            public static double extendOffset = 0.0;
-            
+            public static double extendMaxAcceleration = 0.1;            
 
             public static State furthestPole = new TrapezoidProfile.State(0,0);
             public static State middlePole = new TrapezoidProfile.State(0, 0);
@@ -148,10 +144,13 @@ public final class Constants {
             public static int extendA = 0;
             public static int extendB = 1; 
             public static double extendRatio = 2;
-            public static final double eSVolts = 0.0;
-            public static final double eGVolts = 0.0;
-            public static final double eVVoltSecondPerRad = 0.0;
-            public static final double eAVoltSecondSquaredPerRad = 0.0;
+
+            // PID Controller
+
+            public static double extendKP = 0.0;
+            public static double extendKI = 0.0;
+            public static double extendKD = 0.0;
+
 
             
   }
