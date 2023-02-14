@@ -26,15 +26,22 @@ public class armSpinner extends SubsystemBase {
     armPwmVenomThree.follow(armPwVenomLead);
   }
 
+  // Define a trapezoidal motion profile
   private final static TrapezoidProfile.Constraints spinConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.spinMaxVelocity, SpecialFunctions.spinMaxAcceleration);
 
-  public final static ProfiledPIDController spinController =  new ProfiledPIDController(SpecialFunctions.spinKP, SpecialFunctions.spinKI, SpecialFunctions.spinKD, spinConstraints);
-
-
+  // Add trapezoidal motion profile to PID to use
+  public final static ProfiledPIDController spinController =  new ProfiledPIDController(SpecialFunctions.spinKP, 
+                                                                                        SpecialFunctions.spinKI, 
+                                                                                        SpecialFunctions.spinKD, 
+                                                                                        spinConstraints);
   /** Create a new Spinner Subsystem. */
-  public armSpinner(){spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);}
+  public armSpinner(){
+    spinEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
+  }
 
   @Override
-  public void periodic(){setSpinMotor(spinController.calculate(spinEncoder.getDistance()));}
+  public void periodic(){
+    setSpinMotor(spinController.calculate(spinEncoder.getDistance()));
+  }
 
 }
