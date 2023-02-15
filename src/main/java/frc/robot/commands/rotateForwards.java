@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.SwerveDrive.SpecialFunctions;
+import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.*;
 
 public class rotateForwards extends CommandBase {

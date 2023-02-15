@@ -9,7 +9,7 @@ import org.photonvision.PhotonUtils;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.SwerveDrive.CameraConstants;
+import frc.robot.Constants.CameraConstants;
 import frc.robot.subsystems.Swerve;
 
 public class AimTarget extends CommandBase {

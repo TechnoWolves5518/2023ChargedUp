@@ -12,7 +12,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.SwerveDrive.SpecialFunctions;
+import frc.robot.Constants.SpecialFunctions;
 
 public class armExtender extends SubsystemBase {
   /** Creates a new armExtender. */
@@ -26,7 +26,9 @@ public class armExtender extends SubsystemBase {
     armExtender.set(TalonSRXControlMode.Position, speed);
   }
 
-  private final static TrapezoidProfile.Constraints extendConstraints = new TrapezoidProfile.Constraints(SpecialFunctions.extendMaxVelocity, SpecialFunctions.spinMaxAcceleration);
+  private final static TrapezoidProfile.Constraints extendConstraints = new TrapezoidProfile.Constraints(
+    SpecialFunctions.extendMaxVelocity, 
+    SpecialFunctions.spinMaxAcceleration);
 
   public final static ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKP, 
                                                                                           SpecialFunctions.extendKI, 
