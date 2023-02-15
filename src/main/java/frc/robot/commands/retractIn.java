@@ -4,37 +4,41 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SwerveDrive.SpecialFunctions;
-import frc.robot.subsystems.*;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.armExtender;
 
-public class extendArm extends CommandBase {
-  /** Creates a new extendArm. */
-  public extendArm() {
+public class retractIn extends CommandBase {
+  /** Creates a new extendOut. */
+  public retractIn() {
     // Use addRequirements() here to declare subsystem dependencies.
-    final armExtender e_Extender = new armExtender(); 
-    addRequirements(e_Extender);
+    addRequirements(RobotContainer.a_armExtender);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-      armExtender.setMotors(SpecialFunctions.extendSpeed);
+    armExtender.extendController.setGoal(SpecialFunctions.fullRetract);
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armExtender.setMotors(0);
+    armExtender.setExtendMotor(TalonSRXControlMode.Position, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // end early if you reach goal
+    
+    if (armExtender.extendController.atGoal() == true) {
+    return true;
+    } else { 
     return false;
+    }
   }
 }

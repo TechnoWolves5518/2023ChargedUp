@@ -16,8 +16,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.motorcontrol.PWMVenom;
 import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
@@ -103,24 +103,7 @@ public final class Constants {
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
-
-        
-        public static final class SpecialFunctions {
-            public static int armPwmVenom = 13;
-            public static int armViagra = 14;
-            public static double spinSpeed = .5;
-            public static double extendSpeed = .5;  
-        }
-        public static final class CameraConstants{
-            public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
-            public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
-            public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
-            public static double goalDistanceMeters = Units.feetToMeters(3);
-            public static PhotonCamera camera = new PhotonCamera("cameraName");
-            public static PIDController driveController = new PIDController(driveKP, driveKI, driveKD);
-        }
-
-        /* Module Specific Constants */
+         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 { //TODO: This must be tuned to specific robot
             public static final int driveMotorID = 5;
@@ -179,6 +162,8 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+        public static final double kAutoTimeoutSeconds = 12;
+        public static final double kAutoShootTimeSeconds = 7;
     }
 
     
@@ -195,5 +180,91 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxSpeed, kMaxAcceleration);
+    }
+                public static final class CameraConstants{
+                    public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
+                    public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
+                    public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
+                    public static double goalDistanceMeters = Units.feetToMeters(3);
+                    public static PhotonCamera camera = new PhotonCamera("cameraName");
+                    public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
+                }
+        
+    
+     /*
+        public static final class SpecialFunctions {
+            public static int armPwmVenom = 13;
+            public static int armViagra = 14;
+            public static double spinSpeed = .5;
+            public static double extendSpeed = .5;  
+        } */
+        
+        public static final class SpecialFunctions {
+            
+            /* Arm Spinner */
+            public static int armOne = 14;
+            public static int armTwo = 15;
+            public static int armThree = 16;
+    
+                //Trapezoid Stuff
+    
+                public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);
+                public static State fullyRotatedBackwards = new TrapezoidProfile.State(0, 0);
+    
+                
+                public static double spinMaxVelocity = 0.1;
+                public static double spinMaxAcceleration = 0.1;
+    
+                // Encoder
+                public static int spinA = 0;
+                public static int spinB = 1; 
+                public static double spinRatio = 0.25;
+    
+                // PID Controller
+    
+                public static double spinKP = 0.0;
+                public static double spinKI = 0.0;
+                public static double spinKD = 0.0;
+    
+    
+            /* Solendoids */ 
+            public static final int solendoidRight = 17;
+            public static final int solendoidLeft = 18;
+                
+    
+            /* Arm Extender */
+            public static int armExtender = 13;
+    
+                // Trapezoid Stuff
+                public static double extendMaxVelocity = 0.1;
+                public static double extendMaxAcceleration = 0.1;            
+    
+                public static State furthestPole = new TrapezoidProfile.State(0,0);
+                public static State middlePole = new TrapezoidProfile.State(0, 0);
+                public static State fullRetract = new TrapezoidProfile.State(0, 0);
+                
+                // Encoder and PID
+    
+                public static int extendA = 0;
+                public static int extendB = 1; 
+                public static double extendRatio = 2;
+    
+                // PID Controller
+    
+                public static double extendKP = 0.0;
+                public static double extendKI = 0.0;
+                public static double extendKD = 0.0;
+    
+    
+                
+      }
+    
+      /*public static final class AutoConstants {
+        public static final double kAutoTimeoutSeconds = 12;
+        public static final double kAutoShootTimeSeconds = 7;
+      } */
+    
+      public static final class OIConstants {
+        public static final int kDriverControllerPort = 0;
     }
 }

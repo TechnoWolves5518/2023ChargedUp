@@ -35,17 +35,22 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton balance = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton autoAim = new JoystickButton(driver, XboxController.Button.kX.value);
     
     /* Special Buttons */
-    private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton retract = new JoystickButton(special, XboxController.Button.kA.value);
-    private final JoystickButton pickUp = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton setDown = new JoystickButton(special, XboxController.Button.kX.value);
+    private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
+    private final JoystickButton specialForwards = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialBackwards = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
+    private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
+
     
     /* Subsystems */
-    public final static Swerve s_Swerve = new Swerve();
+    private final Swerve s_Swerve = new Swerve();
+    public final static armGripper a_armGripper = new armGripper();
+    public final static armExtender  a_armExtender = new armExtender();
+    public final static armSpinner a_armSpinner = new armSpinner();
     private final AutoSelector autoSelector;
    
 
@@ -77,11 +82,19 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        balance.whileTrue(new ChargeBalance(s_Swerve));
-        //autoAim.whileTrue(new AimTarget());
-        //special buttons 
-        //note for Everett: use while true to engage your motors, use "balance" as a template
+        testButton.whileTrue(new ChargeBalance(s_Swerve));
 
+        /* Special Buttons */
+        specialGripper.whileTrue(new useGrip());
+
+        specialExtend.whileTrue(new extendOut());
+        specialRetract.whileTrue(new retractIn());
+
+        specialForwards.whileTrue(new rotateForwards());
+        specialBackwards.whileTrue(new rotateBackwards());
+
+
+        
     }
 
     /**
