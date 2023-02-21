@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import frc.robot.Constants.SpecialFunctions;
 import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -51,6 +51,7 @@ public class RobotContainer {
     public final static armGripper a_armGripper = new armGripper();
     public final static armExtender  a_armExtender = new armExtender();
     public final static armSpinner a_armSpinner = new armSpinner();
+    public final static intakeSpinner i_intakeSpinner = new intakeSpinner();
     private final AutoSelector autoSelector;
    
 

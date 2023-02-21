@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SpecialFunctions;
 
@@ -15,24 +16,26 @@ public class armGripper extends SubsystemBase{
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    public static DoubleSolenoid gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 
-                                                            SpecialFunctions.solenoidOn, 
-                                                            SpecialFunctions.solenoidOff);
-                    
+    public static DoubleSolenoid leftGrip = new DoubleSolenoid(PneumaticsModuleType.REVPH, SpecialFunctions.leftsolenoidClose, SpecialFunctions.leftsolenoidOpen);
+    public static DoubleSolenoid rightGrip = new DoubleSolenoid(PneumaticsModuleType.REVPH,SpecialFunctions.leftsolenoidClose, SpecialFunctions.leftsolenoidOpen);
+                                                           
+                                                          
+                                                          
+    /** Creates a new ShooterSubsystem. */
 
+    public armGripper() {
+        leftGrip.set(Value.kReverse);
+        rightGrip.set(Value.kReverse);}
+                                                          
     public static void closeHand(){
-        gripSolenoid.set(DoubleSolenoid.Value.kForward);
-        gripSolenoid.toggle();
-    }
-
-
+        leftGrip.set(Value.kForward);
+        rightGrip.set(Value.kForward);
+        }
+                                                          
     public static void openHand(){
-        gripSolenoid.set(DoubleSolenoid.Value.kReverse);
-        gripSolenoid.toggle();
+        leftGrip.set(Value.kReverse);
+        rightGrip.set(Value.kReverse);
     }
+                                    
 
-    @Override
-    public void periodic(){
-
-    }
 }

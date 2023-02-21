@@ -15,15 +15,21 @@ public class intakeSpinner extends SubsystemBase {
 
     public static CANSparkMax leftIntake = new CANSparkMax(SpecialFunctions.gripLeftIntake, MotorType.kBrushless);
     public static CANSparkMax rightIntake = new CANSparkMax(SpecialFunctions.gripRightIntake, MotorType.kBrushless);
-
-    public intakeSpinner(double speed) {
-        rightIntake.follow(leftIntake, false);
-        leftIntake.set(SpecialFunctions.intakeSpeed);
     
-    }
+        
 
+        public static void pullIn(){
+        rightIntake.follow(leftIntake, false);
+        leftIntake.set(- SpecialFunctions.intakeSpeed);
+        }
 
+        public static void pushOut(){
+            rightIntake.follow(leftIntake, false);
+            leftIntake.set(SpecialFunctions.intakeSpeed);
+
+        }
+    
     @Override
-    public void periodic() {
-    }
+    public void periodic() {}
+
 }

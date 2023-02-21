@@ -228,12 +228,14 @@ public final class Constants {
     
     
             /* Solendoids */ 
-            public static final int solenoidOn = 17;
-            public static final int solenoidOff = 18;
+            public static final int leftsolenoidClose = 17;
+            public static final int leftsolenoidOpen = 18;
+            public static final int rightSolenoidClose = 19;
+            public static final int rightSolenoidOpen = 20;
             /* Intake */
             
-            public static int gripLeftIntake = 19;
-            public static int gripRightIntake = 20;
+            public static int gripLeftIntake = 21;
+            public static int gripRightIntake = 22;
             public static double intakeSpeed = 0.1;
     
             /* Arm Extender */

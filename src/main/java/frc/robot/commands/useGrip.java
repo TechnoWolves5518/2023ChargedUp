@@ -13,18 +13,22 @@ public class useGrip extends CommandBase {
   /** Creates a new closeGrip. */
   public useGrip() {
 
-    addRequirements(RobotContainer.a_armGripper);
+    addRequirements(RobotContainer.a_armGripper, RobotContainer.i_intakeSpinner);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     armGripper.closeHand();
+    intakeSpinner.pullIn();
+
   }
+
 
   @Override
   public void end(boolean interrupted) {
     armGripper.openHand();
+    intakeSpinner.pushOut();
   }
   public boolean isFinished() {
     return false;
