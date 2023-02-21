@@ -234,6 +234,7 @@ public final class Constants {
             
             public static int gripLeftIntake = 19;
             public static int gripRightIntake = 20;
+            public static double intakeSpeed = 0.1;
     
             /* Arm Extender */
             public static int armExtender = 13;

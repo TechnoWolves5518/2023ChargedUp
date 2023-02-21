@@ -11,15 +11,19 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /** Add your docs here. */
-public class intakeSpinner extends SubsystemBase{
-    public static  CANSparkMax leftIntake = new CANSparkMax(SpecialFunctions.gripLeftIntake, MotorType.kBrushless);
-    public static  CANSparkMax rightIntake  = new CANSparkMax(SpecialFunctions.gripRightIntake, MotorType.kBrushless);
+public class intakeSpinner extends SubsystemBase {
 
-    public intakeSpinner() {
+    public static CANSparkMax leftIntake = new CANSparkMax(SpecialFunctions.gripLeftIntake, MotorType.kBrushless);
+    public static CANSparkMax rightIntake = new CANSparkMax(SpecialFunctions.gripRightIntake, MotorType.kBrushless);
+
+    public intakeSpinner(double speed) {
         rightIntake.follow(leftIntake, false);
+        leftIntake.set(SpecialFunctions.intakeSpeed);
+    
     }
 
 
     @Override
-    public void periodic(){}
+    public void periodic() {
+    }
 }
