@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SpecialFunctions;
 
@@ -14,25 +14,25 @@ import frc.robot.Constants.SpecialFunctions;
 public class armGripper extends SubsystemBase{
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    
 
-    static Solenoid leftPistSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, SpecialFunctions.solendoidLeft);
-    static Solenoid rightPistSolenoid = new Solenoid(PneumaticsModuleType.REVPH, SpecialFunctions.solendoidRight);
+    public static DoubleSolenoid gripSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 
+                                                            SpecialFunctions.solenoidOn, 
+                                                            SpecialFunctions.solenoidOff);
+                    
 
-
-    public static void closeHand() {
-        leftPistSolenoid.set(true);
-        leftPistSolenoid.set(true);
+    public static void closeHand(){
+        gripSolenoid.set(DoubleSolenoid.Value.kForward);
+        gripSolenoid.toggle();
     }
-    
-    public static void openHand() {
 
-        rightPistSolenoid.set(false);
-        rightPistSolenoid.set(false);
+
+    public static void openHand(){
+        gripSolenoid.set(DoubleSolenoid.Value.kReverse);
+        gripSolenoid.toggle();
     }
-    
 
     @Override
-    public void periodic(){}
-    
+    public void periodic(){
+
+    }
 }
