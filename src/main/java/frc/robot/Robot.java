@@ -21,7 +21,7 @@ public class Robot extends TimedRobot {
   public static AddressableLED testLED;
   public static AddressableLEDBuffer testLEDLength;
   private Command m_autonomousCommand;
-
+  public int rainbowFirstPixelHue;
   private RobotContainer m_robotContainer;
 
   /**
@@ -92,6 +92,15 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
+    for (var i = 0; i < testLEDLength.getLength(); i++) {
+      final var hue = (rainbowFirstPixelHue + (i * 180 / testLEDLength.getLength())) % 180;
+      testLEDLength.setHSV(i, hue, 255, 128);
+    }
+    rainbowFirstPixelHue += 20;
+    rainbowFirstPixelHue %= 180;
+    
+    testLED.setData(testLEDLength);
   }
 
   /** This function is called periodically during operator control. */
