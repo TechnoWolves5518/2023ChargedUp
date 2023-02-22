@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+/*
 package frc.robot.commands;
 
 import org.photonvision.PhotonUtils;
@@ -33,7 +33,7 @@ public class AimTarget extends CommandBase {
   //based on the photonlib example, unclear if it actually works but this could help to aim at the apriltag, granted pose estimation would be better
   @Override
   public void execute() {
-    var result = CameraConstants.camera.getLatestResult();
+    var result = CameraConstants.alignmentCamera.getLatestResult();
     if (result.hasTargets()) {
       range = PhotonUtils.calculateDistanceToTargetMeters(CameraConstants.cameraHeightMeters, CameraConstants.goalDistanceMeters, CameraConstants.cameraAngleRadians, Units.degreesToRadians(result.getBestTarget().getPitch()));
       forwardSpeed = -CameraConstants.driveController.calculate(range, CameraConstants.goalDistanceMeters);
@@ -57,3 +57,4 @@ public class AimTarget extends CommandBase {
     return false;
   }
 }
+*/

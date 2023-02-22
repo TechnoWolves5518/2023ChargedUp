@@ -48,9 +48,9 @@ public class RobotContainer {
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    public final static armGripper a_armGripper = new armGripper();
-    public final static armExtender  a_armExtender = new armExtender();
-    public final static armSpinner a_armSpinner = new armSpinner();
+    //public final static armGripper a_armGripper = new armGripper();
+    //public final static armExtender  a_armExtender = new armExtender();
+    //public final static armSpinner a_armSpinner = new armSpinner();
     private final AutoSelector autoSelector;
    
 
@@ -85,14 +85,9 @@ public class RobotContainer {
         testButton.whileTrue(new ChargeBalance(s_Swerve));
 
         /* Special Buttons */
-        specialGripper.whileTrue(new useGrip());
+        //specialGripper.whileTrue(new useGrip());
 
-        specialExtend.whileTrue(new extendOut());
-        specialRetract.whileTrue(new retractIn());
-
-        specialForwards.whileTrue(new rotateForwards());
-        specialBackwards.whileTrue(new rotateBackwards());
-
+    
 
         
     }
