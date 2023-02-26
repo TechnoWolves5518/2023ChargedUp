@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.playingwithfusion.CANVenom;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -25,13 +26,14 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     private double previousAngle;
-
+    
     public Swerve() {
         //Gyro variable definitions
         gyro = new Pigeon2(Constants.SwerveDrive.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
         previousAngle = getElevationAngle();
+        
 
         //define all the swerve modules and assign their constants
         mSwerveMods = new SwerveModule[] {

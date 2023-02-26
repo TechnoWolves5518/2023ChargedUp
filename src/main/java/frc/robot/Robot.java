@@ -6,7 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -23,7 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public int rainbowFirstPixelHue;
   private RobotContainer m_robotContainer;
-
+  private I2C LEDArduino;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -38,7 +40,7 @@ public class Robot extends TimedRobot {
     //LED configs
     testLED = new AddressableLED(1);
     //set LED Length
-    testLEDLength = new AddressableLEDBuffer(8);
+    testLEDLength = new AddressableLEDBuffer(60);
     testLED.setLength(testLEDLength.getLength());
     //set the Data and start the LED
     testLED.setData(testLEDLength);
@@ -93,19 +95,21 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     
+    
+  }
+
+  /** This function is called periodically during operator control. */
+  @Override
+  public void teleopPeriodic() {
     for (var i = 0; i < testLEDLength.getLength(); i++) {
       final var hue = (rainbowFirstPixelHue + (i * 180 / testLEDLength.getLength())) % 180;
-      testLEDLength.setHSV(i, hue, 255, 128);
+      testLEDLength.setRGB(i, 25, 0, 0);
     }
     rainbowFirstPixelHue += 20;
     rainbowFirstPixelHue %= 180;
     
     testLED.setData(testLEDLength);
   }
-
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

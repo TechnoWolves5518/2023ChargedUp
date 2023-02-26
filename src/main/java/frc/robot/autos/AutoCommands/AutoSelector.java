@@ -43,7 +43,7 @@ public class AutoSelector {
           drivebase::setModuleStates, // Module states consumer
           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
           drivebase // Requires this drive subsystem
-      )*/
+      )
       new ExamplePathTest(drivebase), 
       new PPSwerveControllerCommand(
         oneToLevel,
@@ -55,7 +55,7 @@ public class AutoSelector {
          drivebase::setModuleStates, // Module states consumer
          true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
          drivebase // Requires this drive subsystem
-     ), 
+     ),  */
      new AutoBalance(drivebase), new AutoLock(drivebase)
       ));
 
