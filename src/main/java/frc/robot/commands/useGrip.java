@@ -20,9 +20,15 @@ public class useGrip extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armGripper.closeHand();
-    intakeSpinner.pullIn();
+    
 
+  }
+
+  @Override
+  public void execute() {
+    intakeSpinner.pullIn();
+    Timer.delay(0.010);
+    armGripper.closeHand();
   }
 
 
