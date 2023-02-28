@@ -27,7 +27,7 @@ public class useGrip extends CommandBase {
   @Override
   public void execute() {
     intakeSpinner.pullIn();
-    Timer.delay(0.010);
+    Timer.delay(1);
     armGripper.closeHand();
   }
 
@@ -35,8 +35,10 @@ public class useGrip extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intakeSpinner.pushOut();
-    Timer.delay(0.010);
+    Timer.delay(1);
     armGripper.openHand();
+    Timer.delay(1);
+    intakeSpinner.endIntake();
     
   }
   public boolean isFinished() {
