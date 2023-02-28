@@ -4,13 +4,14 @@ import java.sql.Driver;
 
 import javax.lang.model.element.ModuleElement.DirectiveVisitor;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -48,9 +49,6 @@ public class RobotContainer {
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    //public final static armGripper a_armGripper = new armGripper();
-    //public final static armExtender  a_armExtender = new armExtender();
-    //public final static armSpinner a_armSpinner = new armSpinner();
     private final AutoSelector autoSelector;
    
 
