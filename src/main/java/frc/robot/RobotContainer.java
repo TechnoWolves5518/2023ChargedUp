@@ -4,8 +4,6 @@ import java.sql.Driver;
 
 import javax.lang.model.element.ModuleElement.DirectiveVisitor;
 
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -39,7 +37,6 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton autoAim = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton venomTest = new JoystickButton(driver, XboxController.Button.kB.value);
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
@@ -51,7 +48,6 @@ public class RobotContainer {
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    //private final venomTest venomTest2 = new venomTest();
     //public final static armGripper a_armGripper = new armGripper();
     //public final static armExtender  a_armExtender = new armExtender();
     //public final static armSpinner a_armSpinner = new armSpinner();
@@ -64,8 +60,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
+                () -> driver.getRawAxis(translationAxis), 
+                () -> driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -87,7 +83,7 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         testButton.whileTrue(new ChargeBalance(s_Swerve));
-        //venomTest.whileTrue(new spinMotor(venomTest2));
+
         /* Special Buttons */
         //specialGripper.whileTrue(new useGrip());
 
