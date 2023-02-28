@@ -25,7 +25,7 @@ public class intakeSpinner extends SubsystemBase {
 
         public static void pushOut(){
             rightIntake.follow(leftIntake, false);
-            leftIntake.set(SpecialFunctions.intakeSpeed);
+            leftIntake.set(SpecialFunctions.intakeSpeed);}
             
         public static void endIntake(){
             rightIntake.follow(leftIntake, false);
