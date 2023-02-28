@@ -189,15 +189,7 @@ public final class Constants {
                     public static PhotonCamera camera = new PhotonCamera("cameraName");
                     public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
                 }
-        
-    
-     /*
-        public static final class SpecialFunctions {
-            public static int armPwmVenom = 13;
-            public static int armViagra = 14;
-            public static double spinSpeed = .5;
-            public static double extendSpeed = .5;  
-        } */
+       
         
         public static final class SpecialFunctions {
             
@@ -212,7 +204,7 @@ public final class Constants {
                 public static State fullyRotatedBackwards = new TrapezoidProfile.State(0, 0);
     
                 
-                public static double spinMaxVelocity = 0.1;
+                public static double spinMaxVelocity = 0.5;
                 public static double spinMaxAcceleration = 0.1;
     
                 // Encoder
@@ -242,7 +234,7 @@ public final class Constants {
             public static int armExtender = 13;
     
                 // Trapezoid Stuff
-                public static double extendMaxVelocity = 0.1;
+                public static double extendMaxVelocity = 0.5;
                 public static double extendMaxAcceleration = 0.1;            
     
                 public static State furthestPole = new TrapezoidProfile.State(0,0);
