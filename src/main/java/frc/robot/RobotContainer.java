@@ -82,10 +82,8 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         testButton.whileTrue(new ChargeBalance(s_Swerve));
 
-        /* Special Buttons */
-        //specialGripper.whileTrue(new useGrip());
+        
 
-    
 
         
     }
