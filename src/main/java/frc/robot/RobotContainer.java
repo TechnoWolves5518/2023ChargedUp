@@ -50,6 +50,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
+    private final TestMotors testMotor = new TestMotors();
    
 
 
@@ -80,7 +81,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new ChargeBalance(s_Swerve));
+        testButton.whileTrue(new SpinVenoms(testMotor));
 
         
 

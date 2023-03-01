@@ -12,6 +12,7 @@ public class TestMotors extends SubsystemBase {
   CANVenom venom1;
   CANVenom venom2;
   CANVenom venom3;
+  double worky;
 
   public TestMotors() {
     venom1 = new CANVenom(14);
