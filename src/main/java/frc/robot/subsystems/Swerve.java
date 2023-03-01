@@ -20,22 +20,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
+    //define swerve variables
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
     private double previousAngle;
 
     public Swerve() {
+        //Gyro variable definitions
         gyro = new Pigeon2(Constants.SwerveDrive.pigeonID);
         gyro.configFactoryDefault();
         zeroGyro();
         previousAngle = getElevationAngle();
+
+        //define all the swerve modules and assign their constants
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.SwerveDrive.Mod0.constants),
             new SwerveModule(1, Constants.SwerveDrive.Mod1.constants),
             new SwerveModule(2, Constants.SwerveDrive.Mod2.constants),
             new SwerveModule(3, Constants.SwerveDrive.Mod3.constants)
         };
+        //delay the cancoder calibration to prevent offset not working as intended
         Timer.delay(1.0);
         resetModulesToAbsolute();
         
@@ -103,7 +108,7 @@ public class Swerve extends SubsystemBase {
     public void zeroGyro(){
         gyro.setYaw(0);
     }
-
+    //yaw value for field oriented driving
     public Rotation2d getYaw() {
         return (Constants.SwerveDrive.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
@@ -114,15 +119,19 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    //looks like it works
+    //grab the angle for use for leveling the bot
     public double getElevationAngle() {
         return gyro.getPitch();
     }
-
-    public double chargingStraighten() {
+    //grab the angle to ensure the bot drives straight on the station, untested
+    public double getChargeOffset() {
         return gyro.getRoll();
     }
+    public double getRawYaw() {
+        return gyro.getYaw();
+    }
     @Override
+    //values for debugging
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
         

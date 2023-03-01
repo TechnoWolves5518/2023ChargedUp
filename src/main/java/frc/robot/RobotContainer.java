@@ -1,12 +1,17 @@
 package frc.robot;
 
+import java.sql.Driver;
+
+import javax.lang.model.element.ModuleElement.DirectiveVisitor;
+
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -32,16 +37,20 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton autoAim = new JoystickButton(driver, XboxController.Button.kX.value);
     
     /* Special Buttons */
-    private final JoystickButton extend = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton retract = new JoystickButton(special, XboxController.Button.kA.value);
-    private final JoystickButton pickUp = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton setDown = new JoystickButton(special, XboxController.Button.kX.value);
+    private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
+    private final JoystickButton specialForwards = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialBackwards = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
+    private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
+
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
+    private final TestMotors testMotor = new TestMotors();
    
 
 
@@ -50,8 +59,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
+                () -> driver.getRawAxis(translationAxis), 
+                () -> driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -72,10 +81,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new ChargeBalance(s_Swerve));
-        //special buttons 
-        //note for Everett: use while true to engage your motors, use "testbutton" as a template
+        testButton.whileTrue(new SpinVenoms(testMotor));
 
+        
+
+
+        
     }
 
     /**

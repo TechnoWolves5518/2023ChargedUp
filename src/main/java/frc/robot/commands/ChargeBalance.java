@@ -15,7 +15,7 @@ public class ChargeBalance extends CommandBase {
   Swerve s_Swerve;
   double elevationAngle;
   double errorThreshold;
-  
+  double yawError;
   public ChargeBalance(Swerve s_Swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.s_Swerve = s_Swerve;
@@ -31,7 +31,9 @@ public class ChargeBalance extends CommandBase {
   @Override
   public void execute() {
     elevationAngle = s_Swerve.getElevationAngle();
-    System.out.println(elevationAngle);
+    yawError = s_Swerve.getRawYaw();
+    //System.out.println(elevationAngle);
+    System.out.println(yawError);
     if (elevationAngle > AutoConstants.maxPlatformPositivePitch) {
       s_Swerve.drive(
         new Translation2d(SwerveDrive.balanceSpeedMod,0),
@@ -39,7 +41,7 @@ public class ChargeBalance extends CommandBase {
         true,
         true
       );
-      } else if (elevationAngle < -AutoConstants.maxPlatformNegativePitch) {
+      } else if (elevationAngle < AutoConstants.maxPlatformNegativePitch) {
         s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
         0, 
         true, 
@@ -49,6 +51,7 @@ public class ChargeBalance extends CommandBase {
         0, 
         true, 
         true);
+        
       }
     }
     

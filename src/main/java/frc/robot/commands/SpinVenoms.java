@@ -4,37 +4,31 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.SwerveDrive.SpecialFunctions;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.TestMotors;
 
-
-public class retractArm extends CommandBase {
-  /** Creates a new retractArm. */
-  
-  public retractArm() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    final armExtender e_Extender = new armExtender(); 
-    addRequirements(e_Extender);
-
+public class SpinVenoms extends CommandBase {
+  double speed;
+  TestMotors motors;
+  public SpinVenoms(TestMotors m_Motors) {
+    this.motors = m_Motors;
+    addRequirements(m_Motors);
   }
 
   // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+  public void initialize() {
+    speed = 0.05;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
   public void execute() {
-      armExtender.setMotors(-SpecialFunctions.extendSpeed);
+    motors.setMotors(speed);
+    System.out.println("spinning");
   }
-
 
   // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    armExtender.setMotors(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

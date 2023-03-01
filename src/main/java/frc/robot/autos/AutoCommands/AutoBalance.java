@@ -41,7 +41,7 @@ public class AutoBalance extends CommandBase {
         true,
         true
       );
-      } else if (elevationAngle < -AutoConstants.maxPlatformNegativePitch) {
+      } else if (elevationAngle < AutoConstants.maxPlatformNegativePitch) {
         s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
         0, 
         true, 

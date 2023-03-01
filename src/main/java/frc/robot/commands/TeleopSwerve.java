@@ -39,7 +39,7 @@ public class TeleopSwerve extends CommandBase {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * Constants.SwerveDrive.speedMod, Constants.stickDeadband);
         brakeCheck = driver.getXButton();
-        System.out.println(brakeCheck);
+        //System.out.println(brakeCheck);
         /* Drive */
         if (brakeCheck == true) {
             translationVal = 0;
