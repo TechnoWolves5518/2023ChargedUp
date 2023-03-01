@@ -16,7 +16,6 @@ public class ChargeBalance extends CommandBase {
   double elevationAngle;
   double errorThreshold;
   double yawError;
-
   public ChargeBalance(Swerve s_Swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.s_Swerve = s_Swerve;
@@ -52,6 +51,7 @@ public class ChargeBalance extends CommandBase {
         0, 
         true, 
         true);
+        
       }
     }
     
