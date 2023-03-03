@@ -190,14 +190,6 @@ public final class Constants {
                     public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
                 }
         
-    
-     /*
-        public static final class SpecialFunctions {
-            public static int armPwmVenom = 13;
-            public static int armViagra = 14;
-            public static double spinSpeed = .5;
-            public static double extendSpeed = .5;  
-        } */
         
         public static final class SpecialFunctions {
             
@@ -228,8 +220,10 @@ public final class Constants {
     
     
             /* Solendoids */ 
-            public static final int solendoidRight = 17;
-            public static final int solendoidLeft = 18;
+            public static final int rightOpen = 17;
+            public static final int rightClose = 18;
+            public static final int leftOpen = 19;
+            public static final int leftClose = 20;
                 
     
             /* Arm Extender */
@@ -254,6 +248,11 @@ public final class Constants {
                 public static double extendKP = 0.0;
                 public static double extendKI = 0.0;
                 public static double extendKD = 0.0;
+
+            //intake
+            public static int leftIntakeGrip = 21;
+            public static int rightIntakeGrip = 22;
+            public static double intakeSpeed = 0.1;
     
     
                 
