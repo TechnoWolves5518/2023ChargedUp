@@ -12,12 +12,14 @@ public class TestMotors extends SubsystemBase {
   CANVenom venom1;
   CANVenom venom2;
   CANVenom venom3;
-  double worky;
 
   public TestMotors() {
     venom1 = new CANVenom(14);
+    venom1.enableLimitSwitches(true, true);
     venom2 = new CANVenom(15);
+    venom2.enableLimitSwitches(true, true);
     venom3 = new CANVenom(16);
+    venom3.enableLimitSwitches(true, true);
   }
 
 
@@ -25,5 +27,6 @@ public class TestMotors extends SubsystemBase {
     venom1.set(speed);
     venom2.set(speed);
     venom3.set(speed);
+    System.out.println();
   }
 }
