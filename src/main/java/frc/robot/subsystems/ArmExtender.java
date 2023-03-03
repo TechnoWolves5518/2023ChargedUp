@@ -20,7 +20,7 @@ public class ArmExtender extends SubsystemBase {
     SpecialFunctions.extendMaxVelocity, 
     SpecialFunctions.spinMaxAcceleration);
     
-    public final static ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKP, 
+    public final ProfiledPIDController extendController =  new ProfiledPIDController(SpecialFunctions.extendKP, 
     SpecialFunctions.extendKI, 
     SpecialFunctions.extendKD, 
     extendConstraints);
@@ -28,10 +28,12 @@ public class ArmExtender extends SubsystemBase {
 
   public ArmExtender() {
     extensionEncoder.setDistancePerPulse(SpecialFunctions.spinRatio);
+    armExtender.overrideLimitSwitchesEnable(true);
   }
 
 
-  public void setMotors(double speed) {
+  public void setMotors(TalonSRXControlMode mode,double speed) {
+    speed = extendController.calculate(extensionEncoder.getDistance());
     armExtender.set(TalonSRXControlMode.Position, speed);
   }
 }
