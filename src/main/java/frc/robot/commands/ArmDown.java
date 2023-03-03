@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmSpinner;
 
-public class ArmUp extends CommandBase {
+public class ArmDown extends CommandBase {
   ArmSpinner a_Spinner;
-  public ArmUp(ArmSpinner a_Spinner) {
+  public ArmDown(ArmSpinner a_Spinner) {
     this.a_Spinner = a_Spinner;
     addRequirements(a_Spinner);
   }
@@ -22,7 +22,7 @@ public class ArmUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    a_Spinner.setMotors(-0.2);
+    a_Spinner.setMotors(0.2);
   }
 
   // Called once the command ends or is interrupted.
