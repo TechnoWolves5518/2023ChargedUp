@@ -41,8 +41,8 @@ public class RobotContainer {
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton specialForwards = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton specialBackwards = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialDownButton = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
 
@@ -50,8 +50,8 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
-    private final TestMotors testMotor = new TestMotors();
-   private final ArmExtender a_ArmExtender = new ArmExtender();
+    private final ArmExtender a_ArmExtender = new ArmExtender();
+    private final ArmSpinner a_Spinner = new ArmSpinner();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -81,7 +81,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new SpinVenoms(testMotor));
+        testButton.whileTrue(new ArmUp(a_Spinner));
         
 
         

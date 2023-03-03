@@ -4,17 +4,15 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
-import frc.robot.subsystems.ArmExtender;
+import frc.robot.subsystems.ArmSpinner;
 
-public class RetractArm extends CommandBase {
-  ArmExtender a_Extender;
-  public RetractArm(ArmExtender a_Extender) {
-    this.a_Extender = a_Extender;
-    addRequirements(a_Extender);
+public class ArmUp extends CommandBase {
+  ArmSpinner a_Spinner;
+  public ArmUp(ArmSpinner a_Spinner) {
+    this.a_Spinner = a_Spinner;
+    addRequirements(a_Spinner);
   }
 
   // Called when the command is initially scheduled.
@@ -24,22 +22,17 @@ public class RetractArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    a_Extender.extendController.setGoal(SpecialFunctions.fullRetract);
+    a_Spinner.setMotors(-0.2);
+    System.out.println("spinning");
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    a_Extender.setMotors(TalonSRXControlMode.Position,0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (a_Extender.extendController.atGoal() == true) {
-      return true;
-    } else {
     return false;
-    }
   }
 }
