@@ -45,6 +45,9 @@ public class RobotContainer {
     private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
+    private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
+    private final JoystickButton specialHandToggle = new JoystickButton(special, XboxController.Button.kRightStick.value);
 
     
     /* Subsystems */
@@ -56,6 +59,7 @@ public class RobotContainer {
     private final HandSpinner h_spinner = new HandSpinner();
     private final HandGripper h_grip = new HandGripper();
     private final Compressor c_Compressor = new Compressor();
+    private final BrakeArm b_arm = new BrakeArm();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -84,7 +88,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.toggleOnTrue(new CompressorStart(c_Compressor));
+        testButton.onTrue(new HandToggle(h_grip));
+        
+        //ShmoButtons
+        specialIn.whileTrue(new PullIn(h_spinner));
+        specialOut.whileTrue(new PushOut(h_spinner));
+        specialHandToggle.onTrue(new HandToggle(h_grip));
         
 
         

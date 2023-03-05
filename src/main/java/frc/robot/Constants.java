@@ -221,7 +221,7 @@ public final class Constants {
     
             /* Solenoids */ 
             public static final int handOpen = 0;
-            public static final int handClose = 1;
+            public static final int handClose = 15;
             public static final int brakeSolenoid = 3;
                 
     
@@ -251,7 +251,7 @@ public final class Constants {
             //intake
             public static int leftIntakeGrip = 19;
             public static int rightIntakeGrip = 20;
-            public static double handSpeed = 0.5;
+            public static double handSpeed = 1;
     
     
                 

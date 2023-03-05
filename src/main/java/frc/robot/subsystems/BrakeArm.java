@@ -4,20 +4,23 @@
 
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Compressor extends SubsystemBase {
-  edu.wpi.first.wpilibj.Compressor compressor;
-  public Compressor() {
-    compressor = new edu.wpi.first.wpilibj.Compressor(21, PneumaticsModuleType.REVPH);
+public class BrakeArm extends SubsystemBase {
+  Solenoid armBrake;
+  public BrakeArm() {
+    armBrake = new Solenoid(21, PneumaticsModuleType.REVPH, 3);
+    armBrake.set(false);
   }
 
-  public void CompressorStart() {
-    compressor.enableDigital();
+  public void BrakeOff() {
+    armBrake.set(true);
   }
 
-  public void CompressorStop() {
-    compressor.disable();
+  public void BrakeOn() {
+    armBrake.set(false);
   }
 }

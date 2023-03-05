@@ -13,7 +13,7 @@ import frc.robot.Constants.SpecialFunctions;
 public class HandGripper extends SubsystemBase {
   DoubleSolenoid Gripper;
   public HandGripper() {
-    Gripper = new DoubleSolenoid(PneumaticsModuleType.REVPH, SpecialFunctions.handClose, SpecialFunctions.handOpen);
+    Gripper = new DoubleSolenoid(21,PneumaticsModuleType.REVPH, SpecialFunctions.handClose, SpecialFunctions.handOpen);
     Gripper.set(Value.kReverse);
   }
 
