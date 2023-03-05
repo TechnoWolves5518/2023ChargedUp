@@ -252,7 +252,7 @@ public final class Constants {
             //intake
             public static int leftIntakeGrip = 19;
             public static int rightIntakeGrip = 20;
-            public static double intakeSpeed = 0.1;
+            public static double handSpeed = 0.5;
     
     
                 
