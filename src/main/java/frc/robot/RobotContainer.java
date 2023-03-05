@@ -47,7 +47,7 @@ public class RobotContainer {
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
     private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
-    private final JoystickButton specialHandToggle = new JoystickButton(special, XboxController.Button.kRightStick.value);
+    
 
     
     /* Subsystems */
@@ -93,7 +93,12 @@ public class RobotContainer {
         //ShmoButtons
         specialIn.whileTrue(new PullIn(h_spinner));
         specialOut.whileTrue(new PushOut(h_spinner));
-        specialHandToggle.onTrue(new HandToggle(h_grip));
+        specialGripper.onTrue(new HandToggle(h_grip));
+        specialExtend.whileTrue(new ExtendArm(a_ArmExtender));
+        specialRetract.whileTrue(new RetractArm(a_ArmExtender));
+        specialUpButton.whileTrue(new ArmUp(a_Spinner));
+        specialDownButton.whileTrue(new ArmDown(a_Spinner));
+        
         
 
         
