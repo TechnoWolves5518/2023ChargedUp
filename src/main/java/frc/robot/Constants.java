@@ -219,11 +219,10 @@ public final class Constants {
                 public static double spinKD = 0.0;
     
     
-            /* Solendoids */ 
-            public static final int rightOpen = 1;
-            public static final int rightClose = 2;
-            public static final int leftOpen = 3;
-            public static final int leftClose = 4;
+            /* Solenoids */ 
+            public static final int handOpen = 0;
+            public static final int handClose = 1;
+            public static final int brakeSolenoid = 3;
                 
     
             /* Arm Extender */
