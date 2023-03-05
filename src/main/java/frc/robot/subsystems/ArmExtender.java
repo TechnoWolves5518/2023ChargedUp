@@ -33,7 +33,7 @@ public class ArmExtender extends SubsystemBase {
 
 
   public void setMotors(TalonSRXControlMode mode,double speed) {
-    speed = extendController.calculate(extensionEncoder.getDistance());
-    armExtender.set(TalonSRXControlMode.Position, speed);
+    //speed = extendController.calculate(extensionEncoder.getDistance());
+    armExtender.set(mode, speed);
   }
 }

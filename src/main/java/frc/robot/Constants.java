@@ -220,14 +220,14 @@ public final class Constants {
     
     
             /* Solendoids */ 
-            public static final int rightOpen = 17;
-            public static final int rightClose = 18;
-            public static final int leftOpen = 19;
-            public static final int leftClose = 20;
+            public static final int rightOpen = 1;
+            public static final int rightClose = 2;
+            public static final int leftOpen = 3;
+            public static final int leftClose = 4;
                 
     
             /* Arm Extender */
-            public static int armExtender = 13;
+            public static int armExtender = 17;
     
                 // Trapezoid Stuff
                 public static double extendMaxVelocity = 0.1;
@@ -250,8 +250,8 @@ public final class Constants {
                 public static double extendKD = 0.0;
 
             //intake
-            public static int leftIntakeGrip = 21;
-            public static int rightIntakeGrip = 22;
+            public static int leftIntakeGrip = 19;
+            public static int rightIntakeGrip = 20;
             public static double intakeSpeed = 0.1;
     
     

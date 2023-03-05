@@ -52,7 +52,7 @@ public class RobotContainer {
     private final AutoSelector autoSelector;
     private final ArmExtender a_ArmExtender = new ArmExtender();
     private final ArmSpinner a_Spinner = new ArmSpinner();
-
+    private final TestSRX t_test = new TestSRX();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -81,7 +81,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new ArmUp(a_Spinner));
+        testButton.whileTrue(new TestExtend(t_test));
         
 
         
