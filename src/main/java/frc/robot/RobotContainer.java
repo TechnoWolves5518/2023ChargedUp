@@ -81,8 +81,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        specialUpButton.whileTrue(new ArmUp(a_Spinner));
-        specialDownButton.whileTrue(new ArmDown(a_Spinner));
+        testButton.whileTrue(new ArmUp(a_Spinner));
         
 
         

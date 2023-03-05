@@ -220,12 +220,10 @@ public final class Constants {
     
     
             /* Solendoids */ 
-            public static final int rightOpen = 1;
-            public static final int rightClose = 2;
-            public static final int leftOpen = 3;
-            public static final int leftClose = 4;
-            //arm brake
-            public static final int armBrake = 5;
+            public static final int rightOpen = 17;
+            public static final int rightClose = 18;
+            public static final int leftOpen = 19;
+            public static final int leftClose = 20;
                 
     
             /* Arm Extender */
