@@ -37,30 +37,37 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton autoAim = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton testButton2 = new JoystickButton(driver, XboxController.Button.kB.value);
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton specialForwards = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton specialBackwards = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialDownButton = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
+    private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
+    
 
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final AutoSelector autoSelector;
-    private final TestMotors testMotor = new TestMotors();
-   
-
+    private final ArmExtender a_ArmExtender = new ArmExtender();
+    private final ArmSpinner a_Spinner = new ArmSpinner();
+    private final TestSRX t_test = new TestSRX();
+    private final HandSpinner h_spinner = new HandSpinner();
+    private final HandGripper h_grip = new HandGripper();
+    private final Compressor c_Compressor = new Compressor();
+    private final BrakeArm b_arm = new BrakeArm();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> driver.getRawAxis(translationAxis), 
-                () -> driver.getRawAxis(strafeAxis), 
+                () -> -driver.getRawAxis(translationAxis), 
+                () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -81,7 +88,18 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.whileTrue(new SpinVenoms(testMotor));
+        testButton.onTrue(new HandToggle(h_grip));
+        
+        //ShmoButtons
+        specialIn.whileTrue(new PullIn(h_spinner));
+        specialOut.whileTrue(new PushOut(h_spinner));
+        specialGripper.onTrue(new HandToggle(h_grip));
+        specialExtend.whileTrue(new TestExtend(t_test));
+        specialRetract.whileTrue(new TestRetract(t_test));
+        specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
+        specialDownButton.whileTrue(new ArmDown(a_Spinner));
+        
+        
 
         
 

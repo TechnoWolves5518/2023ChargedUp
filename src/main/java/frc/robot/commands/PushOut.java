@@ -4,31 +4,33 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TestMotors;
 
-public class SpinVenoms extends CommandBase {
-  double speed;
-  TestMotors motors;
-  public SpinVenoms(TestMotors m_Motors) {
-    this.motors = m_Motors;
-    addRequirements(m_Motors);
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.SpecialFunctions;
+import frc.robot.subsystems.HandSpinner;
+
+public class PushOut extends CommandBase {
+  HandSpinner h_Spinner;
+  public PushOut(HandSpinner h_Spinner) {
+    this.h_Spinner = h_Spinner;
+    addRequirements(h_Spinner);
   }
 
   // Called when the command is initially scheduled.
+  @Override
   public void initialize() {
-    speed = 0.05;
+    h_Spinner.setMotors(-SpecialFunctions.handSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  public void execute() {
-    motors.setMotors(speed);
-    System.out.println("spinning");
-  }
+  @Override
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
-  public void end(boolean interrupted) {}
+  @Override
+  public void end(boolean interrupted) {
+    h_Spinner.setMotors(0);
+  }
 
   // Returns true when the command should end.
   @Override
@@ -36,3 +38,4 @@ public class SpinVenoms extends CommandBase {
     return false;
   }
 }
+

@@ -97,7 +97,7 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.5;
+        public static final double speedMod = 0.4;
         public static final double balanceSpeedMod = 0.4;
 
         /* Neutral Modes */
@@ -190,14 +190,6 @@ public final class Constants {
                     public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
                 }
         
-    
-     /*
-        public static final class SpecialFunctions {
-            public static int armPwmVenom = 13;
-            public static int armViagra = 14;
-            public static double spinSpeed = .5;
-            public static double extendSpeed = .5;  
-        } */
         
         public static final class SpecialFunctions {
             
@@ -205,6 +197,10 @@ public final class Constants {
             public static int armOne = 14;
             public static int armTwo = 15;
             public static int armThree = 16;
+            public static int spinEncoder = 18;
+            public static double stageTwo = 233.5;
+            public static double stageOne = 87;
+            public static double defaultStage = 32.7;
     
                 //Trapezoid Stuff
     
@@ -227,13 +223,14 @@ public final class Constants {
                 public static double spinKD = 0.0;
     
     
-            /* Solendoids */ 
-            public static final int solendoidRight = 17;
-            public static final int solendoidLeft = 18;
+            /* Solenoids */ 
+            public static final int handOpen = 0;
+            public static final int handClose = 15;
+            public static final int brakeSolenoid = 3;
                 
     
             /* Arm Extender */
-            public static int armExtender = 13;
+            public static int armExtender = 17;
     
                 // Trapezoid Stuff
                 public static double extendMaxVelocity = 0.1;
@@ -254,6 +251,11 @@ public final class Constants {
                 public static double extendKP = 0.0;
                 public static double extendKI = 0.0;
                 public static double extendKD = 0.0;
+
+            //intake
+            public static int leftIntakeGrip = 19;
+            public static int rightIntakeGrip = 20;
+            public static double handSpeed = 1;
     
     
                 
