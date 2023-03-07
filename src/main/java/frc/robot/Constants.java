@@ -199,8 +199,8 @@ public final class Constants {
             public static int armThree = 16;
             public static int spinEncoder = 18;
             public static double stageTwo = 233.5;
-            public static double stageOne = 87;
-            public static double defaultStage = 32.7;
+            public static double stageOne = 90;
+            public static double defaultStage = 37.7;
     
                 //Trapezoid Stuff
     

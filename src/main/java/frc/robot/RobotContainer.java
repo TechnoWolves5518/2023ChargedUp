@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
+import frc.robot.commands.armRotator.GoToDefaultState;
+import frc.robot.commands.armRotator.GoToStageOne;
 import frc.robot.subsystems.*;
 
 /**
@@ -42,8 +44,9 @@ public class RobotContainer {
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
     private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton specialDownButton = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialDefualtState = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
+    private final JoystickButton specailStageOne = new JoystickButton(special, XboxController.Button.kX.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
     private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
@@ -97,7 +100,8 @@ public class RobotContainer {
         specialExtend.whileTrue(new TestExtend(t_test));
         specialRetract.whileTrue(new TestRetract(t_test));
         specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
-        specialDownButton.whileTrue(new ArmDown(a_Spinner));
+        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm));
+        specailStageOne.onTrue(new GoToStageOne(a_Spinner, b_arm));
         
         
 
