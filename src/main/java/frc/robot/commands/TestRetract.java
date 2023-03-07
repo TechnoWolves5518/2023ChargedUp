@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TestSRX;
 
-public class TestExtend extends CommandBase {
+public class TestRetract extends CommandBase {
   TestSRX t_test;
-  public TestExtend(TestSRX t_test) {
+  public TestRetract(TestSRX t_test) {
     this.t_test = t_test;
     addRequirements(t_test);
   }
@@ -21,7 +21,7 @@ public class TestExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    t_test.setMotors(-0.6);
+    t_test.setMotors(0.6);
   }
 
   // Called once the command ends or is interrupted.

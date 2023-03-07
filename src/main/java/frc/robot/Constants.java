@@ -97,7 +97,7 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.5;
+        public static final double speedMod = 0.4;
         public static final double balanceSpeedMod = 0.4;
 
         /* Neutral Modes */
@@ -197,6 +197,10 @@ public final class Constants {
             public static int armOne = 14;
             public static int armTwo = 15;
             public static int armThree = 16;
+            public static int spinEncoder = 18;
+            public static double stageTwo = 233.5;
+            public static double stageOne = 87;
+            public static double defaultStage = 32.7;
     
                 //Trapezoid Stuff
     

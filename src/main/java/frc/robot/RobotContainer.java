@@ -41,8 +41,8 @@ public class RobotContainer {
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton specialDownButton = new JoystickButton(special, XboxController.Button.kY.value);
-    private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kA.value);
+    private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialDownButton = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
@@ -66,8 +66,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> driver.getRawAxis(translationAxis), 
-                () -> driver.getRawAxis(strafeAxis), 
+                () -> -driver.getRawAxis(translationAxis), 
+                () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
@@ -94,9 +94,9 @@ public class RobotContainer {
         specialIn.whileTrue(new PullIn(h_spinner));
         specialOut.whileTrue(new PushOut(h_spinner));
         specialGripper.onTrue(new HandToggle(h_grip));
-        specialExtend.whileTrue(new ExtendArm(a_ArmExtender));
-        specialRetract.whileTrue(new RetractArm(a_ArmExtender));
-        specialUpButton.whileTrue(new ArmUp(a_Spinner));
+        specialExtend.whileTrue(new TestExtend(t_test));
+        specialRetract.whileTrue(new TestRetract(t_test));
+        specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
         specialDownButton.whileTrue(new ArmDown(a_Spinner));
         
         
