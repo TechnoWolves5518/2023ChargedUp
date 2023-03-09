@@ -9,6 +9,7 @@ import java.beans.Encoder;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.playingwithfusion.CANVenom;
 import com.playingwithfusion.CANVenom.BrakeCoastMode;
+import com.playingwithfusion.CANVenom.ControlMode;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -53,6 +54,7 @@ public class ArmSpinner extends SubsystemBase {
                               spinConstraints);
  
   public void setMotors(double speed) {
+    
     venom1.set(speed);
     venom2.follow(venom1);
     venom3.follow(venom1);
