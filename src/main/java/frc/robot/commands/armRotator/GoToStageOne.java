@@ -4,8 +4,12 @@
 
 package frc.robot.commands.armRotator;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
+import frc.robot.commands.ExtendArm;
+import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
 
@@ -35,10 +39,10 @@ public class GoToStageOne extends CommandBase {
     previousArmAngle = a_Spinner.getAngle();
     System.out.println(previousArmAngle);
     if (previousArmAngle < SpecialFunctions.stageOne -1) {
-      a_Spinner.setMotors(-0.3);
+      a_Spinner.setMotors(-SpecialFunctions.armSpeed);
       System.out.println("checking");
     } else if (previousArmAngle < SpecialFunctions.stageOne + 1) {
-      a_Spinner.setMotors(0.3);
+      a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
       stopCheck = true;
     }

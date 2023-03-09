@@ -97,7 +97,7 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.4;
+        public static final double speedMod = 0.6;
         public static final double balanceSpeedMod = 0.4;
 
         /* Neutral Modes */
@@ -201,7 +201,10 @@ public final class Constants {
             public static double stageTwo = 233.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
-    
+            public static double passiveStage = 0;
+            public static double pickupStage = 94;
+            public static double armSpeed = 0.5;
+            public static double armReturnSpeed = 0.2;
                 //Trapezoid Stuff
     
                 public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);
@@ -226,17 +229,17 @@ public final class Constants {
             /* Solenoids */ 
             public static final int handOpen = 0;
             public static final int handClose = 15;
-            public static final int brakeSolenoid = 3;
+            public static final int brakeSolenoid = 7;
                 
     
             /* Arm Extender */
             public static int armExtender = 17;
     
                 // Trapezoid Stuff
-                public static double extendMaxVelocity = 0.1;
+                public static double extendMaxVelocity = 0.4;
                 public static double extendMaxAcceleration = 0.1;            
     
-                public static State furthestPole = new TrapezoidProfile.State(0,0);
+                public static State furthestPole = new TrapezoidProfile.State(11800,0);
                 public static State middlePole = new TrapezoidProfile.State(0, 0);
                 public static State fullRetract = new TrapezoidProfile.State(0, 0);
                 

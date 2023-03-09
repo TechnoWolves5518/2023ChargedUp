@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.AutoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.commands.armRotator.GoToDefaultState;
+import frc.robot.commands.armRotator.GoToPickup;
 import frc.robot.commands.armRotator.GoToStageOne;
 import frc.robot.subsystems.*;
 
@@ -50,6 +51,7 @@ public class RobotContainer {
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
     private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
+    private final JoystickButton specialPickup = new JoystickButton(special, XboxController.Button.kY.value);
     
 
     
@@ -97,11 +99,13 @@ public class RobotContainer {
         specialIn.whileTrue(new PullIn(h_spinner));
         specialOut.whileTrue(new PushOut(h_spinner));
         specialGripper.onTrue(new HandToggle(h_grip));
-        specialExtend.whileTrue(new TestExtend(t_test));
+        specialExtend.onTrue(new ExtendArm(a_ArmExtender));
         specialRetract.whileTrue(new TestRetract(t_test));
         specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
-        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm));
+        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm, a_ArmExtender));
         specailStageOne.onTrue(new GoToStageOne(a_Spinner, b_arm));
+        specialPickup.onTrue(new GoToPickup(a_Spinner, b_arm));
+
         
         
 
