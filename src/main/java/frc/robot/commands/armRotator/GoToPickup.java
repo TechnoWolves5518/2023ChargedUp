@@ -24,7 +24,7 @@ public class GoToPickup extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    b_Arm.BrakeToggle();
+    b_Arm.BrakeOff();
     stopCheck = false;
     previousArmAngle = a_Spinner.getAngle();
   }
@@ -45,7 +45,7 @@ public class GoToPickup extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  b_Arm.BrakeToggle();
+  b_Arm.BrakeOn();
   a_Spinner.setMotors(0);
   }
 

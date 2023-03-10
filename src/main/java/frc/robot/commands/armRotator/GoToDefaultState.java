@@ -12,6 +12,7 @@ import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
+import frc.robot.subsystems.HandGripper;
 
 public class GoToDefaultState extends CommandBase {
   ArmSpinner a_Spinner;
@@ -19,11 +20,13 @@ public class GoToDefaultState extends CommandBase {
   boolean stopCheck;
   double previousArmAngle;
   ArmExtender a_ArmExtender;
+  HandGripper h_Gripper;
   int timer;
-  public GoToDefaultState(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender) {
+  public GoToDefaultState(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender, HandGripper h_Gripper) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
     this.a_ArmExtender = a_ArmExtender;
+    this.h_Gripper = h_Gripper;
     addRequirements(a_Spinner, b_Arm);
     
   }
@@ -34,6 +37,7 @@ public class GoToDefaultState extends CommandBase {
     stopCheck = false;
     previousArmAngle = a_Spinner.getAngle();
     timer = 0;
+    h_Gripper.ForceOpen();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

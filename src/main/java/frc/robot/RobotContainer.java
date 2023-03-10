@@ -102,7 +102,7 @@ public class RobotContainer {
         specialExtend.onTrue(new ExtendArm(a_ArmExtender));
         specialRetract.whileTrue(new TestRetract(t_test));
         specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
-        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm, a_ArmExtender));
+        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm, a_ArmExtender, h_grip));
         specailStageOne.onTrue(new GoToStageOne(a_Spinner, b_arm));
         specialPickup.onTrue(new GoToPickup(a_Spinner, b_arm));
 
