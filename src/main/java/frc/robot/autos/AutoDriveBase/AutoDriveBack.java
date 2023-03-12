@@ -2,45 +2,49 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.autos.AutoDriveBase;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.SpecialFunctions;
-import frc.robot.subsystems.ArmExtender;
+import frc.robot.subsystems.Swerve;
 
-public class RetractArm extends CommandBase {
-  private ArmExtender a_Extender;
+public class AutoDriveBack extends CommandBase {
+  Swerve s_Swerve;
+  double timer;
   boolean stopCheck;
-  double previousEncoderCount;
-  public RetractArm(ArmExtender a_Extender) {
-    this.a_Extender = a_Extender;
-    addRequirements(a_Extender);
+  public AutoDriveBack(Swerve s_Swerve) {
+    this.s_Swerve = s_Swerve;
+    addRequirements(s_Swerve);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    timer = 0;
     stopCheck = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    previousEncoderCount = a_Extender.ReadEncoder();
-    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
-    if (a_Extender.ReadRetractLimitSwitch() == true) {
+    if (timer < 75) {
+      s_Swerve.drive(new Translation2d(-2.7,0), 
+      0, 
+      true, 
+      true);
+      timer++;
+    } else {
       stopCheck = true;
-      a_Extender.ResetEncoderBase();
+    }
   }
-}
 
-  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Finished");
+    s_Swerve.drive(new Translation2d(0,0), 
+      0, 
+      true, 
+      true);
   }
 
   // Returns true when the command should end.

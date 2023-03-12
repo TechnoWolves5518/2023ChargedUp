@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.AutoCommands;
+package frc.robot.autos.AutoDriveBase;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -36,13 +36,13 @@ public class AutoBalance extends CommandBase {
     System.out.println(elevationAngle);
     if (elevationAngle > AutoConstants.maxPlatformPositivePitch) {
       s_Swerve.drive(
-        new Translation2d(SwerveDrive.balanceSpeedMod,0),
+        new Translation2d(-SwerveDrive.balanceSpeedMod,0),
         0,
         true,
         true
       );
       } else if (elevationAngle < AutoConstants.maxPlatformNegativePitch) {
-        s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
+        s_Swerve.drive(new Translation2d(SwerveDrive.balanceSpeedMod,0), 
         0, 
         true, 
         true);

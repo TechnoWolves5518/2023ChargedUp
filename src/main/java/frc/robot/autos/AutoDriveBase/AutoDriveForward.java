@@ -2,17 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.AutoCommands;
+package frc.robot.autos.AutoDriveBase;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Swerve;
 
-public class AutoDriveBack extends CommandBase {
+public class AutoDriveForward extends CommandBase {
   Swerve s_Swerve;
   double timer;
   boolean stopCheck;
-  public AutoDriveBack(Swerve s_Swerve) {
+  public AutoDriveForward(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
   }
@@ -27,8 +27,8 @@ public class AutoDriveBack extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 50) {
-      s_Swerve.drive(new Translation2d(-0.5,0), 
+    if (timer < 75) {
+      s_Swerve.drive(new Translation2d(2.7,0), 
       0, 
       true, 
       true);

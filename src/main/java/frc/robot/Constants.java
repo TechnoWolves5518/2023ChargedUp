@@ -97,8 +97,9 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.6;
-        public static final double balanceSpeedMod = 0.4;
+        public static final double speedMod = 0.8;
+        public static final double slowMod = 0.4;
+        public static final double balanceSpeedMod = .6;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
@@ -155,8 +156,8 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
-        public static final double maxPlatformPositivePitch = 1;
-        public static final double maxPlatformNegativePitch = -1;
+        public static final double maxPlatformPositivePitch = -16.40;
+        public static final double maxPlatformNegativePitch = -40.70;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
@@ -201,7 +202,7 @@ public final class Constants {
             public static double stageTwo = 233.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
-            public static double passiveStage = 0;
+            public static double passiveStage = 48.26;
             public static double pickupStage = 94;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
