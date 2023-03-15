@@ -11,6 +11,7 @@ import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.commands.*;
 import frc.robot.commands.ArmExtender.ExtendArm;
 import frc.robot.commands.ArmExtender.TestRetract;
+import frc.robot.commands.PhotonVision.AutoAlign;
 import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.commands.armRotator.GoToPickup;
@@ -38,6 +39,7 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton driverBalance = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton alignRobot = new JoystickButton(driver, XboxController.Button.kB.value);
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
@@ -63,6 +65,7 @@ public class RobotContainer {
     private final HandGripper h_grip = new HandGripper();
     private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
+    private final PoseEstimator p_Estimator = new PoseEstimator();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -78,7 +81,7 @@ public class RobotContainer {
 
 
         // Configure the button bindings
-        autoSelector = new AutoSelector(s_Swerve);
+        autoSelector = new AutoSelector(s_Swerve, h_grip, a_Spinner, b_arm);
         configureButtonBindings();
     }
 
@@ -92,6 +95,7 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         driverBalance.whileTrue(new AutoBalance(s_Swerve));
+        //alignRobot.whileTrue(new AutoAlign(s_Swerve, p_Estimator, () -> -driver.getRawAxis(translationAxis), () -> -driver.getRawAxis(strafeAxis)));
         
         //ShmoButtons
         specialIn.whileTrue(new PullIn(h_spinner));

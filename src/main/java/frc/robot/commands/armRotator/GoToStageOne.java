@@ -37,10 +37,11 @@ public class GoToStageOne extends CommandBase {
   @Override
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
-    System.out.println(previousArmAngle);
+    if (previousArmAngle == 0) {
+      stopCheck = true;
+    }
     if (previousArmAngle < SpecialFunctions.stageOne -1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-      System.out.println("checking");
     } else if (previousArmAngle < SpecialFunctions.stageOne + 1) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {

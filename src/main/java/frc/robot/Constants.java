@@ -13,7 +13,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
@@ -97,7 +100,7 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.8;
+        public static final double speedMod = 0.4;
         public static final double slowMod = 0.4;
         public static final double balanceSpeedMod = .6;
 
@@ -187,11 +190,26 @@ public final class Constants {
                     public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
                     public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
                     public static double goalDistanceMeters = Units.feetToMeters(3);
-                    public static PhotonCamera camera = new PhotonCamera("cameraName");
+                    public static double targetAngle = 0;
+                    public static double xPitch = 0;
+                    //replace with camera name
+                    public static PhotonCamera camera = new PhotonCamera("AprilTagCamera");
                     public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
+                    public static Transform3d robotToCam = 
+                        new Transform3d(
+                            new Translation3d(0,0,0),
+                            new Rotation3d(0,0,0)
+                        );
                 }
         
-        
+        public static final class RotationConstants {
+            public static final double kP = .01;
+            public static final double kI = 0;
+            public static final double kD = 0;
+            public static final double kMinimumAngle = -180;
+            public static final double kMaximumAngle = 180;
+        }
+            
         public static final class SpecialFunctions {
             
             /* Arm Spinner */
@@ -204,7 +222,7 @@ public final class Constants {
             public static double defaultStage = 37.7;
             public static double passiveStage = 48.26;
             public static double pickupStage = 94;
-            public static double armSpeed = 0.5;
+            public static double armSpeed = 0.3;
             public static double armReturnSpeed = 0.2;
                 //Trapezoid Stuff
     

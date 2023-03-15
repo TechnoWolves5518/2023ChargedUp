@@ -16,6 +16,9 @@ import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.autos.AutoDriveBase.AutoDriveBack;
 import frc.robot.autos.AutoDriveBase.AutoDriveForward;
 import frc.robot.autos.AutoDriveBase.AutoLock;
+import frc.robot.subsystems.ArmSpinner;
+import frc.robot.subsystems.BrakeArm;
+import frc.robot.subsystems.HandGripper;
 import frc.robot.subsystems.Swerve;
 
 
@@ -25,15 +28,13 @@ public class AutoSelector {
   private final SendableChooser<Command> chooser = new SendableChooser<>();
 
   //define autonomous routines
-  PathPlannerTrajectory ExamplePath = PathPlanner.loadPath("MConePickup", new PathConstraints(4, 3));
-  PathPlannerTrajectory oneToLevel = PathPlanner.loadPath("OneToLevel", new PathConstraints(4, 3));
   PathPlannerTrajectory northAutoBalance = PathPlanner.loadPath("NorthAutoBalance", new PathConstraints(4, 2));
-  PathPlannerTrajectory testPath = PathPlanner.loadPath("TestPath", new PathConstraints(4, 1));
+  PathPlannerTrajectory testPath = PathPlanner.loadPath("TestPath", new PathConstraints(2, 2));
   PathPlannerTrajectory southAutoBalance = PathPlanner.loadPath("SouthAutoBalance", new PathConstraints(4, 2));
   PathPlannerTrajectory northAutoBail = PathPlanner.loadPath("NorthAutoBail", new PathConstraints(4, 2));
   PathPlannerTrajectory southAutoBail = PathPlanner.loadPath("SouthAutoBail", new PathConstraints(4, 2));
   
-  public AutoSelector(Swerve drivebase) {
+  public AutoSelector(Swerve drivebase, HandGripper h_Gripper, ArmSpinner a_Spinner, BrakeArm b_Arm) {
     //I'm not gonna try and figure out something better for the time being
     chooser.setDefaultOption("NorthAutoLevel", new SequentialCommandGroup(
 
@@ -111,8 +112,28 @@ public class AutoSelector {
       chooser.addOption("Contingency", new SequentialCommandGroup(new AutoDriveForward(drivebase), 
       new AutoBalance(drivebase), 
       new AutoLock(drivebase)));
+
+      chooser.addOption("TestAuto", new SequentialCommandGroup(
+        new InstantCommand(() -> {
+          // Reset odometry for the first path you run during auto
+          drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
+        }), 
+        new PPSwerveControllerCommand(
+          testPath,
+           drivebase::getPose, // Pose supplier
+         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
+           new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+           new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
+           new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+           drivebase::setModuleStates, // Module states consumer
+           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+           drivebase // Requires this drive subsystem
+       )
+      ));
+      
     SmartDashboard.putData(chooser);
   }
+
 
   public Command getSelected() {
     return chooser.getSelected();
