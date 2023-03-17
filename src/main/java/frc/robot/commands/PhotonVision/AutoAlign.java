@@ -11,14 +11,14 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.PoseEstimator;
+import frc.robot.subsystems.Vision;
 import frc.robot.Constants.CameraConstants;
 import frc.robot.Constants.RotationConstants;
 
 
 public class AutoAlign extends CommandBase {
   private final Swerve driveSubsystem;
-  private final PoseEstimator vision;
+  private final Vision vision;
   private boolean isAligned;
   private PIDController rotationPID;
   boolean interrupted = false;
@@ -32,7 +32,7 @@ public class AutoAlign extends CommandBase {
 
   public AutoAlign(
     Swerve driveSubsystem, 
-    PoseEstimator vision,
+    Vision vision,
     Supplier<Double> i, 
     Supplier<Double> j) {
     this.driveSubsystem = driveSubsystem;

@@ -65,7 +65,7 @@ public class RobotContainer {
     private final HandGripper h_grip = new HandGripper();
     private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
-    private final PoseEstimator p_Estimator = new PoseEstimator();
+    private final Vision p_Estimator = new Vision();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {

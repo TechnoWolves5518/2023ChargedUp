@@ -1,64 +1,52 @@
-
 package frc.robot.subsystems;
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
-import org.photonvision.common.hardware.VisionLEDMode;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.Constants;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants.CameraConstants;
+import java.io.IOException;
+import java.util.Optional;
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
+public class PoseEstimator {
+    private PhotonCamera photonCamera;
+    private PhotonPoseEstimator photonPoseEstimator;
 
-public class PoseEstimator extends SubsystemBase{
-    private final PhotonCamera camera = CameraConstants.camera;
-    final double CameraHeight = CameraConstants.cameraHeightMeters;
-    final double TargetHeight = CameraConstants.scoringAprilTagHeightMeters;
-    final double cameraPitchRadians = CameraConstants.cameraAngleRadians;
-    public boolean hasTargets = false;
-    public boolean isTargeting = true;
-   
-    private double targetAngle = CameraConstants.targetAngle;
-    private double range;
-    double forwardSpeed;
-    double x_pitch = CameraConstants.xPitch;
+    public PoseEstimator() {
+        // Change the name of your camera here to whatever it is in the PhotonVision UI.
+        photonCamera = CameraConstants.camera;
 
-      public boolean hasTargets() {
-        return hasTargets;
-      }
-       
-      public double getTargetAngle() {
-        return targetAngle;
-      }
-
-      public void pipelineIndex() {
-        camera.setPipelineIndex(0);
-      }
-
-    @Override
-    public void periodic() {
-        var result = camera.getLatestResult();
-        camera.setDriverMode(false);
-
-        if (result.hasTargets()) {
-            hasTargets = true;
-            targetAngle = result.getBestTarget().getPitch(); //pitch or yaw?
-            range = PhotonUtils.calculateDistanceToTargetMeters(
-                    CameraHeight,
-                    TargetHeight,
-                    cameraPitchRadians ,
-                    Units.degreesToRadians(result.getBestTarget().getPitch()));
-          } else {
-            hasTargets = false;
-            range = -2;
-            //targetAngle = -1;
-          }
-
-        SmartDashboard.putBoolean("Has target", hasTargets);   
-        SmartDashboard.putNumber("Distance between target", range);   
+        try {
+            // Attempt to load the AprilTagFieldLayout that will tell us where the tags are on the field.
+            AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+            // Create pose estimator
+            photonPoseEstimator =
+                    new PhotonPoseEstimator(
+                            fieldLayout, PoseStrategy.MULTI_TAG_PNP, photonCamera, CameraConstants.robotToCam);
+            photonPoseEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+        } catch (IOException e) {
+            // The AprilTagFieldLayout failed to load. We won't be able to estimate poses if we don't know
+            // where the tags are.
+            DriverStation.reportError("Failed to load AprilTagFieldLayout", e.getStackTrace());
+            photonPoseEstimator = null;
+        }
     }
 
-
+    /**
+     * @param estimatedRobotPose The current best guess at robot pose
+     * @return an EstimatedRobotPose with an estimated pose, the timestamp, and targets used to create
+     *     the estimate
+     */
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+        if (photonPoseEstimator == null) {
+            // The field layout failed to load, so we cannot estimate poses.
+            return Optional.empty();
+        }
+        photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
+        return photonPoseEstimator.update();
+    }
 }
