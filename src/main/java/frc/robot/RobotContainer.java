@@ -6,11 +6,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.AutoCommands.*;
+import frc.robot.autos.AutoSelector;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.commands.*;
 import frc.robot.commands.ArmExtender.ExtendArm;
-import frc.robot.commands.ArmExtender.RetractArm;
 import frc.robot.commands.ArmExtender.TestRetract;
 import frc.robot.commands.Hand.HandToggle;
 import frc.robot.commands.Hand.PullIn;
@@ -43,7 +42,7 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton driverBalance = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton alignRobot = new JoystickButton(driver, XboxController.Button.kB.value);
+    //private final JoystickButton alignRobot = new JoystickButton(driver, XboxController.Button.kB.value);
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
@@ -67,7 +66,7 @@ public class RobotContainer {
     private final TestSRX t_test = new TestSRX();
     private final HandSpinner h_spinner = new HandSpinner();
     private final HandGripper h_grip = new HandGripper();
-    private final Compressor c_Compressor = new Compressor();
+    //private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
     //private final Vision p_Estimator = new Vision();
 

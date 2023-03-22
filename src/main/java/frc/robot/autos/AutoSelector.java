@@ -1,4 +1,4 @@
-package frc.robot.autos.AutoCommands;
+package frc.robot.autos;
 
 
 import com.pathplanner.lib.PathConstraints;
@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.SwerveDrive;
+import frc.robot.autos.AutoCommands.AutoHighScore;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.autos.AutoDriveBase.AutoDriveBack;
 import frc.robot.autos.AutoDriveBase.AutoDriveForward;

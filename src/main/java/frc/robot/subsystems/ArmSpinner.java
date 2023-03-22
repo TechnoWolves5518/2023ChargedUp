@@ -4,12 +4,9 @@
 
 package frc.robot.subsystems;
 
-import java.beans.Encoder;
-
 import com.ctre.phoenix.sensors.CANCoder;
 import com.playingwithfusion.CANVenom;
 import com.playingwithfusion.CANVenom.BrakeCoastMode;
-import com.playingwithfusion.CANVenom.ControlMode;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -23,7 +20,6 @@ public class ArmSpinner extends SubsystemBase {
   CANVenom venom2;
   CANVenom venom3;
   CANCoder spinCoder;
-  private double previousArmAngle;
   //edu.wpi.first.wpilibj.Encoder spinEncoder;
   public ArmSpinner() {
     venom1 = new CANVenom(SpecialFunctions.armOne);

@@ -4,12 +4,8 @@
 
 package frc.robot.commands.armRotator;
 
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
-import frc.robot.commands.ArmExtender.ExtendArm;
-import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
 

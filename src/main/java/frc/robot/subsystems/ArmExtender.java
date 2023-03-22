@@ -10,11 +10,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SpecialFunctions;
-import pabeles.concurrency.ConcurrencyOps.Reset;
 
 public class ArmExtender extends SubsystemBase {
   private static TalonSRX armExtender = new TalonSRX(SpecialFunctions.armExtender);

@@ -20,6 +20,7 @@ public class AutoOpen extends CommandBase {
   @Override
   public void initialize() {
     timer = 0;
+    stopCheck = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

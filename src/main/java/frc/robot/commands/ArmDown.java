@@ -5,9 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmSpinner;
-import frc.robot.subsystems.BrakeArm;
 
 public class ArmDown extends CommandBase {
   ArmSpinner a_Spinner;

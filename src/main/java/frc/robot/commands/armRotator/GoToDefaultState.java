@@ -6,7 +6,6 @@ package frc.robot.commands.armRotator;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmExtender;

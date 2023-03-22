@@ -4,10 +4,7 @@
 
 package frc.robot.autos.AutoCommands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.commands.Hand.PullIn;
-import frc.robot.commands.armRotator.GoToStageOne;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
 import frc.robot.subsystems.HandGripper;
