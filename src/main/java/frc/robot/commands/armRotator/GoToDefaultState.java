@@ -44,17 +44,21 @@ public class GoToDefaultState extends CommandBase {
   @Override
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, .7);
+    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     if (timer < 20) {
       timer++;
+
+    } else if (previousArmAngle > SpecialFunctions.verticalStage) {
+      a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, .7);
+    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
+    a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
     if (previousArmAngle -1 < SpecialFunctions.defaultStage && previousArmAngle + 1 > SpecialFunctions.defaultStage ) {
       stopCheck = true;
     } 
-    if (timer == 95) {
+    if (timer == 145) {
       stopCheck = true;
     }
   }

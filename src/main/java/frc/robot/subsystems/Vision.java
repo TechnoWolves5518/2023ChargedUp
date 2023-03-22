@@ -1,4 +1,4 @@
-
+/* 
 package frc.robot.subsystems;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
@@ -21,6 +21,7 @@ public class Vision extends SubsystemBase{
     public boolean isTargeting = true;
    
     private double targetAngle = CameraConstants.targetAngle;
+    private double targetDistance = CameraConstants.goalDistanceMeters;
     private double range;
     double forwardSpeed;
     double x_pitch = CameraConstants.xPitch;
@@ -31,6 +32,10 @@ public class Vision extends SubsystemBase{
        
       public double getTargetAngle() {
         return targetAngle;
+      }
+
+      public double getTargetDistance() {
+        return targetDistance;
       }
 
       public void pipelineIndex() {
@@ -62,3 +67,4 @@ public class Vision extends SubsystemBase{
 
 
 }
+*/

@@ -24,4 +24,8 @@ public class HandGripper extends SubsystemBase {
   public void ForceOpen() {
     Gripper.set(Value.kReverse);
   }
+
+  public void ForceClose() {
+    Gripper.set(Value.kForward);
+  }
 }

@@ -10,8 +10,12 @@ import frc.robot.autos.AutoCommands.*;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.commands.*;
 import frc.robot.commands.ArmExtender.ExtendArm;
+import frc.robot.commands.ArmExtender.RetractArm;
 import frc.robot.commands.ArmExtender.TestRetract;
-import frc.robot.commands.PhotonVision.AutoAlign;
+import frc.robot.commands.Hand.HandToggle;
+import frc.robot.commands.Hand.PullIn;
+import frc.robot.commands.Hand.PushOut;
+//import frc.robot.commands.PhotonVision.AutoAlign;
 import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.commands.armRotator.GoToPickup;
@@ -65,7 +69,7 @@ public class RobotContainer {
     private final HandGripper h_grip = new HandGripper();
     private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
-    private final Vision p_Estimator = new Vision();
+    //private final Vision p_Estimator = new Vision();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -81,7 +85,7 @@ public class RobotContainer {
 
 
         // Configure the button bindings
-        autoSelector = new AutoSelector(s_Swerve, h_grip, a_Spinner, b_arm);
+        autoSelector = new AutoSelector(s_Swerve, h_grip, a_Spinner, b_arm, h_spinner, a_ArmExtender);
         configureButtonBindings();
     }
 

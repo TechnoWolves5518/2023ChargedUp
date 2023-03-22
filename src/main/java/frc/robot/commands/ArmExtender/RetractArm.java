@@ -29,7 +29,8 @@ public class RetractArm extends CommandBase {
   @Override
   public void execute() {
     previousEncoderCount = a_Extender.ReadEncoder();
-    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
+    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, -SpecialFunctions.extendMaxVelocity);
+    System.out.println("Arm Encoder Value: " + previousEncoderCount);
     if (a_Extender.ReadRetractLimitSwitch() == true) {
       stopCheck = true;
       a_Extender.ResetEncoderBase();
@@ -41,6 +42,7 @@ public class RetractArm extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     System.out.println("Finished");
+    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

@@ -2,35 +2,31 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
-
+package frc.robot.commands.Hand;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.SpecialFunctions;
-import frc.robot.subsystems.HandSpinner;
+import frc.robot.subsystems.HandGripper;
 
-public class PullIn extends CommandBase {
-  HandSpinner h_Spinner;
-  public PullIn(HandSpinner h_Spinner) {
-    this.h_Spinner = h_Spinner;
-    addRequirements(h_Spinner);
+public class HandManip extends CommandBase {
+  HandGripper h_grip;
+  public HandManip(HandGripper h_grip) {
+    this.h_grip = h_grip;
+    addRequirements(h_grip);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    h_Spinner.setMotors(SpecialFunctions.handSpeed);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    h_grip.toggleState();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    h_Spinner.setMotors(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

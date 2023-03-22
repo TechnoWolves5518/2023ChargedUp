@@ -2,37 +2,35 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.autos.AutoCommands;
+package frc.robot.commands.Hand;
+
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HandGripper;
+import frc.robot.Constants.SpecialFunctions;
+import frc.robot.subsystems.HandSpinner;
 
-public class autoClaw extends CommandBase {
-  int timer;
-  HandGripper h_Gripper;
-  public autoClaw(HandGripper h_Gripper) {
-    this.h_Gripper = h_Gripper;
+public class PullIn extends CommandBase {
+  HandSpinner h_Spinner;
+  public PullIn(HandSpinner h_Spinner) {
+    this.h_Spinner = h_Spinner;
+    addRequirements(h_Spinner);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer = 0;
+    h_Spinner.setMotors(SpecialFunctions.handSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    if (timer < 20) {
-      timer++;
-    } else {
-      h_Gripper.toggleState();
-    }
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    h_Spinner.setMotors(0);
+  }
 
   // Returns true when the command should end.
   @Override

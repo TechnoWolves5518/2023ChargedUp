@@ -189,7 +189,7 @@ public final class Constants {
                     public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
                     public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
                     public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
-                    public static double goalDistanceMeters = Units.feetToMeters(3);
+                    public static double goalDistanceMeters = Units.feetToMeters(5);
                     public static double targetAngle = 0;
                     public static double xPitch = 0;
                     //replace with camera name
@@ -217,12 +217,13 @@ public final class Constants {
             public static int armTwo = 15;
             public static int armThree = 16;
             public static int spinEncoder = 18;
-            public static double stageTwo = 233.5;
+            public static double stageTwo = 230.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
             public static double passiveStage = 48.26;
+            public static double verticalStage = 154;
             public static double pickupStage = 94;
-            public static double armSpeed = 0.3;
+            public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
                 //Trapezoid Stuff
     

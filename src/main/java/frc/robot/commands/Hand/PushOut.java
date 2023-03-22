@@ -2,32 +2,34 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.ArmExtender;
+package frc.robot.commands.Hand;
+
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TestSRX;
+import frc.robot.Constants.SpecialFunctions;
+import frc.robot.subsystems.HandSpinner;
 
-public class TestExtend extends CommandBase {
-  TestSRX t_test;
-  public TestExtend(TestSRX t_test) {
-    this.t_test = t_test;
-    addRequirements(t_test);
+public class PushOut extends CommandBase {
+  HandSpinner h_Spinner;
+  public PushOut(HandSpinner h_Spinner) {
+    this.h_Spinner = h_Spinner;
+    addRequirements(h_Spinner);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    h_Spinner.setMotors(-SpecialFunctions.handSpeed);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    t_test.setMotors(0.6);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    t_test.setMotors(0);
+    h_Spinner.setMotors(0);
   }
 
   // Returns true when the command should end.
@@ -36,3 +38,4 @@ public class TestExtend extends CommandBase {
     return false;
   }
 }
+

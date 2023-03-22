@@ -1,4 +1,4 @@
-package frc.robot.commands.PhotonVision;
+/*package frc.robot.commands.PhotonVision;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -62,7 +62,6 @@ public class AutoAlign extends CommandBase {
     double y_speed; 
     double ySpeed = yspeedSupplier.get();
     var robotPose2d = driveSubsystem.getPose();
-    System.out.println("running");
     if (vision.getTargetAngle() < 2) {
       interrupted = true;
     }
@@ -71,14 +70,14 @@ public class AutoAlign extends CommandBase {
       double currentHeading = driveSubsystem.getvisionheading();
       double rotation = rotationPID.calculate(currentHeading,0);
 
-      x_speed = controller.calculate(vision.getTargetAngle(), 0);
+      x_speed = controller.calculate(vision.getTargetDistance(), 0);
       y_speed = controller.calculate(vision.getTargetAngle(), 0);
 
-      driveSubsystem.drive(new Translation2d(x_speed,ySpeed), rotation,true, true);
+      driveSubsystem.drive(new Translation2d(x_speed,y_speed), rotation,false, true);
     } else {
       double currentHeading = driveSubsystem.getvisionheading();
       double rotation = rotationPID.calculate(currentHeading,0);
-      driveSubsystem.drive(new Translation2d(xSpeed,ySpeed),rotation,true,true);
+      driveSubsystem.drive(new Translation2d(0,0),0,true,true);
     }
   }
   @Override
@@ -89,3 +88,4 @@ public class AutoAlign extends CommandBase {
     return false;
   }
 }
+*/
