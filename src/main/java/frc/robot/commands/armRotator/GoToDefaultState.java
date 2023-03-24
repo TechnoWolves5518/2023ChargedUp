@@ -6,12 +6,12 @@ package frc.robot.commands.armRotator;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
+import frc.robot.subsystems.HandGripper;
 
 public class GoToDefaultState extends CommandBase {
   ArmSpinner a_Spinner;
@@ -19,11 +19,13 @@ public class GoToDefaultState extends CommandBase {
   boolean stopCheck;
   double previousArmAngle;
   ArmExtender a_ArmExtender;
+  HandGripper h_Gripper;
   int timer;
-  public GoToDefaultState(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender) {
+  public GoToDefaultState(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender, HandGripper h_Gripper) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
     this.a_ArmExtender = a_ArmExtender;
+    this.h_Gripper = h_Gripper;
     addRequirements(a_Spinner, b_Arm);
     
   }
@@ -34,23 +36,28 @@ public class GoToDefaultState extends CommandBase {
     stopCheck = false;
     previousArmAngle = a_Spinner.getAngle();
     timer = 0;
+    h_Gripper.ForceOpen();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, .7);
-    if (timer < 20) {
+    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
+    if (timer < 30) {
       timer++;
+
+    } else if (previousArmAngle > SpecialFunctions.verticalStage) {
+      a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, .7);
+    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
+    a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
     if (previousArmAngle -1 < SpecialFunctions.defaultStage && previousArmAngle + 1 > SpecialFunctions.defaultStage ) {
       stopCheck = true;
     } 
-    if (timer == 95) {
+    if (timer == 145) {
       stopCheck = true;
     }
   }

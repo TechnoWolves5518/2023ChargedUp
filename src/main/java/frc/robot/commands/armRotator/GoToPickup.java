@@ -24,7 +24,7 @@ public class GoToPickup extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    b_Arm.BrakeToggle();
+    b_Arm.BrakeOff();
     stopCheck = false;
     previousArmAngle = a_Spinner.getAngle();
   }
@@ -33,10 +33,11 @@ public class GoToPickup extends CommandBase {
   @Override
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
-    System.out.println(previousArmAngle);
+    if (previousArmAngle == 0) {
+      stopCheck = true;
+    }
     if (previousArmAngle < SpecialFunctions.pickupStage-1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-      System.out.println("checking");
     } else {
       stopCheck = true;
     }
@@ -45,7 +46,7 @@ public class GoToPickup extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  b_Arm.BrakeToggle();
+  b_Arm.BrakeOn();
   a_Spinner.setMotors(0);
   }
 

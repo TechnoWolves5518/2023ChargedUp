@@ -20,4 +20,12 @@ public class HandGripper extends SubsystemBase {
   public void toggleState() {
     Gripper.toggle();
   }
+  
+  public void ForceOpen() {
+    Gripper.set(Value.kReverse);
+  }
+
+  public void ForceClose() {
+    Gripper.set(Value.kForward);
+  }
 }

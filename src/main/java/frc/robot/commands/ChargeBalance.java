@@ -36,16 +36,18 @@ public class ChargeBalance extends CommandBase {
     System.out.println(yawError);
     if (elevationAngle > AutoConstants.maxPlatformPositivePitch) {
       s_Swerve.drive(
-        new Translation2d(SwerveDrive.balanceSpeedMod,0),
+        new Translation2d(-SwerveDrive.balanceSpeedMod,0),
         0,
         true,
         true
       );
+      System.out.println("Max positive");
       } else if (elevationAngle < AutoConstants.maxPlatformNegativePitch) {
-        s_Swerve.drive(new Translation2d(-SwerveDrive.balanceSpeedMod,0), 
+        s_Swerve.drive(new Translation2d(SwerveDrive.balanceSpeedMod,0), 
         0, 
         true, 
         true);
+        System.out.println("max negative");
       } else {
         s_Swerve.drive(new Translation2d(0,0), 
         0, 

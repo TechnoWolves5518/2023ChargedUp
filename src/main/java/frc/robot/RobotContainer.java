@@ -1,22 +1,28 @@
 package frc.robot;
 
-import java.sql.Driver;
-
-import javax.lang.model.element.ModuleElement.DirectiveVisitor;
-
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.autos.AutoCommands.*;
+import frc.robot.autos.AutoSelector;
+import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.commands.*;
+import frc.robot.commands.ArmExtender.ExtendArm;
+import frc.robot.commands.ArmExtender.TestExtend;
+import frc.robot.commands.ArmExtender.TestRetract;
+import frc.robot.commands.Hand.HandToggle;
+import frc.robot.commands.Hand.PullIn;
+import frc.robot.commands.Hand.PushOut;
+import frc.robot.commands.armRotator.ArmDown;
+import frc.robot.commands.armRotator.ArmUp;
+//import frc.robot.commands.PhotonVision.AutoAlign;
 import frc.robot.commands.armRotator.GoToDefaultState;
+import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.commands.armRotator.GoToPickup;
 import frc.robot.commands.armRotator.GoToStageOne;
+import frc.robot.commands.armRotator.GoToStageTwo;
 import frc.robot.subsystems.*;
 
 /**
@@ -39,19 +45,19 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton testButton = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton testButton2 = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton driverBalance = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton driverToggleClaw = new JoystickButton(driver, XboxController.Button.kB.value);
     
     /* Special Buttons */
     private final JoystickButton specialGripper = new JoystickButton(special, XboxController.Button.kB.value);
-    private final JoystickButton specialUpButton = new JoystickButton(special, XboxController.Button.kY.value);
     private final JoystickButton specialDefualtState = new JoystickButton(special, XboxController.Button.kA.value);
     private final JoystickButton specialExtend = new JoystickButton(special, XboxController.Button.kRightBumper.value);
-    private final JoystickButton specailStageOne = new JoystickButton(special, XboxController.Button.kX.value);
+    private final JoystickButton specialStageTwo = new JoystickButton(special, XboxController.Button.kX.value);
     private final JoystickButton specialRetract = new JoystickButton(special, XboxController.Button.kLeftBumper.value);
     private final JoystickButton specialIn = new JoystickButton(special, XboxController.Button.kStart.value);
     private final JoystickButton specialOut = new JoystickButton(special, XboxController.Button.kBack.value);
-    private final JoystickButton specialPickup = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialStageOne = new JoystickButton(special, XboxController.Button.kY.value);
+    private final JoystickButton specialPassive = new JoystickButton(special, XboxController.Button.kRightStick.value);
     
 
     
@@ -63,8 +69,9 @@ public class RobotContainer {
     private final TestSRX t_test = new TestSRX();
     private final HandSpinner h_spinner = new HandSpinner();
     private final HandGripper h_grip = new HandGripper();
-    private final Compressor c_Compressor = new Compressor();
+    //private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
+    //private final Vision p_Estimator = new Vision();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -80,7 +87,7 @@ public class RobotContainer {
 
 
         // Configure the button bindings
-        autoSelector = new AutoSelector(s_Swerve);
+        autoSelector = new AutoSelector(s_Swerve, h_grip, a_Spinner, b_arm, h_spinner, a_ArmExtender);
         configureButtonBindings();
     }
 
@@ -93,26 +100,22 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        testButton.onTrue(new HandToggle(h_grip));
-        
+        driverBalance.whileTrue(new AutoBalance(s_Swerve));
+        driverToggleClaw.onTrue(new HandToggle(h_grip));
+        //alignRobot.whileTrue(new AutoAlign(s_Swerve, p_Estimator, () -> -driver.getRawAxis(translationAxis), () -> -driver.getRawAxis(strafeAxis)));
+
         //ShmoButtons
+        //specialIn.whileTrue(new PullIn(h_spinner));
+        //specialOut.whileTrue(new PushOut(h_spinner));
         specialIn.whileTrue(new PullIn(h_spinner));
         specialOut.whileTrue(new PushOut(h_spinner));
         specialGripper.onTrue(new HandToggle(h_grip));
-        specialExtend.onTrue(new ExtendArm(a_ArmExtender));
+        specialExtend.whileTrue(new ExtendArm(a_ArmExtender));
         specialRetract.whileTrue(new TestRetract(t_test));
-        specialUpButton.whileTrue(new ArmUp(a_Spinner, b_arm));
-        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm, a_ArmExtender));
-        specailStageOne.onTrue(new GoToStageOne(a_Spinner, b_arm));
-        specialPickup.onTrue(new GoToPickup(a_Spinner, b_arm));
-
-        
-        
-
-        
-
-
-        
+        specialDefualtState.onTrue(new GoToDefaultState(a_Spinner, b_arm, a_ArmExtender, h_grip));
+        specialStageOne.onTrue(new GoToPickup(a_Spinner, b_arm));
+        specialStageTwo.onTrue(new GoToStageTwo(a_Spinner, b_arm));
+        specialPassive.onTrue(new GoToPassiveStage(a_Spinner, b_arm, a_ArmExtender));
     }
 
     /**

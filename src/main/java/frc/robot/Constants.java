@@ -4,16 +4,12 @@ package frc.robot;
 import org.photonvision.PhotonCamera;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
@@ -97,8 +93,9 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.6;
-        public static final double balanceSpeedMod = 0.4;
+        public static final double speedMod = 0.4;
+        public static final double slowMod = 0.4;
+        public static final double balanceSpeedMod = .6;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
@@ -155,8 +152,8 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
-        public static final double maxPlatformPositivePitch = 1;
-        public static final double maxPlatformNegativePitch = -1;
+        public static final double maxPlatformPositivePitch = -16.40;
+        public static final double maxPlatformNegativePitch = -40.70;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
@@ -185,12 +182,27 @@ public final class Constants {
                     public static double cameraHeightMeters = Units.inchesToMeters(0); //placeholder values
                     public static double scoringAprilTagHeightMeters = Units.inchesToMeters(23.375); 
                     public static double cameraAngleRadians = Units.degreesToRadians(0); //horizontal offset from the horizontal the camera is(how not parallel is it?)
-                    public static double goalDistanceMeters = Units.feetToMeters(3);
-                    public static PhotonCamera camera = new PhotonCamera("cameraName");
+                    public static double goalDistanceMeters = Units.feetToMeters(5);
+                    public static double targetAngle = 0;
+                    public static double xPitch = 0;
+                    //replace with camera name
+                    public static PhotonCamera camera = new PhotonCamera("AprilTagCamera");
                     public static PIDController driveController = new PIDController(SwerveDrive.driveKP, SwerveDrive.driveKI, SwerveDrive.driveKD);
+                    public static Transform3d robotToCam = 
+                        new Transform3d(
+                            new Translation3d(0,0,0),
+                            new Rotation3d(0,0,0)
+                        );
                 }
         
-        
+        public static final class RotationConstants {
+            public static final double kP = .01;
+            public static final double kI = 0;
+            public static final double kD = 0;
+            public static final double kMinimumAngle = -180;
+            public static final double kMaximumAngle = 180;
+        }
+            
         public static final class SpecialFunctions {
             
             /* Arm Spinner */
@@ -198,11 +210,13 @@ public final class Constants {
             public static int armTwo = 15;
             public static int armThree = 16;
             public static int spinEncoder = 18;
-            public static double stageTwo = 233.5;
+            public static double stageTwo = 225.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
-            public static double passiveStage = 0;
+            public static double passiveStage = 48.26;
+            public static double verticalStage = 154;
             public static double pickupStage = 94;
+            public static double autoGroundPickup = 57;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
                 //Trapezoid Stuff
