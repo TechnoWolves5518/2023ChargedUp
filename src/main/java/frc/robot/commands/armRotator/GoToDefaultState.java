@@ -44,7 +44,7 @@ public class GoToDefaultState extends CommandBase {
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
     a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
-    if (timer < 20) {
+    if (timer < 30) {
       timer++;
 
     } else if (previousArmAngle > SpecialFunctions.verticalStage) {

@@ -12,11 +12,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.SwerveDrive;
+import frc.robot.autos.AutoCommands.AutoGroundPickup;
 import frc.robot.autos.AutoCommands.AutoHighScore;
+import frc.robot.autos.AutoCommands.AutoOpen;
+import frc.robot.autos.AutoCommands.DelayAction;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.autos.AutoDriveBase.AutoDriveBack;
 import frc.robot.autos.AutoDriveBase.AutoDriveForward;
 import frc.robot.autos.AutoDriveBase.AutoLock;
+import frc.robot.commands.ArmExtender.ExtendArm;
+import frc.robot.commands.armRotator.GoToDefaultState;
+import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
@@ -39,8 +45,8 @@ public class AutoSelector {
   
   public AutoSelector(Swerve drivebase, HandGripper h_Gripper, ArmSpinner a_Spinner, BrakeArm b_Arm, HandSpinner h_Spinner, ArmExtender a_Extender) {
     //I'm not gonna try and figure out something better for the time being
-    chooser.setDefaultOption("NorthAutoLevel", new SequentialCommandGroup(
-
+    chooser.addOption("NorthAutoLevel", new SequentialCommandGroup(
+    new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
     new InstantCommand(() -> {
         // Reset odometry for the first path you run during auto
         drivebase.resetOdometry(northAutoBalance.getInitialHolonomicPose());
@@ -59,6 +65,7 @@ public class AutoSelector {
       ));
 
       chooser.addOption("SouthAutoLevel", new SequentialCommandGroup(
+        new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBalance.getInitialHolonomicPose());
@@ -77,6 +84,7 @@ public class AutoSelector {
         ));
       
       chooser.addOption("NorthAutoBail", new SequentialCommandGroup(
+        new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(northAutoBail.getInitialHolonomicPose());
@@ -95,6 +103,7 @@ public class AutoSelector {
       ));
 
       chooser.addOption("SouthAutoBail", new SequentialCommandGroup(
+        new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
@@ -112,13 +121,15 @@ public class AutoSelector {
        )
       ));
 
-      chooser.addOption("Contingency", new SequentialCommandGroup(new AutoDriveForward(drivebase), 
+      chooser.setDefaultOption("Contingency", new SequentialCommandGroup(
+      new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+      new AutoDriveForward(drivebase), 
       new AutoBalance(drivebase), 
       new AutoLock(drivebase)));
 
       chooser.addOption("TestAuto", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender)
-        /*new InstantCommand(() -> {
+         /*new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
         }), 

@@ -210,12 +210,13 @@ public final class Constants {
             public static int armTwo = 15;
             public static int armThree = 16;
             public static int spinEncoder = 18;
-            public static double stageTwo = 230.5;
+            public static double stageTwo = 225.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
             public static double passiveStage = 48.26;
             public static double verticalStage = 154;
             public static double pickupStage = 94;
+            public static double autoGroundPickup = 57;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
                 //Trapezoid Stuff

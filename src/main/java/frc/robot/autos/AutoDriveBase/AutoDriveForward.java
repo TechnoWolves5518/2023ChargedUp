@@ -27,7 +27,7 @@ public class AutoDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 75) {
+    if (timer < 65) {
       s_Swerve.drive(new Translation2d(2.7,0), 
       0, 
       true, 

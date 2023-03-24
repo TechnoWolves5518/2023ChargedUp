@@ -21,6 +21,6 @@ public class HandSpinner extends SubsystemBase {
   
   public void setMotors(double speed) {
     rightHand.set(-speed);
-    leftHand.set(speed);
+    leftHand.follow(rightHand, true);
   }
 }

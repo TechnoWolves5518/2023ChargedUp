@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.armRotator;
+package frc.robot.autos.AutoCommands;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
@@ -12,14 +12,14 @@ import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
 
-public class GoToPassiveStage extends CommandBase {
+public class AutoGroundPickup extends CommandBase {
   ArmSpinner a_Spinner;
   BrakeArm b_Arm;
   boolean stopCheck;
   double previousArmAngle;
   ArmExtender a_ArmExtender;
   int timer;
-  public GoToPassiveStage(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender) {
+  public AutoGroundPickup(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
     this.a_ArmExtender = a_ArmExtender;
@@ -50,7 +50,7 @@ public class GoToPassiveStage extends CommandBase {
     a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.passiveStage && previousArmAngle + 1 > SpecialFunctions.passiveStage ) {
+    if (previousArmAngle -1 < SpecialFunctions.autoGroundPickup && previousArmAngle + 1 > SpecialFunctions.autoGroundPickup ) {
       stopCheck = true;
     } 
     if (timer == 145) {

@@ -14,6 +14,7 @@ public class ExtendArm extends CommandBase {
   private ArmExtender a_Extender;
   boolean stopCheck;
   double previousEncoderCount;
+  int timer;
   public ExtendArm(ArmExtender a_Extender) {
     this.a_Extender = a_Extender;
     addRequirements(a_Extender);
@@ -23,6 +24,7 @@ public class ExtendArm extends CommandBase {
   @Override
   public void initialize() {
     stopCheck = false;
+    timer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +33,11 @@ public class ExtendArm extends CommandBase {
     previousEncoderCount = a_Extender.ReadEncoder();
     a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
     System.out.println("Arm Encoder Value: " + previousEncoderCount);
+    if (timer < 150) {
+      timer++;
+    } else {
+      stopCheck = true;
+    }
     if (a_Extender.ReadExtendLimitSwitch() == true) {
       stopCheck = true;
     } else if (previousEncoderCount >= 10500) {
