@@ -47,6 +47,7 @@ public class AutoSelector {
     //I'm not gonna try and figure out something better for the time being
     chooser.addOption("NorthAutoLevel", new SequentialCommandGroup(
     new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+    new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
     new InstantCommand(() -> {
         // Reset odometry for the first path you run during auto
         drivebase.resetOdometry(northAutoBalance.getInitialHolonomicPose());
@@ -66,6 +67,7 @@ public class AutoSelector {
 
       chooser.addOption("SouthAutoLevel", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+        new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBalance.getInitialHolonomicPose());
@@ -85,6 +87,7 @@ public class AutoSelector {
       
       chooser.addOption("NorthAutoBail", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+        new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(northAutoBail.getInitialHolonomicPose());
@@ -104,6 +107,7 @@ public class AutoSelector {
 
       chooser.addOption("SouthAutoBail", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+        new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
@@ -123,18 +127,19 @@ public class AutoSelector {
 
       chooser.setDefaultOption("Contingency", new SequentialCommandGroup(
       new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+      new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
       new AutoDriveForward(drivebase), 
       new AutoBalance(drivebase), 
       new AutoLock(drivebase)));
 
       chooser.addOption("TestAuto", new SequentialCommandGroup(
-        new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender)
+        new AutoBalance(drivebase)
          /*new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
         }), 
         new PPSwerveControllerCommand(
-          testPath,
+          testPath,+
            drivebase::getPose, // Pose supplier
          SwerveDrive.swerveKinematics, // SwerveDriveKinematics
            new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.

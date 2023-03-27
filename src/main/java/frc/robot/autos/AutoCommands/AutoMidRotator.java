@@ -22,7 +22,7 @@ public class AutoMidRotator extends ParallelDeadlineGroup {
   public AutoMidRotator(ArmSpinner a_Spinner, BrakeArm b_Arm, HandGripper h_Gripper, HandSpinner h_Spinner) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new GoToStageTwo(a_Spinner, b_Arm));
+    super(new AutoStageTwo(a_Spinner, b_Arm));
     addCommands(new AutoClose(h_Gripper));
   }
 }
