@@ -18,7 +18,9 @@ import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
+    //miscellaneous constants.
     public static final double stickDeadband = 0.15;
+    public static final int ledDIO = 1;
 
     public static final class SwerveDrive {
         public static final int pigeonID = 13;
@@ -217,7 +219,7 @@ public final class Constants {
             public static double passiveStage = 50.26;
             public static double verticalStage = 154;
             public static double pickupStage = 96;
-            public static double autoGroundPickup = 57;
+            public static double autoGroundPickup = 50;
             public static double hopperPickup = 76;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;

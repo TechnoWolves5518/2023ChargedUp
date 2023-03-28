@@ -1,7 +1,5 @@
 package frc.robot;
 
-import org.opencv.core.Point;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -11,9 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.AutoSelector;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
-import frc.robot.commands.*;
 import frc.robot.commands.ArmExtender.ExtendArm;
-import frc.robot.commands.ArmExtender.TestExtend;
 import frc.robot.commands.ArmExtender.TestRetract;
 import frc.robot.commands.DriveBase.DpadDriveBack;
 import frc.robot.commands.DriveBase.DpadDriveForward;
@@ -23,14 +19,13 @@ import frc.robot.commands.DriveBase.TeleopSwerve;
 import frc.robot.commands.Hand.HandToggle;
 import frc.robot.commands.Hand.PullIn;
 import frc.robot.commands.Hand.PushOut;
-import frc.robot.commands.armRotator.ArmDown;
-import frc.robot.commands.armRotator.ArmUp;
+import frc.robot.commands.MiscellaneousCommands.LEDToggle;
 //import frc.robot.commands.PhotonVision.AutoAlign;
 import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.commands.armRotator.GoToHopper;
 import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.commands.armRotator.GoToPickup;
-import frc.robot.commands.armRotator.GoToStageOne;
+//import frc.robot.commands.armRotator.GoToStageOne;
 import frc.robot.commands.armRotator.GoToStageTwo;
 import frc.robot.subsystems.*;
 
@@ -45,6 +40,7 @@ public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick special = new Joystick(1); 
+    private final Joystick debug = new Joystick(2);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -73,6 +69,9 @@ public class RobotContainer {
     private final JoystickButton specialPassive = new JoystickButton(special, XboxController.Button.kRightStick.value);
     private final POVButton specialHopper = new POVButton(special, 0);
 
+    //debug button
+    private final JoystickButton debugButton = new JoystickButton(debug, XboxController.Button.kA.value);
+
     
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -85,6 +84,7 @@ public class RobotContainer {
     //private final Compressor c_Compressor = new Compressor();
     private final BrakeArm b_arm = new BrakeArm();
     //private final Vision p_Estimator = new Vision();
+    private final LEDControl l_Control = new LEDControl();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -132,6 +132,9 @@ public class RobotContainer {
         specialStageTwo.onTrue(new GoToStageTwo(a_Spinner, b_arm));
         specialPassive.onTrue(new GoToPassiveStage(a_Spinner, b_arm, a_ArmExtender));
         specialHopper.onTrue(new GoToHopper(a_Spinner, b_arm));
+
+        //debug button
+        debugButton.toggleOnTrue(new LEDToggle(l_Control));
     }
 
     /**
