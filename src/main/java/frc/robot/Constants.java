@@ -20,7 +20,9 @@ import frc.lib.util.SwerveModuleConstants;
 public final class Constants {
     //miscellaneous constants.
     public static final double stickDeadband = 0.15;
-    public static final int ledDIO = 1;
+    public static final int ledDIOOne = 9;
+    public static final int ledDIOTwo = 8;
+    public static final int ledDIOThree = 7;
 
     public static final class SwerveDrive {
         public static final int pigeonID = 13;

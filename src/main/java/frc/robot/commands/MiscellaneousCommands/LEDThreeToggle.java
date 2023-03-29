@@ -7,16 +7,16 @@ package frc.robot.commands.MiscellaneousCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDControl;
 
-public class LEDToggle extends CommandBase {
+public class LEDThreeToggle extends CommandBase {
   LEDControl l_Control;
-  public LEDToggle(LEDControl l_Control) {
+  public LEDThreeToggle(LEDControl l_Control) {
     this.l_Control = l_Control;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    l_Control.LEDON();
+    l_Control.LEDThreeOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -26,12 +26,6 @@ public class LEDToggle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    l_Control.LEDOFF();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    l_Control.LEDThreeOff();
   }
 }

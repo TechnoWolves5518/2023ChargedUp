@@ -19,7 +19,9 @@ import frc.robot.commands.DriveBase.TeleopSwerve;
 import frc.robot.commands.Hand.HandToggle;
 import frc.robot.commands.Hand.PullIn;
 import frc.robot.commands.Hand.PushOut;
-import frc.robot.commands.MiscellaneousCommands.LEDToggle;
+import frc.robot.commands.MiscellaneousCommands.LEDOneToggle;
+import frc.robot.commands.MiscellaneousCommands.LEDThreeToggle;
+import frc.robot.commands.MiscellaneousCommands.LEDTwoToggle;
 //import frc.robot.commands.PhotonVision.AutoAlign;
 import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.commands.armRotator.GoToHopper;
@@ -71,6 +73,8 @@ public class RobotContainer {
 
     //debug button
     private final JoystickButton debugButton = new JoystickButton(debug, XboxController.Button.kA.value);
+    private final JoystickButton debugButton2 = new JoystickButton(debug, XboxController.Button.kB.value);
+    private final JoystickButton debugButton3 = new JoystickButton(debug, XboxController.Button.kX.value);
 
     
     /* Subsystems */
@@ -133,8 +137,10 @@ public class RobotContainer {
         specialPassive.onTrue(new GoToPassiveStage(a_Spinner, b_arm, a_ArmExtender));
         specialHopper.onTrue(new GoToHopper(a_Spinner, b_arm));
 
-        //debug button
-        debugButton.toggleOnTrue(new LEDToggle(l_Control));
+        //debug buttons
+        debugButton.toggleOnTrue(new LEDOneToggle(l_Control));
+        debugButton2.toggleOnTrue(new LEDTwoToggle(l_Control));
+        debugButton3.toggleOnTrue(new LEDThreeToggle(l_Control));
     }
 
     /**

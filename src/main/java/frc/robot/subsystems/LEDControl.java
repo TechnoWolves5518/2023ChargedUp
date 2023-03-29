@@ -10,16 +10,36 @@ import frc.robot.Constants;
 
 public class LEDControl extends SubsystemBase {
   DigitalOutput ledOne;
+  DigitalOutput ledTwo;
+  DigitalOutput ledThree;
 
   public LEDControl() {
-    ledOne = new DigitalOutput(Constants.ledDIO);
+    ledOne = new DigitalOutput(Constants.ledDIOOne);
+    ledTwo = new DigitalOutput(Constants.ledDIOTwo);
+    ledThree = new DigitalOutput(Constants.ledDIOThree);
   }
 
-  public void LEDON() {
+  public void LEDOneOn() {
     ledOne.set(true);
   }
 
-  public void LEDOFF() {
+  public void LEDOneOff() {
     ledOne.set(false);
+  }
+
+  public void LEDTwoOn() {
+    ledTwo.set(true);
+  } 
+
+  public void LEDTwoOff() {
+    ledTwo.set(false);
+  }
+
+  public void LEDThreeOn() {
+    ledThree.set(true);
+  } 
+
+  public void LEDThreeOff() {
+    ledThree.set(false);
   }
 }
