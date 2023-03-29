@@ -147,23 +147,8 @@ public class AutoSelector {
            drivebase::setModuleStates, // Module states consumer
            false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
            drivebase // Requires this drive subsystem
-       )
-         /*new InstantCommand(() -> {
-          // Reset odometry for the first path you run during auto
-          drivebase.resetOdometry(southAutoBail.getInitialHolonomicPose());
-        }), 
-        new PPSwerveControllerCommand(
-          testPath,+
-           drivebase::getPose, // Pose supplier
-         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
-           new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-           new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
-           new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-           drivebase::setModuleStates, // Module states consumer
-           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-           drivebase // Requires this drive subsystem
-       )
-      )*/
+       ),
+       new AutoGroundPickup(a_Spinner, b_Arm, a_Extender)
       ));
       
     SmartDashboard.putData(chooser);

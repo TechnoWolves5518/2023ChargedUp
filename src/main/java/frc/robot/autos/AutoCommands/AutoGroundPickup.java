@@ -50,7 +50,7 @@ public class AutoGroundPickup extends CommandBase {
     a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.autoGroundPickup && previousArmAngle + 1 > SpecialFunctions.autoGroundPickup ) {
+    if (previousArmAngle -1 < SpecialFunctions.passiveStage && previousArmAngle + 1 > SpecialFunctions.passiveStage ) {
       stopCheck = true;
     } 
     if (timer == 145) {

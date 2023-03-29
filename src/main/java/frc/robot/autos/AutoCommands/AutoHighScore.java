@@ -5,8 +5,6 @@
 package frc.robot.autos.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ArmExtender.ExtendArm;
-import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
