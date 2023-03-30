@@ -15,48 +15,44 @@ import frc.robot.subsystems.BrakeArm;
 public class AutoGroundPickup extends CommandBase {
   ArmSpinner a_Spinner;
   BrakeArm b_Arm;
+  ArmExtender a_Extender;
   boolean stopCheck;
   double previousArmAngle;
-  ArmExtender a_ArmExtender;
-  int timer;
-  public AutoGroundPickup(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_ArmExtender) {
+  public AutoGroundPickup(ArmSpinner a_Spinner, BrakeArm b_Arm, ArmExtender a_Extender) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
-    this.a_ArmExtender = a_ArmExtender;
-    addRequirements(a_Spinner, b_Arm);
+    this.a_Extender = a_Extender;
+    addRequirements(a_Spinner, b_Arm, a_Extender);
     
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    b_Arm.BrakeOff();
     stopCheck = false;
     previousArmAngle = a_Spinner.getAngle();
-    timer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    previousArmAngle = a_Spinner.getAngle();
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
-    if (timer < 20) {
-      timer++;
-
-    } else if (previousArmAngle > SpecialFunctions.verticalStage) {
-      a_Spinner.setMotors(SpecialFunctions.armSpeed);
+    if (a_Extender.ReadRetractLimitSwitch() == true ) {
+      a_Extender.setMotors(TalonSRXControlMode.PercentOutput, 0);
     } else {
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
-    a_Spinner.setMotors(0.1);
-    b_Arm.BrakeOff();
-    timer++;
-    if (previousArmAngle -1 < SpecialFunctions.passiveStage && previousArmAngle + 1 > SpecialFunctions.passiveStage ) {
-      stopCheck = true;
-    } 
-    if (timer == 145) {
+      a_Extender.setMotors(TalonSRXControlMode.PercentOutput, -0.7);
+    }
+    previousArmAngle = a_Spinner.getAngle();
+    if (previousArmAngle == 0) {
       stopCheck = true;
     }
-  }
+    if (previousArmAngle < SpecialFunctions.passiveStage -1) {
+      a_Spinner.setMotors(-SpecialFunctions.armSpeed);
+    } else if (previousArmAngle > SpecialFunctions.passiveStage + 1) {
+      a_Spinner.setMotors(SpecialFunctions.armSpeed);
+    } else {
+      stopCheck = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -64,7 +60,7 @@ public class AutoGroundPickup extends CommandBase {
   public void end(boolean interrupted) {
   b_Arm.BrakeOn();
   a_Spinner.setMotors(0);
-  a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, 0);
+  a_Extender.setMotors(TalonSRXControlMode.PercentOutput, 0);
   }
 
   // Returns true when the command should end.

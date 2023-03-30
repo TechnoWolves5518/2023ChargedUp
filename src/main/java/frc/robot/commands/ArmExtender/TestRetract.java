@@ -21,7 +21,7 @@ public class TestRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    t_test.setMotors(0.6); //supposed to be 0.6
+    t_test.setMotors(-0.6); //supposed to be 0.6
   }
 
   // Called once the command ends or is interrupted.

@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.SwerveDrive;
+import frc.robot.autos.AutoCommandGroups.DelayedPassive;
 import frc.robot.autos.AutoCommands.AutoGroundPickup;
 import frc.robot.autos.AutoCommands.AutoHighScore;
 import frc.robot.autos.AutoCommands.AutoOpen;
-import frc.robot.autos.AutoCommands.DelayAction;
+import frc.robot.autos.AutoCommands.DelayClaw;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.autos.AutoDriveBase.AutoDriveBack;
 import frc.robot.autos.AutoDriveBase.AutoDriveForward;
@@ -72,17 +73,7 @@ public class AutoSelector {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(southAutoBalance.getInitialHolonomicPose());
         }), 
-        new PPSwerveControllerCommand(
-          southAutoBalance,
-           drivebase::getPose, // Pose supplier
-         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
-           new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-           new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
-           new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-           drivebase::setModuleStates, // Module states consumer
-           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-           drivebase // Requires this drive subsystem
-       ), new AutoDriveBack(drivebase), new AutoBalance(drivebase), new AutoLock(drivebase)
+        new DelayedPassive(drivebase), new AutoDriveBack(drivebase), new AutoBalance(drivebase), new AutoLock(drivebase)
         ));
       
       chooser.addOption("NorthAutoBail", new SequentialCommandGroup(
@@ -133,6 +124,8 @@ public class AutoSelector {
       new AutoLock(drivebase)));
 
       chooser.addOption("TestAuto", new SequentialCommandGroup(
+        new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
+        new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(testPath.getInitialHolonomicPose());
@@ -148,7 +141,8 @@ public class AutoSelector {
            false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
            drivebase // Requires this drive subsystem
        ),
-       new AutoGroundPickup(a_Spinner, b_Arm, a_Extender)
+       new AutoGroundPickup(a_Spinner, b_Arm, a_Extender),
+       new ExtendArm(a_Extender)
       ));
       
     SmartDashboard.putData(chooser);

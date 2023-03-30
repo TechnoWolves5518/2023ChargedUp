@@ -17,6 +17,7 @@ public class GoToDefaultState extends CommandBase {
   ArmSpinner a_Spinner;
   BrakeArm b_Arm;
   boolean stopCheck;
+  boolean limitSwitchCheck;
   double previousArmAngle;
   ArmExtender a_ArmExtender;
   HandGripper h_Gripper;
@@ -43,18 +44,27 @@ public class GoToDefaultState extends CommandBase {
   @Override
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
-    a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     if (timer < 30) {
       timer++;
-
-    } else if (previousArmAngle > SpecialFunctions.verticalStage) {
+      a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
+    } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
+      if (a_ArmExtender.ReadRetractLimitSwitch() == true ) {
+        a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, 0);
+      } else {
+        a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -0.7);
+      }
     } else {
     a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
+    if (a_ArmExtender.ReadRetractLimitSwitch() == true ) {
+      a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, 0);
+    } else {
+      a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -0.7);
+    }
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.defaultStage && previousArmAngle + 1 > SpecialFunctions.defaultStage ) {
+    if (previousArmAngle -1 < SpecialFunctions.defaultStage - SpecialFunctions.armDrift && previousArmAngle + 1 > SpecialFunctions.defaultStage - SpecialFunctions.armDrift) {
       stopCheck = true;
     } 
     if (timer == 200) {

@@ -225,6 +225,7 @@ public final class Constants {
             public static double hopperPickup = 76;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
+            public static double armDrift = 3.5;
                 //Trapezoid Stuff
     
                 public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);

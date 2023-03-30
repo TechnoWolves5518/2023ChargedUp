@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+/*
 package frc.robot.commands.ArmExtender;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
@@ -31,7 +31,7 @@ public class RetractArm extends CommandBase {
   @Override
   public void execute() {
     previousEncoderCount = a_Extender.ReadEncoder();
-    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
+    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, -SpecialFunctions.extendMaxVelocity);
     System.out.println("Arm Encoder Value: " + previousEncoderCount);
     timer++;
     if (a_Extender.ReadRetractLimitSwitch() == true || timer > 150) {
@@ -54,3 +54,4 @@ public class RetractArm extends CommandBase {
     return stopCheck;
   }
 }
+*/

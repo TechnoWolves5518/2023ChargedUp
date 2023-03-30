@@ -26,6 +26,6 @@ public class AutoHighScore extends SequentialCommandGroup {
     addCommands(new AutoMidRotator(a_Spinner, b_Arm, h_Gripper, h_Spinner), 
     new AutoExtend(a_Extender, h_Spinner), 
     new AutoOpen(h_Gripper),
-    new DelayAction());
+    new DelayClaw());
   }
 }

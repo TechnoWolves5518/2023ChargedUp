@@ -5,38 +5,36 @@
 package frc.robot.autos.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HandGripper;
 
-public class AutoOpen extends CommandBase {
-  HandGripper h_Gripper;
+public class DelayDrive extends CommandBase {
   boolean stopCheck;
   int timer;
-  public AutoOpen(HandGripper h_Gripper) {
-    this.h_Gripper = h_Gripper;
-    addRequirements(h_Gripper);
+  public DelayDrive() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer = 0;
     stopCheck = false;
+    timer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 20) {
+    if (timer < 40) {
       timer++;
     } else {
-    h_Gripper.ForceOpen();
-    stopCheck = true;
+      stopCheck = true;
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override

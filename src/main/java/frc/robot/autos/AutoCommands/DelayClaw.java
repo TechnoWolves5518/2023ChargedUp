@@ -6,10 +6,10 @@ package frc.robot.autos.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DelayAction extends CommandBase {
+public class DelayClaw extends CommandBase {
   boolean stopCheck;
   int timer;
-  public DelayAction() {
+  public DelayClaw() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
