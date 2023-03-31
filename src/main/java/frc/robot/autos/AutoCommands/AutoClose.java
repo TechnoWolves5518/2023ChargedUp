@@ -4,39 +4,23 @@
 
 package frc.robot.autos.AutoCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.Hand.HandToggle;
 import frc.robot.subsystems.HandGripper;
 
-public class AutoClose extends CommandBase {
-  int timer;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class AutoClose extends InstantCommand {
   HandGripper h_Gripper;
   public AutoClose(HandGripper h_Gripper) {
     this.h_Gripper = h_Gripper;
+    addRequirements(h_Gripper);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer = 0;
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (timer < 0) {
-      timer++;
-    } else {
-      h_Gripper.ForceClose();
-    }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    h_Gripper.ForceClose();
   }
 }

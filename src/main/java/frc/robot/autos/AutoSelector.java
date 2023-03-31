@@ -13,17 +13,20 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.SwerveDrive;
 import frc.robot.autos.AutoCommandGroups.DelayedPassive;
+import frc.robot.autos.AutoCommands.AutoClose;
+import frc.robot.autos.AutoCommands.AutoExtendArm;
 import frc.robot.autos.AutoCommands.AutoGroundPickup;
 import frc.robot.autos.AutoCommands.AutoHighScore;
-import frc.robot.autos.AutoCommands.AutoOpen;
+import frc.robot.autos.AutoCommands.AutoRetractArm;
+import frc.robot.autos.AutoCommands.AutoRetractPull;
 import frc.robot.autos.AutoCommands.DelayClaw;
+import frc.robot.autos.AutoCommands.DelayGround;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.autos.AutoDriveBase.AutoDriveBack;
 import frc.robot.autos.AutoDriveBase.AutoDriveForward;
 import frc.robot.autos.AutoDriveBase.AutoLock;
 import frc.robot.commands.ArmExtender.ExtendArm;
 import frc.robot.commands.armRotator.GoToDefaultState;
-import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
@@ -39,7 +42,8 @@ public class AutoSelector {
 
   //define autonomous routines
   PathPlannerTrajectory northAutoBalance = PathPlanner.loadPath("NorthAutoBalance", new PathConstraints(4, 2));
-  PathPlannerTrajectory testPath = PathPlanner.loadPath("TestPath", new PathConstraints(4, 2));
+  PathPlannerTrajectory toCone = PathPlanner.loadPath("ToCone", new PathConstraints(4, 2));
+  PathPlannerTrajectory fromCone = PathPlanner.loadPath("FromCone", new PathConstraints(4, 2));
   PathPlannerTrajectory southAutoBalance = PathPlanner.loadPath("SouthAutoBalance", new PathConstraints(4, 2));
   PathPlannerTrajectory northAutoBail = PathPlanner.loadPath("NorthAutoBail", new PathConstraints(4, 2));
   PathPlannerTrajectory southAutoBail = PathPlanner.loadPath("SouthAutoBail", new PathConstraints(4, 2));
@@ -123,15 +127,16 @@ public class AutoSelector {
       new AutoBalance(drivebase), 
       new AutoLock(drivebase)));
 
-      chooser.addOption("TestAuto", new SequentialCommandGroup(
+      chooser.addOption("SouthDouble", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
         new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
         new InstantCommand(() -> {
           // Reset odometry for the first path you run during auto
-          drivebase.resetOdometry(testPath.getInitialHolonomicPose());
+          drivebase.resetOdometry(toCone.getInitialHolonomicPose());
         }),
+        /* */
         new PPSwerveControllerCommand(
-          testPath,
+          toCone,
            drivebase::getPose, // Pose supplier
          SwerveDrive.swerveKinematics, // SwerveDriveKinematics
            new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
@@ -142,7 +147,27 @@ public class AutoSelector {
            drivebase // Requires this drive subsystem
        ),
        new AutoGroundPickup(a_Spinner, b_Arm, a_Extender),
-       new ExtendArm(a_Extender)
+       new ExtendArm(a_Extender),
+       new DelayGround(),
+       new AutoClose(h_Gripper),
+       new DelayClaw(),
+       new AutoRetractPull(a_Extender, h_Spinner),
+       new PPSwerveControllerCommand(
+          fromCone,
+           drivebase::getPose, // Pose supplier
+         SwerveDrive.swerveKinematics, // SwerveDriveKinematics
+           new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+           new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
+           new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
+           drivebase::setModuleStates, // Module states consumer
+           false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+           drivebase // Requires this drive subsystem
+       )
+      ));
+
+      chooser.addOption("test2", new SequentialCommandGroup(
+        new AutoExtendArm(a_Extender),
+        new AutoRetractArm(a_Extender)
       ));
       
     SmartDashboard.putData(chooser);

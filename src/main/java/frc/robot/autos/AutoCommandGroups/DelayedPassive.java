@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.SwerveDrive;
 import frc.robot.autos.AutoCommands.DelayDrive;
@@ -23,10 +24,13 @@ public class DelayedPassive extends SequentialCommandGroup {
   public DelayedPassive(Swerve drivebase) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    PathPlannerTrajectory testPath = PathPlanner.loadPath("TestPath", new PathConstraints(4, 2));
-    addCommands(new DelayDrive(), 
+    PathPlannerTrajectory toCone = PathPlanner.loadPath("ToCone", new PathConstraints(4, 2));
+    addCommands(new DelayDrive(), new InstantCommand(() -> {
+      // Reset odometry for the first path you run during auto
+      drivebase.resetOdometry(toCone.getInitialHolonomicPose());
+    }),
     new PPSwerveControllerCommand(
-      testPath,
+      toCone,
        drivebase::getPose, // Pose supplier
      SwerveDrive.swerveKinematics, // SwerveDriveKinematics
        new PIDController(0, 0, 0), // X controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.

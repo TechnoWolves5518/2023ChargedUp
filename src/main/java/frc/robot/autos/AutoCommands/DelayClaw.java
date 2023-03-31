@@ -23,7 +23,7 @@ public class DelayClaw extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 20) {
+    if (timer < 10) {
       timer++;
     } else {
       stopCheck = true;

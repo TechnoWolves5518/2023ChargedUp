@@ -14,12 +14,12 @@ import frc.robot.subsystems.HandSpinner;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoExtend extends ParallelDeadlineGroup {
+public class AutoExtendPull extends ParallelDeadlineGroup {
   /** Creates a new AutoExtend. */
-  public AutoExtend(ArmExtender a_Extender, HandSpinner h_Spinner) {
+  public AutoExtendPull(ArmExtender a_Extender, HandSpinner h_Spinner) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new ExtendArm(a_Extender));
+    super(new AutoExtendArm(a_Extender));
     addCommands(new PullIn(h_Spinner));
   }
 }

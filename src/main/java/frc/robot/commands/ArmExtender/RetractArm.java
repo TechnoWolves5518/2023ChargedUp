@@ -25,27 +25,31 @@ public class RetractArm extends CommandBase {
   public void initialize() {
     stopCheck = false;
     timer = 0;
+    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, -SpecialFunctions.extendMaxVelocity);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     previousEncoderCount = a_Extender.ReadEncoder();
-    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, -SpecialFunctions.extendMaxVelocity);
     System.out.println("Arm Encoder Value: " + previousEncoderCount);
-    timer++;
-    if (a_Extender.ReadRetractLimitSwitch() == true || timer > 150) {
+    if (timer < 100) {
+      timer++;
+      System.out.println(timer);
+    } else {
       stopCheck = true;
-      a_Extender.ResetEncoderBase();
+    }
+     
+    if (a_Extender.ReadRetractLimitSwitch() == true) {
+      stopCheck = true;
+  } 
   }
-}
 
   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Finished");
-    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, 0);
+    a_Extender.ResetEncoderExtension();
   }
 
   // Returns true when the command should end.

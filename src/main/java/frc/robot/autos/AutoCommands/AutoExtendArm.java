@@ -4,13 +4,20 @@
 
 package frc.robot.autos.AutoCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
-public class DelayDrive extends CommandBase {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.SpecialFunctions;
+import frc.robot.subsystems.ArmExtender;
+
+public class AutoExtendArm extends CommandBase {
+  private ArmExtender a_Extender;
   boolean stopCheck;
+  double previousEncoderCount;
   int timer;
-  public DelayDrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public AutoExtendArm(ArmExtender a_Extender) {
+    this.a_Extender = a_Extender;
+    addRequirements(a_Extender);
   }
 
   // Called when the command is initially scheduled.
@@ -23,17 +30,26 @@ public class DelayDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 70) {
+    previousEncoderCount = a_Extender.ReadEncoder();
+    a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
+    System.out.println("Arm Encoder Value: " + previousEncoderCount);
+    if (timer < 60) {
       timer++;
+      System.out.println(timer);
     } else {
       stopCheck = true;
     }
+    /* 
+    if (a_Extender.ReadExtendLimitSwitch() == true) {
+      stopCheck = true;
+  } */
   }
 
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    a_Extender.ResetEncoderExtension();
   }
 
   // Returns true when the command should end.

@@ -17,6 +17,8 @@ public class LEDControl extends SubsystemBase {
     ledOne = new DigitalOutput(Constants.ledDIOOne);
     ledTwo = new DigitalOutput(Constants.ledDIOTwo);
     ledThree = new DigitalOutput(Constants.ledDIOThree);
+    ledOne.set(true);
+    ledTwo.set(true);
   }
 
   public void LEDOneOn() {
