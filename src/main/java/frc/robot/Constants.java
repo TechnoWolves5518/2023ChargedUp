@@ -18,7 +18,11 @@ import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
+    //miscellaneous constants.
     public static final double stickDeadband = 0.15;
+    public static final int ledDIOOne = 9;
+    public static final int ledDIOTwo = 8;
+    public static final int ledDIOThree = 7;
 
     public static final class SwerveDrive {
         public static final int pigeonID = 13;
@@ -93,9 +97,10 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.4;
+        public static final double speedMod = 0.8;
         public static final double slowMod = 0.4;
         public static final double balanceSpeedMod = .6;
+        public static final double dpadSpeed = 1;
 
         /* Neutral Modes */
         public static final NeutralMode angleNeutralMode = NeutralMode.Brake;
@@ -152,8 +157,8 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
-        public static final double maxPlatformPositivePitch = -16.40;
-        public static final double maxPlatformNegativePitch = -40.70;
+        public static final double maxPlatformPositivePitch = -14.80;
+        public static final double maxPlatformNegativePitch = -39.70;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
@@ -213,12 +218,14 @@ public final class Constants {
             public static double stageTwo = 225.5;
             public static double stageOne = 90;
             public static double defaultStage = 37.7;
-            public static double passiveStage = 48.26;
+            public static double passiveStage = 50.26;
             public static double verticalStage = 154;
-            public static double pickupStage = 94;
-            public static double autoGroundPickup = 57;
+            public static double pickupStage = 96;
+            public static double autoGroundPickup = 50;
+            public static double hopperPickup = 76;
             public static double armSpeed = 0.5;
             public static double armReturnSpeed = 0.2;
+            public static double armDrift = 3.5;
                 //Trapezoid Stuff
     
                 public static State fullyRotatedForward = new TrapezoidProfile.State(0,0);

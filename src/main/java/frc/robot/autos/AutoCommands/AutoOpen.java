@@ -26,7 +26,7 @@ public class AutoOpen extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer < 70) {
+    if (timer < 20) {
       timer++;
     } else {
     h_Gripper.ForceOpen();

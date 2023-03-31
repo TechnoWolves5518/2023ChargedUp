@@ -33,16 +33,16 @@ public class ExtendArm extends CommandBase {
     previousEncoderCount = a_Extender.ReadEncoder();
     a_Extender.setMotors(TalonSRXControlMode.PercentOutput, SpecialFunctions.extendMaxVelocity);
     System.out.println("Arm Encoder Value: " + previousEncoderCount);
-    if (timer < 150) {
+    if (timer < 100) {
       timer++;
+      System.out.println(timer);
     } else {
       stopCheck = true;
     }
+     
     if (a_Extender.ReadExtendLimitSwitch() == true) {
       stopCheck = true;
-    } else if (previousEncoderCount >= 10500) {
-      stopCheck = true;
-    }
+  } 
   }
 
   

@@ -5,8 +5,6 @@
 package frc.robot.autos.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ArmExtender.ExtendArm;
-import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
@@ -26,8 +24,8 @@ public class AutoHighScore extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new AutoMidRotator(a_Spinner, b_Arm, h_Gripper, h_Spinner), 
-    new AutoExtend(a_Extender, h_Spinner), 
+    new AutoExtendPull(a_Extender, h_Spinner), 
     new AutoOpen(h_Gripper),
-    new DelayAction());
+    new DelayClaw());
   }
 }

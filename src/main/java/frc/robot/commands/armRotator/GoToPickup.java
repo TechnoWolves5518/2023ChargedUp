@@ -36,7 +36,7 @@ public class GoToPickup extends CommandBase {
     if (previousArmAngle == 0) {
       stopCheck = true;
     }
-    if (previousArmAngle < SpecialFunctions.pickupStage-1) {
+    if (previousArmAngle < SpecialFunctions.pickupStage - SpecialFunctions.armDrift -1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
     } else {
       stopCheck = true;

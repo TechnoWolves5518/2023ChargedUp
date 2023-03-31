@@ -9,12 +9,12 @@ import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
 
-public class GoToStageOne extends CommandBase {
+public class GoToHopper extends CommandBase {
   ArmSpinner a_Spinner;
   BrakeArm b_Arm;
   boolean stopCheck;
   double previousArmAngle;
-  public GoToStageOne(ArmSpinner a_Spinner, BrakeArm b_Arm) {
+  public GoToHopper(ArmSpinner a_Spinner, BrakeArm b_Arm) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
     addRequirements(a_Spinner, b_Arm);
@@ -36,9 +36,9 @@ public class GoToStageOne extends CommandBase {
     if (previousArmAngle == 0) {
       stopCheck = true;
     }
-    if (previousArmAngle < SpecialFunctions.stageOne - SpecialFunctions.armDrift-1) {
+    if (previousArmAngle < SpecialFunctions.hopperPickup -1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-    } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift+ 1) {
+    } else if (previousArmAngle > SpecialFunctions.hopperPickup + 1) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
       stopCheck = true;

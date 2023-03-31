@@ -43,14 +43,14 @@ public class GoToPassiveStage extends CommandBase {
     if (timer < 20) {
       timer++;
 
-    } else if (previousArmAngle > SpecialFunctions.verticalStage) {
+    } else if (previousArmAngle > SpecialFunctions.stageTwo) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
     a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.passiveStage && previousArmAngle + 1 > SpecialFunctions.passiveStage ) {
+    if (previousArmAngle -1 < SpecialFunctions.passiveStage - SpecialFunctions.armDrift && previousArmAngle + 1 > SpecialFunctions.passiveStage - SpecialFunctions.armDrift) {
       stopCheck = true;
     } 
     if (timer == 145) {

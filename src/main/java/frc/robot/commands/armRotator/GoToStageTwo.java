@@ -42,9 +42,9 @@ public class GoToStageTwo extends CommandBase {
     if (previousArmAngle == 0) {
       stopCheck = true;
     }
-    if (previousArmAngle < SpecialFunctions.verticalStage -1) {
+    if (previousArmAngle < SpecialFunctions.verticalStage - SpecialFunctions.armDrift -1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-    } else if (previousArmAngle < SpecialFunctions.stageTwo) {
+    } else if (previousArmAngle < SpecialFunctions.stageTwo - SpecialFunctions.armDrift) {
       a_Spinner.setMotors(-SpecialFunctions.armReturnSpeed);
     } else {
       stopCheck = true;
