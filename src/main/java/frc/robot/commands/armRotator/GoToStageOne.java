@@ -36,9 +36,9 @@ public class GoToStageOne extends CommandBase {
     if (previousArmAngle == 0) {
       stopCheck = true;
     }
-    if (previousArmAngle < SpecialFunctions.stageOne - SpecialFunctions.armDrift-1) {
+    if (previousArmAngle < SpecialFunctions.stageOne) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-    } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift+ 1) {
+    } else if (previousArmAngle > SpecialFunctions.stageOne) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
       stopCheck = true;

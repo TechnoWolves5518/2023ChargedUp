@@ -47,7 +47,7 @@ public class GoToDefaultState extends CommandBase {
     if (timer < 40) {
       timer++;
       a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
-    } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift) {
+    } else if (previousArmAngle > SpecialFunctions.stageOne) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
       if (a_ArmExtender.ReadRetractLimitSwitch() == true ) {
         a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, 0);
@@ -64,7 +64,7 @@ public class GoToDefaultState extends CommandBase {
       a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -0.7);
     }
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.defaultStage - SpecialFunctions.armDrift && previousArmAngle + 1 > SpecialFunctions.defaultStage - SpecialFunctions.armDrift) {
+    if (previousArmAngle -1 < SpecialFunctions.defaultStage) {
       stopCheck = true;
     } 
     if (timer == 200) {

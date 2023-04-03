@@ -58,8 +58,8 @@ public class ArmExtender extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Arm Extension: ", armExtender.getSelectedSensorPosition());
+    /*SmartDashboard.putNumber("Arm Extension: ", armExtender.getSelectedSensorPosition());
     SmartDashboard.putBoolean("Extend Limit Switch Status", ReadRetractLimitSwitch());
-    SmartDashboard.putBoolean("Retract Limit Switch Status", ReadExtendLimitSwitch());
+    SmartDashboard.putBoolean("Retract Limit Switch Status", ReadExtendLimitSwitch());*/
   }
 }

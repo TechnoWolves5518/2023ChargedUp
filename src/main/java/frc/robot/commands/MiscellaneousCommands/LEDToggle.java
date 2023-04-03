@@ -18,8 +18,8 @@ public class LEDToggle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    l_Control.LEDTwoOff();
-    l_Control.LEDThreeOn();
+    l_Control.LEDTwoOn();
+    l_Control.LEDThreeOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -29,8 +29,8 @@ public class LEDToggle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    l_Control.LEDTwoOn();
-    l_Control.LEDThreeOff();
+    l_Control.LEDTwoOff();
+    l_Control.LEDThreeOn();
   }
 
   // Returns true when the command should end.

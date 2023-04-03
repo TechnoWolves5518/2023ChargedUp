@@ -1,6 +1,5 @@
 package frc.robot.autos;
 
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -27,6 +26,8 @@ import frc.robot.autos.AutoDriveBase.AutoDriveForward;
 import frc.robot.autos.AutoDriveBase.AutoLock;
 import frc.robot.commands.ArmExtender.ExtendArm;
 import frc.robot.commands.armRotator.GoToDefaultState;
+import frc.robot.commands.armRotator.GoToPassive;
+import frc.robot.commands.armRotator.GoToPickup;
 import frc.robot.subsystems.ArmExtender;
 import frc.robot.subsystems.ArmSpinner;
 import frc.robot.subsystems.BrakeArm;
@@ -124,8 +125,11 @@ public class AutoSelector {
       new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
       new GoToDefaultState(a_Spinner, b_Arm, a_Extender, h_Gripper),
       new AutoDriveForward(drivebase), 
-      new AutoBalance(drivebase), 
-      new AutoLock(drivebase)));
+      /*AutoBalance(drivebase), 
+      new AutoLock(drivebase)*/
+      new GoToPickup(a_Spinner, b_Arm),
+      new DelayClaw(),
+      new GoToPassive(b_Arm, a_Spinner, a_Extender)));
 
       chooser.addOption("SouthDouble", new SequentialCommandGroup(
         new AutoHighScore(a_Spinner, b_Arm, h_Gripper, h_Spinner, a_Extender),
@@ -134,7 +138,7 @@ public class AutoSelector {
           // Reset odometry for the first path you run during auto
           drivebase.resetOdometry(toCone.getInitialHolonomicPose());
         }),
-        /* */
+         
         new PPSwerveControllerCommand(
           toCone,
            drivebase::getPose, // Pose supplier
@@ -143,7 +147,7 @@ public class AutoSelector {
            new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
            new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
            drivebase::setModuleStates, // Module states consumer
-           false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
            drivebase // Requires this drive subsystem
        ),
        new AutoGroundPickup(a_Spinner, b_Arm, a_Extender),
@@ -160,7 +164,7 @@ public class AutoSelector {
            new PIDController(0, 0, 0), // Y controller (usually the same values as X controller)
            new PIDController(0, 0, 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
            drivebase::setModuleStates, // Module states consumer
-           false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+           true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
            drivebase // Requires this drive subsystem
        )
       ));

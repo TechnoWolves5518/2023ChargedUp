@@ -40,18 +40,21 @@ public class GoToPassiveStage extends CommandBase {
   public void execute() {
     previousArmAngle = a_Spinner.getAngle();
     a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
+
     if (timer < 20) {
       timer++;
 
     } else if (previousArmAngle > SpecialFunctions.stageTwo) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
+      b_Arm.BrakeOff();
     } else {
     a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     a_Spinner.setMotors(0.1);
     b_Arm.BrakeOff();
     timer++;
-    if (previousArmAngle -1 < SpecialFunctions.passiveStage - SpecialFunctions.armDrift && previousArmAngle + 1 > SpecialFunctions.passiveStage - SpecialFunctions.armDrift) {
+    if (previousArmAngle -1 < SpecialFunctions.passiveStage && previousArmAngle + 1 > SpecialFunctions.passiveStage) {
       stopCheck = true;
+      a_Spinner.setMotors(0.1);
     } 
     if (timer == 145) {
       stopCheck = true;

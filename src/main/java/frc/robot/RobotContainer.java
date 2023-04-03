@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.AutoSelector;
+import frc.robot.autos.AutoCommands.AutoGroundPickup;
 import frc.robot.autos.AutoDriveBase.AutoBalance;
 import frc.robot.commands.ArmExtender.ExtendArm;
 import frc.robot.commands.ArmExtender.TestRetract;
