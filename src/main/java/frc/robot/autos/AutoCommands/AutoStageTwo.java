@@ -44,7 +44,7 @@ public class AutoStageTwo extends CommandBase {
     }
     if (previousArmAngle < SpecialFunctions.verticalStage -1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
-    } else if (previousArmAngle < SpecialFunctions.autoStageTwo) {
+    } else if (previousArmAngle < SpecialFunctions.stageTwo) {
       a_Spinner.setMotors(-SpecialFunctions.armReturnSpeed);
     } else {
       stopCheck = true;

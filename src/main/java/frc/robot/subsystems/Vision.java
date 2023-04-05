@@ -1,70 +1,81 @@
-/* 
 package frc.robot.subsystems;
+
+import java.io.IOException;
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
-import org.photonvision.common.hardware.VisionLEDMode;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+import org.photonvision.targeting.PhotonPipelineResult;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.Constants;
-import frc.robot.Constants.CameraConstants;
 
+/** Wrapper for PhotonCamera class */
+public class Vision extends PhotonCamera {
 
-public class Vision extends SubsystemBase{
-    private final PhotonCamera camera = CameraConstants.camera;
-    final double CameraHeight = CameraConstants.cameraHeightMeters;
-    final double TargetHeight = CameraConstants.scoringAprilTagHeightMeters;
-    final double cameraPitchRadians = CameraConstants.cameraAngleRadians;
-    public boolean hasTargets = false;
-    public boolean isTargeting = true;
-   
-    private double targetAngle = CameraConstants.targetAngle;
-    private double targetDistance = CameraConstants.goalDistanceMeters;
-    private double range;
-    double forwardSpeed;
-    double x_pitch = CameraConstants.xPitch;
+    private static final String DEFAULT_CAM_NAME = "AprilTagCamera";
+    private static final double DEFAULT_CAM_X = Units.inchesToMeters(-2); // .5m forward of center
+    private static final double DEFAULT_CAM_Y = Units.inchesToMeters(8); // 8 in left of center
+    private static final double DEFAULT_CAM_Z = Units.inchesToMeters(16.5); // 52in up from center
+    private final double CAMERA_HEIGHT = DEFAULT_CAM_Z; // height on robot (meters)
+    private final double TARGET_HEIGHT = Units.inchesToMeters(28); // may need to change 
+    private final double CAMERA_PITCH = Units.degreesToRadians(5); // tilt of our camera (radians)
 
-      public boolean hasTargets() {
-        return hasTargets;
-      }
-       
-      public double getTargetAngle() {
-        return targetAngle;
-      }
+    private AprilTagFieldLayout fieldLayout;
+    private PhotonPoseEstimator estimator;
 
-      public double getTargetDistance() {
-        return targetDistance;
-      }
-
-      public void pipelineIndex() {
-        camera.setPipelineIndex(0);
-      }
-
-    @Override
-    public void periodic() {
-        var result = camera.getLatestResult();
-        camera.setDriverMode(false);
-
-        if (result.hasTargets()) {
-            hasTargets = true;
-            targetAngle = result.getBestTarget().getPitch(); //pitch or yaw?
-            range = PhotonUtils.calculateDistanceToTargetMeters(
-                    CameraHeight,
-                    TargetHeight,
-                    cameraPitchRadians ,
-                    Units.degreesToRadians(result.getBestTarget().getPitch()));
-          } else {
-            hasTargets = false;
-            range = -2;
-            //targetAngle = -1;
-          }
-
-        SmartDashboard.putBoolean("Has target", hasTargets);   
-        SmartDashboard.putNumber("Distance between target", range);   
+    public Vision() {
+        super(DEFAULT_CAM_NAME);
+        try {
+            fieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+        } catch (IOException e) {
+            fieldLayout = null;
+        }
+        Transform3d robotToCam = new Transform3d(
+            new Translation3d(DEFAULT_CAM_X, DEFAULT_CAM_Y, DEFAULT_CAM_Z), new Rotation3d(0, 0, 0)
+        );
+        estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP, this, robotToCam);
     }
 
+    public double getDistanceToTarget() {
+        PhotonPipelineResult result = getLatestResult();
+        if (result.hasTargets()) {
+            double range = PhotonUtils.calculateDistanceToTargetMeters(
+                CAMERA_HEIGHT, TARGET_HEIGHT, CAMERA_PITCH, 
+                Units.degreesToRadians(getPitch())
+            );
+            return range;
+        }
+        return 0.0;
+    }
 
+    public Optional<EstimatedRobotPose> getGlobalPose() {
+        return estimator.update();
+    }
+
+    public double getYaw() {
+        /* The yaw of the target in degrees (positive right). */
+        return getLatestResult().getBestTarget().getYaw();
+    }
+
+    public double getPitch() {
+        /* The pitch of the target in degrees (positive up). */
+        return getLatestResult().getBestTarget().getPitch();
+    }
+
+    public double getSkew() {
+        /* The skew of the target in degrees (counter-clockwise positive). */
+        return getLatestResult().getBestTarget().getSkew();
+    }
+
+    public double getApriltagID() {
+        return getLatestResult().getBestTarget().getFiducialId();
+    }
 }
-*/
