@@ -23,8 +23,7 @@ public class AutoHighScore extends SequentialCommandGroup {
   public AutoHighScore(ArmSpinner a_Spinner, BrakeArm b_Arm, HandGripper h_Gripper, HandSpinner h_Spinner, ArmExtender a_Extender) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoMidRotator(a_Spinner, b_Arm, h_Gripper, h_Spinner), 
-    new AutoExtendPull(a_Extender, h_Spinner), 
+    addCommands(new AutoMidRotator(a_Spinner, b_Arm, h_Gripper, h_Spinner),  
     new AutoOpen(h_Gripper),
     new DelayClaw());
   }
