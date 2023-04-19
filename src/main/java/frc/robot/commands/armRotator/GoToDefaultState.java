@@ -49,6 +49,7 @@ public class GoToDefaultState extends CommandBase {
       a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, -.7);
     } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
+      b_Arm.BrakeOff();
       if (a_ArmExtender.ReadRetractLimitSwitch() == true ) {
         a_ArmExtender.setMotors(TalonSRXControlMode.PercentOutput, 0);
       } else {
