@@ -4,27 +4,52 @@
 
 package frc.robot.commands.Hand;
 
-
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.HandSpinner;
 
 public class PullIn extends CommandBase {
   HandSpinner h_Spinner;
+  Joystick override;
+  boolean stopCheck;
+  boolean convertedStopCheck;
+  int timer;
+  
   public PullIn(HandSpinner h_Spinner) {
     this.h_Spinner = h_Spinner;
     addRequirements(h_Spinner);
+    override = new Joystick(2);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    stopCheck = override.getRawButton(1);
+    if (stopCheck == true) {
+      convertedStopCheck = false;
+    } else {
+      convertedStopCheck = true;
+    }
+    timer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    h_Spinner.setMotors(SpecialFunctions.handSpeed);}
+    if (timer < 2) {
+      timer++;
+    } else {
+    h_Spinner.setMotors(SpecialFunctions.handSpeed);
+    stopCheck = override.getRawButton(1);
+    if (stopCheck == true) {
+      convertedStopCheck = false;
+    } else {
+      convertedStopCheck = true;
+    }
+  }
+  }
+    
 
   // Called once the command ends or is interrupted.
   @Override
@@ -35,6 +60,6 @@ public class PullIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return convertedStopCheck;
   }
 }

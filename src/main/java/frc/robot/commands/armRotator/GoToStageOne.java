@@ -4,6 +4,7 @@
 
 package frc.robot.commands.armRotator;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.SpecialFunctions;
 import frc.robot.subsystems.ArmSpinner;
@@ -14,35 +15,54 @@ public class GoToStageOne extends CommandBase {
   BrakeArm b_Arm;
   boolean stopCheck;
   double previousArmAngle;
+  Joystick override;
+  boolean convertedStopCheck;
+  int timer;
   public GoToStageOne(ArmSpinner a_Spinner, BrakeArm b_Arm) {
     this.a_Spinner = a_Spinner;
     this.b_Arm = b_Arm;
     addRequirements(a_Spinner, b_Arm);
-    
+    override = new Joystick(2);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     b_Arm.BrakeOff();
-    stopCheck = false;
+    stopCheck = override.getRawButton(1);
+    if (stopCheck == true) {
+      convertedStopCheck = false;
+    } else {
+      convertedStopCheck = true;
+    }
+    timer = 0;
     previousArmAngle = a_Spinner.getAngle();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (timer < 2) {
+      timer++;
+    } else {
+      stopCheck = override.getRawButton(1);
     previousArmAngle = a_Spinner.getAngle();
     if (previousArmAngle == 0) {
-      stopCheck = true;
+      stopCheck = false;
     }
     if (previousArmAngle < SpecialFunctions.stageOne - SpecialFunctions.armDrift-1) {
       a_Spinner.setMotors(-SpecialFunctions.armSpeed);
     } else if (previousArmAngle > SpecialFunctions.stageOne - SpecialFunctions.armDrift+ 1) {
       a_Spinner.setMotors(SpecialFunctions.armSpeed);
     } else {
-      stopCheck = true;
+      stopCheck = false;
     }
+    if (stopCheck == true) {
+      convertedStopCheck = false;
+    } else {
+      convertedStopCheck = true;
+    }
+  }
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +75,6 @@ public class GoToStageOne extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return stopCheck;
+    return convertedStopCheck;
   }
 }

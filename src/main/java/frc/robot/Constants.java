@@ -216,11 +216,11 @@ public final class Constants {
             public static int armThree = 16;
             public static int spinEncoder = 18;
             public static double stageTwo = 225.5;
-            public static double stageOne = 90;
+            public static double stageOne = 105; //default 90
             public static double defaultStage = 37.7;
             public static double passiveStage = 50.26;
             public static double verticalStage = 154;
-            public static double pickupStage = 96;
+            public static double pickupStage = 90;
             public static double autoGroundPickup = 50;
             public static double hopperPickup = 76;
             public static double armSpeed = 0.3;

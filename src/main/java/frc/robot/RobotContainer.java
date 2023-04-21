@@ -40,7 +40,7 @@ public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick special = new Joystick(1); 
-    private final Joystick debug = new Joystick(2);
+    private final Joystick override = new Joystick(2);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -70,9 +70,8 @@ public class RobotContainer {
     private final POVButton specialHopper = new POVButton(special, 0);
 
     //debug button
-    private final JoystickButton debugButton = new JoystickButton(debug, 1);
-    private final JoystickButton debugButton2 = new JoystickButton(debug, XboxController.Button.kB.value);
-    private final JoystickButton debugButton3 = new JoystickButton(debug, XboxController.Button.kX.value);
+    private final JoystickButton overrideCheck = new JoystickButton(override, 1);
+    
 
     
     /* Subsystems */
@@ -135,8 +134,10 @@ public class RobotContainer {
         specialPassive.onTrue(new GoToPassiveStage(a_Spinner, b_arm, a_ArmExtender));
         specialHopper.onTrue(new GoToHopper(a_Spinner, b_arm));
 
-        //debug buttons
-        debugButton.toggleOnTrue(new LEDToggle(l_Control));
+        //override button
+        overrideCheck.whileTrue(new LEDToggle(l_Control));
+
+        
     }
 
     /**

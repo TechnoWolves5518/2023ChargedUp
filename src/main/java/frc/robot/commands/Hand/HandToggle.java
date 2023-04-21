@@ -4,28 +4,38 @@
 
 package frc.robot.commands.Hand;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HandGripper;
 
 public class HandToggle extends CommandBase {
   HandGripper h_Gripper;
   boolean stopCheck;
+  Joystick override;
+  boolean convertedStopCheck;
+  int timer;
   public HandToggle(HandGripper h_Gripper) {
     this.h_Gripper = h_Gripper;
+    addRequirements(h_Gripper);
+    override = new Joystick(2);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    h_Gripper.toggleState();
-    System.out.println("hand toggled");
-    stopCheck = false;
+    stopCheck = override.getRawButton(1);
+    timer = 0;
+    if (stopCheck == true) {
+      convertedStopCheck = false;
+      h_Gripper.toggleState();
+    } else {
+      convertedStopCheck = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    stopCheck = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -36,6 +46,6 @@ public class HandToggle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return stopCheck;
+    return convertedStopCheck;
   }
 }

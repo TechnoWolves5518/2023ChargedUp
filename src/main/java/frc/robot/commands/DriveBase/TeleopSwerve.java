@@ -8,6 +8,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -24,22 +25,31 @@ public class TeleopSwerve extends CommandBase {
     private boolean rotateSlowCheck;
     private double driveSpeed;
     private double rotateSpeed;
+    int timer;
+    boolean stopCheck;
+    boolean convertedStopCheck;
+    XboxController override;
+    double translationVal;
+    double strafeVal;
+    double rotationVal;
+
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
-
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
     }
 
+
     @Override
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * driveSpeed, Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * driveSpeed, Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * rotateSpeed, Constants.stickDeadband);
+        translationVal = MathUtil.applyDeadband(translationSup.getAsDouble() * driveSpeed, Constants.stickDeadband);
+        strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble() * driveSpeed, Constants.stickDeadband);
+        rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * rotateSpeed, Constants.stickDeadband);
+
         brakeCheck = driver.getXButton();
         driveSlowCheck = driver.getRightBumper();
         rotateSlowCheck = driver.getLeftBumper();
@@ -65,7 +75,6 @@ public class TeleopSwerve extends CommandBase {
             new Translation2d(translationVal, strafeVal).times(SwerveDrive.maxSpeed), 
             rotationVal * Constants.SwerveDrive.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
-            true);
-        
+            true);   
     }
 }
