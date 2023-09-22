@@ -26,6 +26,7 @@ import frc.robot.commands.armRotator.GoToDefaultState;
 import frc.robot.commands.armRotator.GoToHopper;
 import frc.robot.commands.armRotator.GoToPassiveStage;
 import frc.robot.commands.armRotator.GoToPickup;
+import frc.robot.commands.armRotator.GoToStageOne;
 //import frc.robot.commands.armRotator.GoToStageOne;
 import frc.robot.commands.armRotator.GoToStageTwo;
 import frc.robot.subsystems.*;
