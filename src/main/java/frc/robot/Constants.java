@@ -97,7 +97,7 @@ public final class Constants {
         /** Radians per Second */
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
         //speed modifier
-        public static final double speedMod = 0.7;
+        public static final double speedMod = 0.8;
         public static final double slowMod = 0.4;
         public static final double balanceSpeedMod = .6;
         public static final double dpadSpeed = 1;
