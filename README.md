@@ -1,4 +1,9 @@
 Driver Controller Button Bindings:
+--
+
+
+
+
 
 Left Bumper ~ Center Robot
 
@@ -9,7 +14,16 @@ A Button ~ Balance
 B Button ~ Open/Close Claw
 
 
+
+
+
+
 Special Functions Controller Button Bindings:
+--
+
+
+
+
 
 B Button ~ Open/Close Claw
 
